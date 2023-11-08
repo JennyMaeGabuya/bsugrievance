@@ -1,5 +1,21 @@
+<style>
+        .site-footer .text-center {
+            padding: 2px;
+        }
+
+        /* Style for the navigation bar */
+        #sidebar {
+            background-color: grey;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            z-index: 2;
+        }
+</style>
+
 <aside>
-          <div id="sidebar"  class="nav-collapse" style="background-color: grey">
+          <div id="sidebar"  class="nav-collapse">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
@@ -27,7 +43,7 @@
                       </a>
                     
                       <ul class="sub">
-                        <li><a href="profile.php"><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="profile.php"><i class="fa fa-user"></i>View Profile</a></li>
                         <li><a href="change-password.php"><i class="fa fa-lock"></i> Change Password</a></li>
                     </ul>
 
