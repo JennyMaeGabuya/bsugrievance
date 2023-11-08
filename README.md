@@ -2,23 +2,20 @@
 
 NEEDS:
 ----Student-----------
-account setting-change pass
-file complaint
-complaint history
-logout (To Follow Jenny)
+file complaint               ERIKA
+complaint history            JENNY
 
 ----admin----
-homepage (DONE)
-login
-dashboard
+login                        EVERSON
+dashboard                    JELLADANE
 
---manage complaint
+--manage complaint           RYAN
       not process yet
       pending
       closed
 
-manage users
-add category
-user log
-logout
-change password
+manage users                JELLADANE      
+add category                JENNY
+user log                    EVERSON
+logout                      --STUDENT SAME
+change password             ERIKA
