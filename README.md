@@ -7,9 +7,8 @@ complaint history            JENNY
 
 ----admin----
 login                        EVERSON
-dashboard                    JELLADANE
 
---manage complaint           RYAN
+--manage complaint           RYAN & JELLADANE
       not process yet
       pending
       closed
