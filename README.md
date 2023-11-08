@@ -8,7 +8,7 @@ complaint history
 logout (To Follow Jenny)
 
 ----admin----
-homepage (pwede copy yung sa student)
+homepage (DONE)
 login
 dashboard
 
