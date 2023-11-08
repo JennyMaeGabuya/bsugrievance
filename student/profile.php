@@ -9,27 +9,6 @@ header('location:index.php');
 else{
 date_default_timezone_set('Asia/Manila');
 $currentTime = date( 'Y-m-d h:i:s A', time () );
-
-
-if(isset($_POST['submit']))
-{
- $lname =$_POST['lastname'];    
-$fname=$_POST['firstname'];
-$contactno=$_POST['contactno'];
-$address=$_POST['address'];
-$course=$_POST['course'];
-$email=$_POST['email'];
-
-$query=mysqli_query($bd, "update tbstudinfo set lastname='$lname',firstname='$fname',course='$course',email='$email',contact_no='$contactno',address='$address' where email='".$_SESSION['login']."'");
-if($query)
-{
-$successmsg="Profile Updated Successfully !!";
-}
-else
-{
-$errormsg="Profile not updated. There must be something wrong !!";
-}
-}
 ?>
 
 <!DOCTYPE html>
@@ -95,11 +74,11 @@ $errormsg="Profile not updated. There must be something wrong !!";
 <div class="form-group">
 <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
 <div class="col-sm-4">
-<input type="text" name="lastname" required="required" value="<?php echo htmlentities($row['lastname']);?>" class="form-control" >
+<input type="text" name="lastname" required="required" value="<?php echo htmlentities($row['lastname']);?>" class="form-control" readonly>
  </div>
  <label class="col-sm-2 col-sm-2 control-label">First Name</label>
 <div class="col-sm-4">
-<input type="text" name="firstname" required="required" value="<?php echo htmlentities($row['firstname']);?>" class="form-control" >
+<input type="text" name="firstname" required="required" value="<?php echo htmlentities($row['firstname']);?>" class="form-control" readonly>
  </div>
 
  </div>
@@ -107,22 +86,22 @@ $errormsg="Profile not updated. There must be something wrong !!";
  <div class="form-group">
 <label class="col-sm-2 col-sm-2 control-label">Course</label>
  <div class="col-sm-4">
-<input type="text" name="course" required="required" value="<?php echo htmlentities($row['course']);?>" class="form-control">
+<input type="text" name="course" required="required" value="<?php echo htmlentities($row['course']);?>" class="form-control" readonly>
 </div>
 <label class="col-sm-2 col-sm-2 control-label">Email </label>
 <div class="col-sm-4">
-<textarea  name="email" required="required" class="form-control"><?php echo htmlentities($row['email']);?></textarea>
+<textarea  name="email" required="required" class="form-control" readonly><?php echo htmlentities($row['email']);?></textarea>
 </div>
 </div>
 
 <div class="form-group">
 <label class="col-sm-2 col-sm-2 control-label">Contact</label>
  <div class="col-sm-4">
-<input type="text" name="contactno" required="required" value="<?php echo htmlentities($row['contact_no']);?>" class="form-control">
+<input type="text" name="contactno" required="required" value="<?php echo htmlentities($row['contact_no']);?>" class="form-control" readonly>
 </div>
 <label class="col-sm-2 col-sm-2 control-label">Address </label>
 <div class="col-sm-4">
-<textarea  name="address" required="required" class="form-control"><?php echo htmlentities($row['address']);?></textarea>
+<textarea  name="address" required="required" class="form-control" readonly><?php echo htmlentities($row['address']);?></textarea>
 </div>
 </div>
 
@@ -140,7 +119,6 @@ $errormsg="Profile not updated. There must be something wrong !!";
 
                           <div class="form-group">
                            <div class="col-sm-10" style="padding-left:25% ">
-<button type="submit" name="submit" class="btn btn-primary">Submit</button>
 </div>
 </div>
 
