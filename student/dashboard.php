@@ -1,4 +1,3 @@
-
 <?php session_start();
 error_reporting(0);
 include('includes/config.php');
@@ -17,7 +16,7 @@ else{ ?>
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>BATSTATE-U GRIEVANCE SYSTEM</title>
+    <title>BatState-U Grievance System</title>
 
       <style>
           .nav-collapse{
@@ -66,9 +65,6 @@ else{ ?>
                  
                   </div></div>
 
-
-
-                  	
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_news"></span>
@@ -116,11 +112,6 @@ $num1 = mysqli_num_rows($rt);
                   	
                   	</div><!-- /row mt -->	
                   
-                      
-                     
-                    				
-				
-				
           </section>
       </section>
 <?php include("includes/footer.php");?>
