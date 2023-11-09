@@ -31,10 +31,10 @@ DROP TABLE IF EXISTS `adminpass`;
 CREATE TABLE IF NOT EXISTS `adminpass` (
   `id` int NOT NULL AUTO_INCREMENT,
   `admin_id` int DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_id` (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12359 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12359 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `adminpass`
@@ -56,11 +56,11 @@ INSERT INTO `adminpass` (`id`, `admin_id`, `password`) VALUES
 DROP TABLE IF EXISTS `admin_tbl`;
 CREATE TABLE IF NOT EXISTS `admin_tbl` (
   `admin_id` int NOT NULL AUTO_INCREMENT,
-  `fullname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `updationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `admin_tbl`
@@ -82,12 +82,12 @@ INSERT INTO `admin_tbl` (`admin_id`, `fullname`, `email`, `updationDate`) VALUES
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
   `category_id` int NOT NULL AUTO_INCREMENT,
-  `categoryName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `categoryDescription` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `categoryName` varchar(255) NOT NULL,
+  `categoryDescription` varchar(255) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `category`
@@ -110,11 +110,11 @@ DROP TABLE IF EXISTS `complaint_remark`;
 CREATE TABLE IF NOT EXISTS `complaint_remark` (
   `complaint_id` int NOT NULL AUTO_INCREMENT,
   `complaintNo` int NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `remark` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `remark` mediumtext NOT NULL,
   `remarkDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`complaint_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `complaint_remark`
@@ -139,14 +139,14 @@ INSERT INTO `complaint_remark` (`complaint_id`, `complaintNo`, `status`, `remark
 DROP TABLE IF EXISTS `login_tbl`;
 CREATE TABLE IF NOT EXISTS `login_tbl` (
   `login_id` int NOT NULL AUTO_INCREMENT,
-  `Sr-code` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `Sr-code` varchar(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `logout` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `account_type` int NOT NULL,
   PRIMARY KEY (`login_id`),
   KEY `Sr-code` (`Sr-code`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `login_tbl`
@@ -169,10 +169,10 @@ DROP TABLE IF EXISTS `studentpass`;
 CREATE TABLE IF NOT EXISTS `studentpass` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sr-code` int DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sr-code` (`sr-code`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `studentpass`
@@ -196,16 +196,16 @@ CREATE TABLE IF NOT EXISTS `tablecomplaints` (
   `complaintNumber` int NOT NULL AUTO_INCREMENT,
   `sr-code` int NOT NULL,
   `category_id` int NOT NULL,
-  `complaintName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `complaintDetails` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `complaintFile` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `complaintName` varchar(255) NOT NULL,
+  `complaintDetails` varchar(255) NOT NULL,
+  `complaintFile` varchar(255) NOT NULL,
   `regDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(50) NOT NULL,
   `lastUpdationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`complaintNumber`),
   KEY `sr-code` (`sr-code`),
   KEY `category_id` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tablecomplaints`
@@ -228,18 +228,18 @@ INSERT INTO `tablecomplaints` (`complaintNumber`, `sr-code`, `category_id`, `com
 DROP TABLE IF EXISTS `tbstudinfo`;
 CREATE TABLE IF NOT EXISTS `tbstudinfo` (
   `studid` int NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `firstname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `course` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `course` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `contact_no` bigint NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `userImage` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `userImage` varchar(255) NOT NULL,
   `regdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` int NOT NULL,
   PRIMARY KEY (`studid`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbstudinfo`
