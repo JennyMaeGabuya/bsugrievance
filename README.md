@@ -2,7 +2,7 @@
 
 NEEDS:
 ----Student-----------
-file complaint               ERIKA
+file complaint               ERIKA   (added file complaint file)
 complaint history            JENNY      (ADDED COMPLAINT HISTORY AND COMPLAINT DETAILS) subject to modify latur
 
 ----admin----
