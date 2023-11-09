@@ -18,3 +18,5 @@ add category                JENNY
 user log                    EVERSON
 logout                      --STUDENT SAME
 change password             ERIKA
+
+db updation --add email in logintbl and change studentpass
