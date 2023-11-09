@@ -3,7 +3,7 @@
 NEEDS:
 ----Student-----------
 file complaint               ERIKA
-complaint history            JENNY
+complaint history            JENNY      (ADDED COMPLAINT HISTORY AND COMPLAINT DETAILS) subject to modify latur
 
 ----admin----
 login                        EVERSON
@@ -19,4 +19,4 @@ user log                    EVERSON
 logout                      --STUDENT SAME
 change password             ERIKA
 
-db updation --add email in logintbl and change studentpass
+db updation                 --add email in logintbl and change studentpass
