@@ -200,7 +200,11 @@ CREATE TABLE IF NOT EXISTS `tablecomplaints` (
   `complaintDetails` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `complaintFile` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `regDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+<<<<<<< Updated upstream
   `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+=======
+  `status` varchar(50) DEFAULT NULL,
+>>>>>>> Stashed changes
   `lastUpdationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`complaintNumber`),
   KEY `sr-code` (`sr-code`),
