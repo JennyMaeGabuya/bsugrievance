@@ -17,7 +17,7 @@ else{
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Complaint History</title>
+    <title>Grievance History</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -54,7 +54,7 @@ else{
                               <thead>
                               <tr>
 
-                                  <th>Complaint Number</th>
+                                  <th>Grievance Number</th>
                                   <th>Filed Date</th>
                                   <th>Last Updation Date</th>
                                   <th >Status</th>

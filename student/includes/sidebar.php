@@ -56,9 +56,9 @@
                     </li>
                   </li>
                   <li class="sub-menu">
-                      <a href="student/complaint-history.php" >
+                      <a href="complaint-history.php" >
                       <i class="fa fa-clock-o"></i>
-                          <span>Complaint History</span>
+                          <span>Grievance History</span>
                       </a>
                       
                   </li>
