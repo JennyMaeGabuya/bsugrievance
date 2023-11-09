@@ -138,8 +138,6 @@ if (isset($_POST['change'])) {
 							<input type="text" name="contact" placeholder="Contact No" autocomplete="off" class="form-control" required><br>
 							<input type="password" class="form-control" placeholder="New Password" id="password" name="password" required><br />
 							<input type="password" class="form-control unicase-form-control text-input" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword" required>
-
-
 						</div>
 						<div class="modal-footer">
 							<button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
