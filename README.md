@@ -19,4 +19,4 @@ user log                    EVERSON
 logout                      --STUDENT SAME
 change password             ERIKA
 
-db updation                 --add email in logintbl and change studentpass
+db updation                 --TEHHH PACHECK DB NAWALA PALA PRIMARY KEY AT FOREIGN KEY NAUPDATE KO NA ULIT SA BRANCH
