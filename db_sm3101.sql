@@ -130,6 +130,7 @@ INSERT INTO `complaint_remark` (`complaint_id`, `complaintNo`, `status`, `remark
 CREATE TABLE `login_tbl` (
   `login_id` int(11) NOT NULL,
   `Sr-code` varchar(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `login_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `logout` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `account_type` int(11) NOT NULL
