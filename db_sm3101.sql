@@ -184,7 +184,7 @@ CREATE TABLE `tablecomplaints` (
   `complaintDetails` varchar(255) NOT NULL,
   `complaintFile` varchar(255) NOT NULL,
   `regDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `status` varchar(50) NOT NULL,
+  `status` varchar(50) DEFAULT NULL,
   `lastUpdationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
