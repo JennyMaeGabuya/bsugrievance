@@ -194,7 +194,7 @@ INSERT INTO `studentpass` (`id`, `sr-code`, `password`) VALUES
 --
 
 CREATE TABLE `tablecomplaints` (
-  `complaintNumber` int(11) NOT NULL,
+    `complaintNumber` int NOT NULL AUTO_INCREMENT,
   `sr-code` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `complaintName` varchar(255) NOT NULL,
@@ -202,7 +202,10 @@ CREATE TABLE `tablecomplaints` (
   `complaintFile` varchar(255) NOT NULL,
   `regDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` varchar(50) DEFAULT NULL,
-  `lastUpdationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `lastUpdationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+   PRIMARY KEY (`complaintNumber`),
+    FOREIGN KEY (`Sr-code`) REFERENCES tbstudinfo(`studid`),
+    FOREIGN KEY (`category_id`) REFERENCES category(`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
