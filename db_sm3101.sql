@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `adminpass`;
 CREATE TABLE IF NOT EXISTS `adminpass` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` int DEFAULT NULL,
+  `admin_id` int NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`admin_id`) REFERENCES admin_tbl(`admin_id`)

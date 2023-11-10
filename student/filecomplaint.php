@@ -21,13 +21,7 @@ $compfile=$_FILES["compfile"]["name"];
 move_uploaded_file($_FILES["compfile"]["tmp_name"],"complaintdocs/".$_FILES["compfile"]["name"]);
 $query=mysqli_query($bd, "INSERT INTO `tablecomplaints`(`sr-code`,`category_id`,`complaintname`,`complaintDetails`,`complaintFile`) values('$srcode','$category','$complaintname','$complaintdetails','$compfile')");
 
-$sql=mysqli_query($bd, "SELECT `complaintNumber` from `tablecomplaints`  order by `complaintNumber` desc limit 1");
-while($row=mysqli_fetch_array($sql))
-{
- $cmpn=$row['complaintNumber'];
-}
-$complainno=$cmpn;
-echo '<script> alert("Your complain has been successfully filled and your complaintno is  "+"'.$complainno.'")</script>';
+$successMessage = "You have successfully Filed a complaint. Please Check your portal to monitor status";
 }
 ?>
 
@@ -41,7 +35,7 @@ echo '<script> alert("Your complain has been successfully filled and your compla
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
     <title>BATSTATE-U GRIEVANCE SYSTEM</title>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
@@ -152,6 +146,20 @@ while ($rw=mysqli_fetch_array($sql)) {
                           <div class="form-group">
                            <div class="col-sm-10" style="padding-left:25% ">
 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+
+<script type="text/javascript">
+    <?php
+    if (isset($successMessage)) {
+        
+        echo "swal({
+            title: 'Success',
+            text: '$successMessage',
+            icon: 'success',
+            button: 'OK'
+        });";
+    }
+    ?>
+</script>
 </div>
 </div>
 
@@ -164,9 +172,10 @@ while ($rw=mysqli_fetch_array($sql)) {
           	
 		</section>
       </section>
+     
     <?php include("includes/footer.php");?>
   </section>
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
