@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 09, 2023 at 04:19 AM
+-- Generation Time: Nov 10, 2023 at 10:09 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `adminpass` (
   `admin_id` int DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `admin_id` (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12359 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  FOREIGN KEY (`admin_id`) REFERENCES admin_tbl(`admin_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12352 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `adminpass`
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `admin_tbl` (
   `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `updationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin_tbl`
@@ -113,7 +113,8 @@ CREATE TABLE IF NOT EXISTS `complaint_remark` (
   `status` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
   `remarkDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`complaint_id`)
+  PRIMARY KEY (`complaint_id`),
+   FOREIGN KEY (`complaintNo`) REFERENCES tablecomplaints(`complaintNumber`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -145,8 +146,8 @@ CREATE TABLE IF NOT EXISTS `login_tbl` (
   `logout` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `account_type` int NOT NULL,
   PRIMARY KEY (`login_id`),
-  KEY `Sr-code` (`Sr-code`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+   FOREIGN KEY (`Sr-code`) REFERENCES tbstudinfo(`studid`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `login_tbl`
@@ -157,7 +158,8 @@ INSERT INTO `login_tbl` (`login_id`, `Sr-code`, `email`, `login_time`, `logout`,
 (2, '3', '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 2),
 (3, '4', '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 1),
 (4, '6', '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 1),
-(5, '7', '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 1);
+(5, '7', '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 1),
+(6, '2', 'erika@gmail.com', '2023-11-10 09:51:50', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -171,15 +173,15 @@ CREATE TABLE IF NOT EXISTS `studentpass` (
   `sr-code` int DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `sr-code` (`sr-code`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+   FOREIGN KEY (`Sr-code`) REFERENCES tbstudinfo(`studid`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `studentpass`
 --
 
 INSERT INTO `studentpass` (`id`, `sr-code`, `password`) VALUES
-(2, 2, 'erika'),
+(2, 2, '79ee82b17dfb837b1be94a6827fa395a'),
 (3, 3, 'jenny'),
 (4, 4, 'evers'),
 (5, 5, 'ryan'),
@@ -191,25 +193,20 @@ INSERT INTO `studentpass` (`id`, `sr-code`, `password`) VALUES
 -- Table structure for table `tablecomplaints`
 --
 
-DROP TABLE IF EXISTS `tablecomplaints`;
-CREATE TABLE IF NOT EXISTS `tablecomplaints` (
-  `complaintNumber` int NOT NULL AUTO_INCREMENT,
-  `sr-code` int NOT NULL,
-  `category_id` int NOT NULL,
-  `complaintName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `complaintDetails` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `complaintFile` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `regDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-<<<<<<< Updated upstream
-  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-=======
+CREATE TABLE `tablecomplaints` (
+    `complaintNumber` int NOT NULL AUTO_INCREMENT,
+  `sr-code` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `complaintName` varchar(255) NOT NULL,
+  `complaintDetails` varchar(255) NOT NULL,
+  `complaintFile` varchar(255) NOT NULL,
+  `regDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` varchar(50) DEFAULT NULL,
->>>>>>> Stashed changes
   `lastUpdationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`complaintNumber`),
-  KEY `sr-code` (`sr-code`),
-  KEY `category_id` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+   PRIMARY KEY (`complaintNumber`),
+    FOREIGN KEY (`Sr-code`) REFERENCES tbstudinfo(`studid`),
+    FOREIGN KEY (`category_id`) REFERENCES category(`category_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tablecomplaints`
@@ -221,7 +218,11 @@ INSERT INTO `tablecomplaints` (`complaintNumber`, `sr-code`, `category_id`, `com
 (3, 4, 2, 'Not Teaching', 'The teacher is not attending class for 3 months.', '', '2023-11-07 00:37:57', '', '2023-10-25 10:06:28'),
 (12, 3, 5, 'Dishonesty', 'saw someone using phone during exam', '', '2023-10-25 10:06:28', '', '2023-10-25 10:06:28'),
 (7, 5, 4, 'Humiliation', 'The teacher makes an embarrassing comment about me', '', '2023-10-25 10:06:28', '', '2023-10-25 10:06:28'),
-(11, 3, 2, 'Not Teaching', 'The teacher is not attending class for 3 months.', '', '2023-11-07 00:39:38', '', '2023-10-25 10:06:53');
+(11, 3, 2, 'Not Teaching', 'The teacher is not attending class for 3 months.', '', '2023-11-07 00:39:38', '', '2023-10-25 10:06:53'),
+(13, 2, 2, '', 'sample', '', '2023-11-10 09:52:04', NULL, '0000-00-00 00:00:00'),
+(14, 2, 2, '', 'sample', '', '2023-11-10 09:52:57', NULL, '0000-00-00 00:00:00'),
+(15, 2, 1, '', 'mkmk', 'README.md', '2023-11-10 09:59:26', NULL, '0000-00-00 00:00:00'),
+(16, 2, 1, '', 'mkmk', 'README.md', '2023-11-10 10:00:38', NULL, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -243,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `tbstudinfo` (
   `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` int NOT NULL,
   PRIMARY KEY (`studid`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbstudinfo`
