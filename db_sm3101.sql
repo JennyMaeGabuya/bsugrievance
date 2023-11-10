@@ -177,7 +177,7 @@ INSERT INTO `studentpass` (`id`, `sr-code`, `password`) VALUES
 --
 
 CREATE TABLE `tablecomplaints` (
-  `complaintNumber` int(11) NOT NULL,
+  `complaintNumber` int(11) NOT NULL AUTO_INCREMENT,
   `sr-code` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `complaintName` varchar(255) NOT NULL,
