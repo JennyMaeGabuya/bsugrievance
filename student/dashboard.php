@@ -16,7 +16,7 @@ else{ ?>
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>BatState-U Grievance System</title>
+    <title>STUDENT | Dashboard</title>
 
       <style>
           .nav-collapse{

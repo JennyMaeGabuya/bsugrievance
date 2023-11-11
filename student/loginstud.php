@@ -64,7 +64,7 @@ if (isset($_POST['change'])) {
 	<meta name="author" content="Dashboard">
 	<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-	<title>Batstate-u Grievance</title>
+	<title>LOGIN | Grievance System</title>
 
 
 	<!-- Bootstrap core CSS -->

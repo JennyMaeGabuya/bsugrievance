@@ -15,7 +15,7 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Complaint Details</title>
+    <title>STUDENT | Grievance Details</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -31,7 +31,7 @@ if (strlen($_SESSION['login']) == 0) {
       <?php include('includes/sidebar.php'); ?>
       <section id="main-content">
         <section class="wrapper site-min-height">
-          <h3><i class="fa fa-angle-right"></i> My Complaint Details</h3>
+          <h3><i class="fa fa-angle-right"></i> My Grievance Details</h3>
           <hr />
 
           <?php $query = mysqli_query($bd, "SELECT tablecomplaints.*, category.categoryName as catname 
@@ -77,7 +77,7 @@ if (strlen($_SESSION['login']) == 0) {
                 </div>
               </div>
               <div class="row mt">
-                <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Details </label>
+                <label class="col-sm-2 col-sm-2 control-label"><b>Grievance Details </label>
                 <div class="col-sm-10">
                   <p><?php echo htmlentities($row['complaintDetails']); ?></p>
                 </div>

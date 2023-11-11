@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homepage</title>
+  <title>BatStateU-Lipa | Grievance System</title>
+
   <style>
     body {
       background-image: url("assets/img/Frame.jpg");

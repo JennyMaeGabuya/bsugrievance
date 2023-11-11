@@ -16,7 +16,7 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Grievance History</title>
+    <title>STUDENT | Grievance History</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -44,7 +44,7 @@ if (strlen($_SESSION['login']) == 0) {
 
       <section id="main-content">
         <section class="wrapper">
-          <h3><i class="fa fa-angle-right"></i> My Complaint History</h3>
+          <h3><i class="fa fa-angle-right"></i> My Grievance History</h3>
           <div class="row mt">
             <div class="col-lg-12">
               <div class="content-panel">

@@ -34,7 +34,7 @@ $successMessage = "You have successfully Filed a complaint. Please Check your po
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>BATSTATE-U GRIEVANCE SYSTEM</title>
+    <title>STUDENT | File Complaint</title>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
