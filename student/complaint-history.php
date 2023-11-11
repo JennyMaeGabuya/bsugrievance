@@ -34,6 +34,50 @@ if (strlen($_SESSION['login']) == 0) {
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+      /* Style for the overlay */
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        /* Semi-transparent white */
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Style for the loading spinner */
+      .spinner {
+        border: 6px solid #f3f3f3;
+        /* Light grey */
+        border-top: 6px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <!-- Overlay and loading spinner -->
+    <div class="overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+    </div>
   </head>
 
   <body>
@@ -87,7 +131,26 @@ if (strlen($_SESSION['login']) == 0) {
                             <?php } ?>
                           <td align="center">
                             <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>">
-                              <button type="button" class="btn btn-primary">View Details</button></a>
+
+                              <script>
+                                function viewDetails() {
+                                  // Show the loading overlay
+                                  document.getElementById('loadingOverlay').style.display = 'flex';
+
+                                  // Simulate a delay (replace this with your actual logic)
+                                  setTimeout(function() {
+                                    // Hide the loading overlay
+                                    document.getElementById('loadingOverlay').style.display = 'none';
+
+                                    if (confirmResult) {
+                                      window.location.href = "complaint-details.php";
+                                    }
+                                  }, 2000); // 2 seconds delay
+                                }
+                              </script>
+                              
+                              <button onclick="viewDetails()" class="btn btn-primary">View Details</button>
+                            </a>
                           </td>
                         </tr>
                       <?php } ?>

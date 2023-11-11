@@ -1,9 +1,11 @@
-<?php session_start();
+<?php
+session_start();
 error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
   header('location:index.php');
-} else { ?>
+} else {
+?>
 
   <!DOCTYPE html>
   <html lang="en">
@@ -34,13 +36,14 @@ if (strlen($_SESSION['login']) == 0) {
           <h3><i class="fa fa-angle-right"></i> My Grievance Details</h3>
           <hr />
 
-          <?php $query = mysqli_query($bd, "SELECT tablecomplaints.*, category.categoryName as catname 
-                            FROM tablecomplaints 
-                            JOIN category ON category.category_id = tablecomplaints.category_id 
-                            WHERE `sr-code` = '" . $_SESSION['id'] . "' 
-                            AND complaintNumber = '" . $_SESSION['cid'] . "'");
+          <?php
+          $query = mysqli_query($bd, "SELECT tablecomplaints.*, category.categoryName as catname 
+                                      FROM tablecomplaints 
+                                      JOIN category ON category.category_id = tablecomplaints.category_id 
+                                      WHERE `sr-code` = '" . $_SESSION['id'] . "' AND complaintNumber = '" . $_GET['cid'] . "'");
+          ?>
 
-          while ($row = mysqli_fetch_array($query)) { ?>
+          <?php while ($row = mysqli_fetch_array($query)) { ?>
             <div class="row mt">
               <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Number : </b></label>
               <div class="col-sm-4">
@@ -58,82 +61,78 @@ if (strlen($_SESSION['login']) == 0) {
                 <p><?php echo htmlentities($row['catname']); ?></p>
               </div>
 
-              <div class="row mt">
-                <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Type :</b></label>
-                <div class="col-sm-4">
-                  <p><?php echo htmlentities($row['complaintName']); ?></p>
-                </div>
-
-                <label class="col-sm-2 col-sm-2 control-label"><b>File :</b></label>
-                <div class="col-sm-4">
-                  <p><?php $cfile = $row['complaintFile'];
-                      if ($cfile == "" || $cfile == "NULL") {
-                        echo htmlentities("File NA");
-                      } else { ?>
-                      <a href="complaintdocs/<?php echo htmlentities($row['complaintFile']); ?>"> View File</a>
-                    <?php } ?>
-
-                  </p>
-                </div>
+              <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Type :</b> </label>
+              <div class="col-sm-4">
+                <p><?php echo htmlentities($row['complaintType']); ?></p>
               </div>
+            </div>
+
+            <div class="row mt">
+              <label class="col-sm-2 col-sm-2 control-label"><b>File :</b></label>
+              <div class="col-sm-4">
+                <p><?php $cfile = $row['complaintFile'];
+                    if ($cfile == "" || $cfile == "NULL") {
+                      echo htmlentities("File NA");
+                    } else { ?>
+                    <a href="complaintdocs/<?php echo htmlentities($row['complaintFile']); ?>"> View File</a>
+                  <?php } ?>
+
+                </p>
+              </div>
+            </div>
+
+            <div class="row mt">
+              <label class="col-sm-2 col-sm-2 control-label"><b>Grievance Details :</label></b>
+              <div class="col-sm-10">
+                <p><?php echo htmlentities($row['complaintDetails']); ?></p>
+              </div>
+
+            </div>
+
+            <?php
+            $ret = mysqli_query($bd, "
+                SELECT 
+                    complaint_remark.remark as remark,
+                    complaint_remark.status as sstatus,
+                    complaint_remark.remarkDate as rdate 
+                FROM 
+                    complaint_remark 
+                JOIN 
+                    tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber 
+                WHERE 
+                    complaint_remark.complaintNumber = '" . $_GET['cid'] . "'
+              ");
+            while ($rw = mysqli_fetch_array($ret)) {
+            ?>
               <div class="row mt">
-                <label class="col-sm-2 col-sm-2 control-label"><b>Grievance Details </label>
+                <label class="col-sm-2 col-sm-2 control-label"><b>Remark:</b></label>
                 <div class="col-sm-10">
-                  <p><?php echo htmlentities($row['complaintDetails']); ?></p>
+                  <?php echo  htmlentities($rw['remark']); ?>&nbsp;&nbsp; <b>Remark Date: <?php echo  htmlentities($rw['rdate']); ?></b>
                 </div>
-
               </div>
-
-              <?php
-              $ret = mysqli_query($bd, "
-    SELECT 
-        complaint_remark.remark as remark,
-        complaint_remark.status as sstatus,
-        complaint_remark.remarkDate as rdate 
-    FROM 
-        complaint_remark 
-    JOIN 
-        tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber 
-    WHERE 
-        complaint_remark.complaintNumber = '" . $_GET['cid'] . "'
-");
-              while ($rw = mysqli_fetch_array($ret)) {
-              ?>
-                <div class="row mt">
-
-                  <label class="col-sm-2 col-sm-2 control-label"><b>Remark:</b></label>
-                  <div class="col-sm-10">
-                    <?php echo  htmlentities($rw['remark']); ?>&nbsp;&nbsp; <b>Remark Date: <?php echo  htmlentities($rw['rdate']); ?></b>
-                  </div>
-                </div>
-                <div class="row mt">
-
-                  <label class="col-sm-2 col-sm-2 control-label"><b>Status:</b></label>
-                  <div class="col-sm-10">
-                    <?php echo  htmlentities($rw['sstatus']); ?>
-                  </div>
-                </div>
-
-              <?php } ?>
-
               <div class="row mt">
-
-                <label class="col-sm-2 col-sm-2 control-label"><b>Final Status :</b></label>
-                <div class="col-sm-4">
-                  <p style="color:red"><?php
-
-                                        if ($row['status'] == "NULL" || $row['status'] == "") {
-                                          echo "Not Process yet";
-                                        } else {
-                                          echo htmlentities($row['status']);
-                                        }
-                                        ?></p>
+                <label class="col-sm-2 col-sm-2 control-label"><b>Status:</b></label>
+                <div class="col-sm-10">
+                  <?php echo  htmlentities($rw['sstatus']); ?>
                 </div>
               </div>
-
             <?php } ?>
+
+            <div class="row mt">
+              <label class="col-sm-2 col-sm-2 control-label"><b>Final Status :</b></label>
+              <div class="col-sm-4">
+                <p style="color:red"><b><?php
+                                      if ($row['status'] == "NULL" || $row['status'] == "") {
+                                        echo "Not Process Yet";
+                                      } else {
+                                        echo htmlentities($row['status']);
+                                      }
+                                      ?></b></p>
+              </div>
+            </div>
+          <?php } ?>
         </section>
-        <! --/wrapper -->
+        <!-- /wrapper -->
       </section><!-- /MAIN CONTENT -->
       <?php include('includes/footer.php'); ?>
     </section>
@@ -160,6 +159,7 @@ if (strlen($_SESSION['login']) == 0) {
         $('select.styled').customSelect();
       });
     </script>
+
 
   </body>
 
