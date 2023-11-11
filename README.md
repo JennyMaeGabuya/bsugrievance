@@ -18,6 +18,6 @@ manage users                JELLADANE
 add category                JENNY
 user log                    EVERSON
 logout                      --STUDENT SAME
-change password             ERIKA
+change password             ERIKA (added may prob pa)
 
-db updation                 --TEHHH PACHECK DB NAWALA PALA PRIMARY KEY AT FOREIGN KEY NAUPDATE KO NA ULIT SA BRANCH  (okii na puu)
+db updation                 -
