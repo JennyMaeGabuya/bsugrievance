@@ -12,7 +12,7 @@ if(isset($_POST['submit']))
 {
 $srcode=$_SESSION['id'];
 $category=$_POST['category'];
-$complaintname=$_POST['complaintname'];
+$complaintname=$_POST['complaintype'];
 $complaintdetails=$_POST['complaindetails'];
 $compfile=$_FILES["compfile"]["name"];
 
@@ -44,7 +44,9 @@ $successMessage = "You have successfully Filed a complaint. Please Check your po
     <link rel="stylesheet" type="text/css" href="assets/js/bootstrap-daterangepicker/daterangepicker.css" />
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
-    <script>
+    
+   <!-- <script>
+
 function getCat(val) {
   //alert('val');
 
@@ -59,7 +61,7 @@ function getCat(val) {
   });
   }
   </script>
-  
+-->
   </head>
 
   <body>
@@ -109,7 +111,7 @@ while ($rw=mysqli_fetch_array($sql)) {
  </div>
 
 
-<label class="col-sm-2 col-sm-2 control-label">Complaint Type</label>
+<label class="col-sm-2 col-sm-2 control-label">Complaint Name</label>
 <div class="col-sm-4">
 <select name="complaintype" class="form-control" required="">
                 <option value=" Complaint"> Complaint For Student</option>

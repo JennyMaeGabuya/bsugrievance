@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `adminpass`;
 CREATE TABLE IF NOT EXISTS `adminpass` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `admin_id` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`admin_id`) REFERENCES admin_tbl(`admin_id`)
@@ -55,7 +55,7 @@ INSERT INTO `adminpass` (`id`, `admin_id`, `password`) VALUES
 
 DROP TABLE IF EXISTS `admin_tbl`;
 CREATE TABLE IF NOT EXISTS `admin_tbl` (
-  `admin_id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
   `fullname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `updationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -81,7 +81,7 @@ INSERT INTO `admin_tbl` (`admin_id`, `fullname`, `email`, `updationDate`) VALUES
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-  `category_id` int NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `categoryName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `categoryDescription` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -108,8 +108,8 @@ INSERT INTO `category` (`category_id`, `categoryName`, `categoryDescription`, `c
 
 DROP TABLE IF EXISTS `complaint_remark`;
 CREATE TABLE IF NOT EXISTS `complaint_remark` (
-  `complaint_id` int NOT NULL AUTO_INCREMENT,
-  `complaintNo` int NOT NULL,
+  `complaint_id` int(11) NOT NULL AUTO_INCREMENT,
+  `complaintNo` int(11) NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
   `remarkDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -139,8 +139,8 @@ INSERT INTO `complaint_remark` (`complaint_id`, `complaintNo`, `status`, `remark
 
 DROP TABLE IF EXISTS `login_tbl`;
 CREATE TABLE IF NOT EXISTS `login_tbl` (
-  `login_id` int NOT NULL AUTO_INCREMENT,
-  `Sr-code` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `login_id` int(11) NOT NULL AUTO_INCREMENT,
+  `Sr-code` int(11) COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `logout` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -169,8 +169,8 @@ INSERT INTO `login_tbl` (`login_id`, `Sr-code`, `email`, `login_time`, `logout`,
 
 DROP TABLE IF EXISTS `studentpass`;
 CREATE TABLE IF NOT EXISTS `studentpass` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `sr-code` int DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sr-code` int(11) DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
    FOREIGN KEY (`Sr-code`) REFERENCES tbstudinfo(`studid`)
@@ -194,7 +194,7 @@ INSERT INTO `studentpass` (`id`, `sr-code`, `password`) VALUES
 --
 
 CREATE TABLE `tablecomplaints` (
-    `complaintNumber` int NOT NULL AUTO_INCREMENT,
+    `complaintNumber` int(11) NOT NULL AUTO_INCREMENT,
   `sr-code` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `complaintName` varchar(255) NOT NULL,
@@ -232,7 +232,7 @@ INSERT INTO `tablecomplaints` (`complaintNumber`, `sr-code`, `category_id`, `com
 
 DROP TABLE IF EXISTS `tbstudinfo`;
 CREATE TABLE IF NOT EXISTS `tbstudinfo` (
-  `studid` int NOT NULL AUTO_INCREMENT,
+  `studid`int(11) NOT NULL AUTO_INCREMENT,
   `lastname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
   `firstname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
   `course` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,

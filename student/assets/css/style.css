@@ -3,7 +3,7 @@
 
 /* BASIC THEME CONFIGURATION */
 body {
-    color: #797979;
+    color: #090808;
 	background: #f2f2f2;
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
@@ -206,14 +206,14 @@ hr {
 }
 
 ul.top-menu > li > .logout {
-	color: #f2f2f2;
+	color: #fbfbfb;
 	font-size: 12px;
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border: 1px solid #cea5b0 !important;
 	padding: 5px 15px;
 	margin-right: 15px;
-	background: #f06893;
+	background: rgb(236, 208, 105);
 	margin-top: 15px;
 }
 /*sidebar navigation*/
@@ -222,7 +222,7 @@ ul.top-menu > li > .logout {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: #d07286;
+    background: #72cad0;
 }
 
 #sidebar h5 {
@@ -278,6 +278,7 @@ ul.sidebar-menu {
 
 #sidebar > ul > li > ul.sub {
     display: none;
+  
 }
 
 #sidebar > ul > li.active > ul.sub, #sidebar > ul > li > ul.sub > li > a {
@@ -285,7 +286,7 @@ ul.sidebar-menu {
 }
 
 ul.sidebar-menu li ul.sub li{
-    background: rgb(199, 123, 128);
+    background: none;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
@@ -306,16 +307,16 @@ ul.sidebar-menu li ul.sub li a {
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    color: #aeb2b7;
+    color: #c5a2a2;
 }
 
 ul.sidebar-menu li ul.sub li a:hover {
-	color: white;
-	background: transparent;
+	color: rgb(40, 38, 38);
+	background:none;
 }
 
 ul.sidebar-menu li ul.sub li.active a {
-    color: rgb(200, 126, 139);
+    color: rgb(126, 197, 200);
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -340,7 +341,7 @@ ul.sidebar-menu li a span{
 }
 
 ul.sidebar-menu li a{
-    color: #aeb2b7;
+    color: #f8f8f8;
     text-decoration: none;
     display: block;
     padding: 15px 0 15px 10px;
@@ -458,23 +459,22 @@ a.logo span {
 }
 
 ul.top-menu > li > a {
-    color: #666666;
+    color: #f8f8f8;
     font-size: 16px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
-    border:1px solid #666666 !important;
+    border:1px solid #c4b9b9 !important;
     padding: 2px 6px;
     margin-right: 15px;
 }
 
 ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
-    border:1px solid #b6b6b6 !important;
-    background-color: transparent !important;
-    border-color: #b6b6b6 !important;
+    border:1px solid #3c3939 !important;
+    opacity: 90%;
     text-decoration: none;
     border-radius: 4px;
     -webkit-border-radius: 4px;
-    color: #b6b6b6 !important;
+    color: #fcfcfc !important;
 }
 
 .notify-row .badge {
@@ -1206,7 +1206,7 @@ PANELS CONFIGURATIONS
 
 /* Weather 3 */
 .weather-3 {
-	background: #ffcf00;
+	background: #a49450;
 }
 
 .weather-3 i {

@@ -3,7 +3,7 @@
             padding: 2px;
         }
 
-        /* Style for the navigation bar */
+        /* Style for the navigation bar panel */
         #sidebar {
             background-color: grey;
             position: fixed;
@@ -12,6 +12,23 @@
             height: 100%;
             z-index: 2;
         }
+     
+ul.sidebar-menu li ul.sub li:hover {   /* css for submenu in account settings */
+    background:rgb(197 250 255);
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    color:black;
+}
+ul.sidebar-menu li a {  /* font color of menu */
+    color: white;
+}
+ul.sidebar-menu li ul.sub li a {   /* font color of submenu in account*/
+    color: white;  
+}
+ul.top-menu > li > .logout:hover {
+    color: white;
+}
 </style>
 
 <aside>
