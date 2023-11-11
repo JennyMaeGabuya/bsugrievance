@@ -9,7 +9,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>BATSTATE-U GRIEVANCE SYSTEM</b></a>
+            <a href="index.php" class="logo"><b>BatStateU-Lipa Grievance Management System</b></a>
                 
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
