@@ -96,7 +96,7 @@ if (isset($_POST['change'])) {
 	<div id="login-page">
 		<div class="container">
 			<form class="form-login" name="login" method="post">
-				<h2 class="form-login-heading">LOGIN</h2>
+				<h2 class="form-login-heading">ADMIN LOGIN</h2>
 				<p style="padding-left:4%; padding-top:2%;  color:red">
 					<?php if ($errormsg) {
 						echo htmlentities($errormsg);
@@ -116,7 +116,7 @@ if (isset($_POST['change'])) {
 
 						</span>
 					</label>
-					<button class="btn btn-danger btn-block" name="submit" type="submit"><i class="fa fa-lock"></i>LOGIN</button>
+					<button class="btn btn-danger btn-block" name="submit" type="submit"><i class="fa fa-lock"></i> LOGIN</button>
 					<hr>
 			</form>
 
@@ -162,7 +162,7 @@ if (isset($_POST['change'])) {
 	<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
 	<script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
 	<script>
-		$.backstretch("assets/img/Frame.jpg", {
+		$.backstretch("assets/img/admin.jpg", {
 			speed: 500
 		});
 	</script>
