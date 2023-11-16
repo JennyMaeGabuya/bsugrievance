@@ -6,9 +6,9 @@ file complaint               ERIKA   (added file complaint file)
 complaint history            JENNY      (ADDED COMPLAINT HISTORY & COMPLAINT DETAILS ++ working)
 
 ----admin----
-login                        EVERSON
+login                        EVERSON (but crt by Ryan)
 
---manage complaint           RYAN & JELLADANE
+--manage complaint           RYAN & JELLADANE & EVERSON
       not process yet
       pending
       closed
