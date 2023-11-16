@@ -107,7 +107,8 @@ if (strlen($_SESSION['login']) == 0) {
                     </thead>
                     <tbody>
 
-                      <?php $query = mysqli_query($bd, "SELECT * FROM tablecomplaints WHERE `sr-code` = '" . $_SESSION['id'] . "'");
+                      <?php 
+                         $query = mysqli_query($bd, "SELECT * FROM tablecomplaints WHERE `sr-code` = '" . $_SESSION['id'] . "' ORDER BY complaintNumber DESC");
 
                       while ($row = mysqli_fetch_array($query)) {
                       ?>
@@ -145,7 +146,7 @@ if (strlen($_SESSION['login']) == 0) {
                                     if (confirmResult) {
                                       window.location.href = "complaint-details.php";
                                     }
-                                  }, 2000); // 2 seconds delay
+                                  }, 3000); // 3 seconds delay
                                 }
                               </script>
                               
