@@ -14,7 +14,7 @@
     }
 
     ul.sidebar-menu li a {  /* font color of menu */
-    color: white;
+        color: white;
     }
 
     ul.sidebar-menu li ul.sub li:hover {
@@ -57,39 +57,46 @@
 
             <li class="mt">
                 <a href="dashboard.php">
-
                     <i class="fa fa-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-
             <li class="sub-menu">
                 <a href="javascript:;">
                     <i class="fa fa-sliders"></i>
-                    <span>Account Setting</span>
+                    <span> Manage Complaint</span>
                 </a>
 
                 <ul class="sub">
-                    <li><a href="profile.php"><i class="fa fa-user" style="color: black;"></i>View Profile</a></li>
-                    <li><a href="change-password.php"><i class="fa fa-lock" style="color: black;"></i> Change Password</a></li>
+                    <li><a href="notprocesscomplaint.php"><i class="fa fa-user" style="color: black;"></i>Not Process Yet</a></li>
+                    <li><a href="pendingcomplaint.php"><i class="fa fa-file-text" style="color: black;"></i> Pending Complaint</a></li>
+                    <li><a href="closedcomplaint.php"><i class="fa fa-lock" style="color: black;"></i> Closed Complaints</a></li>
                 </ul>
-
             </li>
+
             <li class="sub-menu">
-                <a href="filecomplaint.php">
+                <a href="manageuser.php">
                     <i class="fa fa-file-text"></i>
-                    <span>File Complaint</span>
+                    <span>Manage users</span>
                 </a>
             </li>
-            </li>
-            <li class="sub-menu">
-                <a href="complaint-history.php">
-                    <i class="fa fa-clock-o"></i>
-                    <span>Grievance History</span>
-                </a>
 
+            <li class="sub-menu">
+                <a href="addcategory.php">
+                    <i class="fa fa-file-text"></i>
+                    <span>Add Category</span>
+                </a>
             </li>
+
+            <li class="sub-menu">
+                <a href="userlogin.php">
+                    <i class="fa fa-file-text"></i>
+                    <span>User Login Log</span>
+                </a>
+            </li>
+
+            
 
         </ul>
         <!-- sidebar menu end-->
