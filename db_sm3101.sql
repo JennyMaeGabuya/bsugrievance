@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 11, 2023 at 03:36 PM
+-- Generation Time: Nov 16, 2023 at 12:32 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -34,18 +34,14 @@ CREATE TABLE IF NOT EXISTS `adminpass` (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_id` (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12352 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12353 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `adminpass`
 --
 
 INSERT INTO `adminpass` (`id`, `admin_id`, `password`) VALUES
-(12347, 2, 'erika'),
-(12348, 3, 'jenny'),
-(12349, 4, 'everson'),
-(12350, 5, 'ryan'),
-(12351, 6, 'jella');
+(12352, 7, 'admin');
 
 -- --------------------------------------------------------
 
@@ -58,20 +54,17 @@ CREATE TABLE IF NOT EXISTS `admin_tbl` (
   `admin_id` int NOT NULL AUTO_INCREMENT,
   `fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `contact_no` bigint NOT NULL,
   `updationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin_tbl`
 --
 
-INSERT INTO `admin_tbl` (`admin_id`, `fullname`, `email`, `updationDate`) VALUES
-(2, 'Erika Magnaye', 'erika@gmail.com', '2023-11-07 00:25:47'),
-(3, 'Jenny Mae Gabuya', 'jenny@gmail.com', '2023-11-07 00:26:04'),
-(4, 'Everson Dimaculangan', 'ever@gmail.com', '2023-11-07 00:26:22'),
-(5, 'Ryan Ceasar Ramos', 'ryan@gmail.com', '2023-11-07 00:26:39'),
-(6, 'Jelladane Peloramas', 'jella@gmail.com', '2023-11-07 00:27:00');
+INSERT INTO `admin_tbl` (`admin_id`, `fullname`, `email`, `contact_no`, `updationDate`) VALUES
+(7, 'Admin', 'admin@gmail.com', 9123456789, '2023-11-16 12:22:11');
 
 -- --------------------------------------------------------
 
@@ -87,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `category`
@@ -99,7 +92,7 @@ INSERT INTO `category` (`category_id`, `categoryName`, `categoryDescription`, `c
 (3, 'Cheating', 'Caught my classmate open their notes during examination.', '2023-11-07 00:31:58', '2023-10-25 09:37:43'),
 (4, 'Humiliation', 'The teacher makes an embarrassing comment about me.', '2023-10-25 09:37:54', '2023-10-25 09:37:54'),
 (5, 'Dishonesty', 'With regard to examination-related cheating and plagiarism on written assignments and papers.', '2023-10-25 09:38:42', '2023-10-25 09:38:42'),
-(6, 'Other', 'Please specify the complaint category if not already mentioned. Your input is essential for a more accurate resolution.', '2023-11-16 19:31:02', '0000-00-00 00:00:00.000000');
+(6, 'Other', 'Please specify the complaint category if not already mentioned. Your input is essential for a more accurate resolution.', '2023-11-16 11:31:02', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -148,25 +141,18 @@ CREATE TABLE IF NOT EXISTS `login_tbl` (
   `account_type` int NOT NULL,
   PRIMARY KEY (`login_id`),
   KEY `Sr-code` (`Sr-code`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `login_tbl`
 --
 
 INSERT INTO `login_tbl` (`login_id`, `Sr-code`, `email`, `login_time`, `logout`, `account_type`) VALUES
-(1, 2, '', '2023-11-07 00:35:10', '2023-10-25 10:09:25', 1),
-(2, 3, '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 2),
-(3, 4, '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 1),
-(4, 6, '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 1),
-(5, 7, '', '2023-10-25 10:09:25', '2023-10-25 10:09:25', 1),
 (6, 2, 'erika@gmail.com', '2023-11-10 09:51:50', '0000-00-00 00:00:00', 1),
 (7, 3, 'jenny@gmail.com', '2023-11-11 11:05:00', '0000-00-00 00:00:00', 1),
-(8, 3, 'jenny@gmail.com', '2023-11-11 11:37:33', '0000-00-00 00:00:00', 1),
-(9, 3, 'jenny@gmail.com', '2023-11-11 13:05:51', '0000-00-00 00:00:00', 1),
-(10, 3, 'jenny@gmail.com', '2023-11-11 13:42:14', '0000-00-00 00:00:00', 1),
-(11, 3, 'jenny@gmail.com', '2023-11-11 14:07:29', '0000-00-00 00:00:00', 1),
-(12, 3, 'jenny@gmail.com', '2023-11-11 14:54:25', '0000-00-00 00:00:00', 1);
+(13, 3, 'jenny@gmail.com', '2023-11-11 16:27:41', '0000-00-00 00:00:00', 1),
+(14, 3, 'jenny@gmail.com', '2023-11-16 09:31:22', '0000-00-00 00:00:00', 1),
+(15, 3, 'jenny@gmail.com', '2023-11-16 11:15:15', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -214,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `tablecomplaints` (
   PRIMARY KEY (`complaintNumber`),
   KEY `sr-code` (`sr-code`),
   KEY `category_id` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tablecomplaints`
@@ -226,13 +212,7 @@ INSERT INTO `tablecomplaints` (`complaintNumber`, `sr-code`, `category_id`, `com
 (3, 4, 2, 'Not Teaching', 'The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teache', '', '2023-11-11 15:18:00', '', '2023-10-25 10:06:28'),
 (12, 3, 5, 'Dishonesty', 'saw someone using phone during exam', '', '2023-10-25 10:06:28', '', '2023-10-25 10:06:28'),
 (7, 5, 4, 'Humiliation', 'The teacher makes an embarrassing comment about me', '', '2023-10-25 10:06:28', '', '2023-10-25 10:06:28'),
-(11, 3, 2, 'Not Teaching', 'The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teache', '', '2023-11-11 15:18:37', '', '2023-10-25 10:06:53'),
-(13, 2, 2, '', 'sample', '', '2023-11-10 09:52:04', NULL, '0000-00-00 00:00:00'),
-(14, 2, 2, '', 'sample', '', '2023-11-10 09:52:57', NULL, '0000-00-00 00:00:00'),
-(15, 2, 1, '', 'mkmk', 'README.md', '2023-11-10 09:59:26', NULL, '0000-00-00 00:00:00'),
-(16, 2, 1, '', 'mkmk', 'README.md', '2023-11-10 10:00:38', NULL, '0000-00-00 00:00:00'),
-(18, 3, 4, 'General Query', 'pahiya po ako', 'bsu.png', '2023-11-11 15:21:25', NULL, '0000-00-00 00:00:00'),
-(19, 3, 4, 'General Query', 'hello', 'pr8.png', '2023-11-11 15:26:18', NULL, '0000-00-00 00:00:00');
+(11, 3, 2, 'Not Teaching', 'The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teacher is not attending class for 3 months. The teache', '', '2023-11-11 15:18:37', '', '2023-10-25 10:06:53');
 
 -- --------------------------------------------------------
 
