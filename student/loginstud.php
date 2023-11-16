@@ -116,7 +116,7 @@ if (isset($_POST['change'])) {
 
 						</span>
 					</label>
-					<button class="btn btn-danger btn-block" name="submit" type="submit"><i class="fa fa-lock"></i>LOGIN</button>
+					<button class="btn btn-danger btn-block" name="submit" type="submit"><i class="fa fa-lock"></i> LOGIN</button>
 					<hr>
 			</form>
 
