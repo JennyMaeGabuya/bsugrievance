@@ -48,7 +48,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
 
-            <p class="centered"><a href="profile.html"><img src="assets/img/bsu.PNG" class="img-circle" width="60"></a></p>
+            <p class="centered"><a href="profile.html"><img src="assets/img/bsu.png" class="img-circle" width="80"></a></p>
             <?php $query = mysqli_query($bd, "SELECT concat(firstname,' ', lastname) as fullname from tbstudinfo  where email='" . $_SESSION['login'] . "'");
             while ($row = mysqli_fetch_array($query)) {
             ?>

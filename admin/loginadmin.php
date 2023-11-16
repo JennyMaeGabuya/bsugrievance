@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['login'] = $email;
         $_SESSION['id'] = $num['admin_id'];
         $status = 1;
-        $log = mysqli_query($bd, "INSERT INTO login_tbl(`admin_id`,`email`,`account_type`) 
+        $log = mysqli_query($bd, "INSERT INTO login_tbl(`admin_id`,`email`) 
                                    VALUES('" . $_SESSION['id'] . "','" . $_SESSION['login'] . "','$status')");
         $extra = "dashboard.php";
         $host = $_SERVER['HTTP_HOST'];
