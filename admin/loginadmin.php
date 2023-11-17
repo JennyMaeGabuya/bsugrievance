@@ -2,64 +2,53 @@
 session_start();
 error_reporting(0);
 include("includes/config.php");
-
 if (isset($_POST['submit'])) {
-    $email = $_POST['username'];
-    $password = md5($_POST['password']);
+	/*   
+$ret=mysqli_query($bd, "SELECT * FROM users WHERE userEmail='".$_POST['username']."' and password='".md5($_POST['password'])."'");
+*/
+	$ret = mysqli_query($bd, "SELECT *
+      FROM admin_tbl
+      JOIN adminpass ON admin_tbl.`admin_id` = adminpass.`admin_id`
+      WHERE admin_tbl.`email` ='" . $_POST['username'] . "'  AND adminpass.password = '" . md5($_POST['password']) . "'");
 
-    $query = "SELECT * FROM admin_tbl 
-              JOIN adminpass ON admin_tbl.admin_id = adminpass.id
-              WHERE admin_tbl.email = ? AND adminpass.password = ?";
-
-    $stmt = mysqli_prepare($bd, $query);
-    mysqli_stmt_bind_param($stmt, "ss", $email, $password);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    $num = mysqli_fetch_array($result);
-
-    if ($num > 0) {
-        $_SESSION['login'] = $email;
-        $_SESSION['id'] = $num['admin_id'];
-        $status = 1;
-        $log = mysqli_query($bd, "INSERT INTO login_tbl(`admin_id`,`email`) 
-                                   VALUES('" . $_SESSION['id'] . "','" . $_SESSION['login'] . "','$status')");
-        $extra = "dashboard.php";
-        $host = $_SERVER['HTTP_HOST'];
-        $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-        header("location:http://$host$uri/$extra");
-        exit();
-    } else {
-        $_SESSION['login'] = $email;
-        $status = 0;
-        mysqli_query($bd, "INSERT INTO login(email,status) 
-                           VALUES('" . $_SESSION['login'] . "','$status')");
-        $errormsg = "Invalid username or password";
-        $extra = "dashboard.php";
-        header("location:$extra");
-        exit();
-    }
+	$num = mysqli_fetch_array($ret);
+	if ($num > 0) {
+		$extra = "dashboard.php"; //
+		$_SESSION['login'] = $_POST['username'];
+		$_SESSION['id'] = $num['id'];
+		$host = $_SERVER['HTTP_HOST'];
+		/*
+$uip=$_SERVER['REMOTE_ADDR']; */
+		$status = 1;
+		$log = mysqli_query($bd, "insert into login_tbl(`Sr-code`,`email`,`account_type`) values('" . $_SESSION['id'] . "','" . $_SESSION['login'] . "','$status')");
+		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+		header("location:http://$host$uri/$extra");
+		exit();
+	} else {
+		$_SESSION['login'] = $_POST['username'];
+		/*
+$uip=$_SERVER['REMOTE_ADDR']; */
+		$status = 0;
+		mysqli_query($bd, "insert into login(email,status) values('" . $_SESSION['login'] . "','$status')");
+		$errormsg = "Invalid username or password";
+		$extra = "login.php";
+	}
 }
 
 if (isset($_POST['change'])) {
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
-
-    $query = "SELECT * FROM admin_tbl WHERE email = ?";
-    $stmt = mysqli_prepare($bd, $query);
-    mysqli_stmt_bind_param($stmt, "s", $email);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $num = mysqli_fetch_array($result);
-
-    if ($num > 0) {
-        mysqli_query($bd, "UPDATE adminpass 
-                           SET password = '$password' 
-                           WHERE id = '" . $num['admin_id'] . "'");
-        $msg = "Password Changed Successfully";
-    } else {
-        $errormsg = "Invalid Email ID";
-    }
+	$email = $_POST['email'];
+	$contact = $_POST['contact'];
+	$password = md5($_POST['password']);
+	$query = mysqli_query($bd, "SELECT * FROM admin_tbl WHERE email='$email' and contact_no='$contact'");
+	$num = mysqli_fetch_array($query);
+	if ($num > 0) {
+		mysqli_query($bd, "UPDATE `adminpass`
+    JOIN `admin_tbl` ON `adminpass`.`admin_id` = `admin_tbl`.`admin_id` 
+   SET `adminpass`.`password`='$password' WHERE `admin_tbl`.`email`='$email' and `admin_tbl`.`contact_no`='$contact' ");
+		$msg = "Password Changed Successfully";
+	} else {
+		$errormsg = "Invalid Email ID or Contact No";
+	}
 }
 ?>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 16, 2023 at 12:32 PM
+-- Generation Time: Nov 17, 2023 at 04:46 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `adminpass` (
 --
 
 INSERT INTO `adminpass` (`id`, `admin_id`, `password`) VALUES
-(12352, 7, 'admin');
+(12352, 7, 'dbba06b11d94596b7169d83fed72e61b');
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `login_tbl` (
   `account_type` int NOT NULL,
   PRIMARY KEY (`login_id`),
   KEY `Sr-code` (`Sr-code`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `login_tbl`
@@ -150,6 +150,9 @@ CREATE TABLE IF NOT EXISTS `login_tbl` (
 INSERT INTO `login_tbl` (`login_id`, `Sr-code`, `email`, `login_time`, `logout`, `account_type`) VALUES
 (6, 2, 'erika@gmail.com', '2023-11-10 09:51:50', '0000-00-00 00:00:00', 1),
 (7, 3, 'jenny@gmail.com', '2023-11-11 11:05:00', '0000-00-00 00:00:00', 1),
+(18, 12352, 'admin@gmail.com', '2023-11-17 16:45:51', '0000-00-00 00:00:00', 1),
+(17, 3, 'jenny@gmail.com', '2023-11-17 16:06:14', '0000-00-00 00:00:00', 1),
+(16, 3, 'jenny@gmail.com', '2023-11-17 16:02:55', '0000-00-00 00:00:00', 1),
 (13, 3, 'jenny@gmail.com', '2023-11-11 16:27:41', '0000-00-00 00:00:00', 1),
 (14, 3, 'jenny@gmail.com', '2023-11-16 09:31:22', '0000-00-00 00:00:00', 1),
 (15, 3, 'jenny@gmail.com', '2023-11-16 11:15:15', '0000-00-00 00:00:00', 1);
