@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-include('include/config.php');
+include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
@@ -40,12 +40,12 @@ if(isset($_GET['del']))
 	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
 </head>
 <body>
-<?php include('include/header.php');?>
+<?php include('includes/header.php');?>
 
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-<?php include('include/sidebar.php');?>				
+<?php include('includes/sidebar.php');?>				
 			<div class="span9">
 					<div class="content">
 
@@ -112,7 +112,7 @@ if(isset($_GET['del']))
 											<th>#</th>
 											<th>Category</th>
 											<th>Description</th>
-											<th>Creation date</th>
+											<th>Creation Date</th>
 											<th>Last Updated</th>
 											<th>Action</th>
 										</tr>
@@ -148,7 +148,7 @@ while($row=mysqli_fetch_array($query))
 		</div><!--/.container-->
 	</div><!--/.wrapper-->
 
-<?php include('include/footer.php');?>
+<?php include('includes/footer.php');?>
 
 	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
