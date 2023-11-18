@@ -108,6 +108,8 @@ if (strlen($_SESSION['login']) == 0) {
                     <tbody>
 
                       <?php 
+                      $statusProcess = "In Process";
+                      $statusClosed = "Closed";
                          $query = mysqli_query($bd, "SELECT * FROM tablecomplaints WHERE `sr-code` = '" . $_SESSION['id'] . "' ORDER BY complaintNumber DESC");
 
                       while ($row = mysqli_fetch_array($query)) {
@@ -123,10 +125,10 @@ if (strlen($_SESSION['login']) == 0) {
                                               if ($status == "" or $status == "NULL") { ?>
                               <button type="button" class="btn btn-theme04">Not Process Yet</button>
                             <?php }
-                                              if ($status == "in process") { ?>
+                                              if ($status == $statusProcess) { ?>
                               <button type="button" class="btn btn-warning">In Process</button>
                             <?php }
-                                              if ($status == "closed") {
+                                              if ($status == $statusClosed) {
                             ?>
                               <button type="button" class="btn btn-success">Closed</button>
                             <?php } ?>
