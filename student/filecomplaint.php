@@ -137,7 +137,7 @@ while ($rw=mysqli_fetch_array($sql)) {
 </div>
 </div>
 <div class="form-group">
-<label class="col-sm-2 col-sm-2 control-label">Complaint Related Doc(if any) </label>
+<label class="col-sm-2 col-sm-2 control-label">Complaint Related Doc (if any) </label>
 <div class="col-sm-6">
 <input type="file" name="compfile" class="form-control" value="">
 </div>
