@@ -91,7 +91,7 @@
 
             <li class="sub-menu">
                 <a href="userlogin.php">
-                    <i class="fa fa-file-text"></i>
+                    <i class="fa fa-bookmark"></i>
                     <span>User Login Log</span>
                 </a>
             </li>
