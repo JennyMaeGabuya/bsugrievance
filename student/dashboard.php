@@ -79,7 +79,7 @@ if (strlen($_SESSION['login']) == 0) {
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: orange">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="inprocess.php" style="color: gray">
                     <span class="li_settings"></span>
                     <?php
                     $status = "in Process";
@@ -93,10 +93,10 @@ if (strlen($_SESSION['login']) == 0) {
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: gray">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="closed.php" style="color: gray">
                     <span class="li_news"></span>
                     <?php
-                    $status = "closed";
+                    $status = "Closed";
                     $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where `sr-code`='" . $_SESSION['id'] . "' and  `status`='$status'");
                     $num1 = mysqli_num_rows($rt);
                     ?>
