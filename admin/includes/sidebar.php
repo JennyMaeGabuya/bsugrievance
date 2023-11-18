@@ -84,7 +84,7 @@
 
             <li class="sub-menu">
                 <a href="addcategory.php">
-                    <i class="fa fa-file-text"></i>
+                    <i class="fa fa-plus"></i>
                     <span>Add Category</span>
                 </a>
             </li>
