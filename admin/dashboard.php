@@ -74,7 +74,7 @@ if (strlen($_SESSION['login']) == 0) {
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Complaints Pending</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Not Process Complaints</h4>
               </div>
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: orange">
@@ -87,7 +87,7 @@ if (strlen($_SESSION['login']) == 0) {
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Complaints in Process</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Pending Complaints</h4>
                 </a>
               </div>
 
@@ -101,7 +101,7 @@ if (strlen($_SESSION['login']) == 0) {
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Complaints Resolved</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Closed Complaints</h4>
                 </a>
               </div>
 
