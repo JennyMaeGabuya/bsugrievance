@@ -12,6 +12,8 @@ if (strlen($_SESSION['login']) == 0) {
 		$description = $_POST['description'];
 		$sql = mysqli_query($bd, "insert into category(categoryName,categoryDescription) values('$category','$description')");
 		$_SESSION['msg'] = "Category Created !!";
+		header("Location: " . $_SERVER['PHP_SELF']); // Redirect to the same page to avoid message persisting after a page refresh
+		exit();
 	}
 
 	if (isset($_GET['del'])) {
@@ -88,13 +90,15 @@ if (strlen($_SESSION['login']) == 0) {
 									<?php if (isset($_SESSION['msg'])) { ?>
 										<div class="alert alert-success">
 											<button type="button" class="close" data-dismiss="alert">×</button>
-											<strong>Well done!</strong> <?php echo htmlentities($_SESSION['msg']); ?><?php echo htmlentities($_SESSION['msg'] = ""); ?>
+											<strong>Well done!</strong> <?php echo htmlentities($_SESSION['msg']); ?>
 										</div>
+										<?php unset($_SESSION['msg']); ?>
 									<?php } elseif (isset($_SESSION['delmsg'])) { ?>
 										<div class="alert alert-error">
 											<button type="button" class="close" data-dismiss="alert">×</button>
-											<strong>Oh snap!</strong> <?php echo htmlentities($_SESSION['delmsg']); ?><?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
+											<strong>Oh snap!</strong> <?php echo htmlentities($_SESSION['delmsg']); ?>
 										</div>
+										<?php unset($_SESSION['delmsg']); ?>
 									<?php } ?>
 
 									<!-- Submit button -->
@@ -105,6 +109,17 @@ if (strlen($_SESSION['login']) == 0) {
 									</div>
 								</form>
 
+								<div class="row">
+									<div class="col-md-6 col-md-offset-9">
+										<form method="GET" action="">
+											<div class="input-group">
+												<input type="text" class="form-control" style="width: 200px; color:red; font-weight: bold;" placeholder="Search by Category Name" name="search" id="search">
+												<span class="input-group-btn">
+												</span>
+											</div>
+										</form>
+									</div>
+								</div>
 
 								<!-- Table to display categories -->
 								<div class="module">
@@ -123,28 +138,60 @@ if (strlen($_SESSION['login']) == 0) {
 													<th>Action</th>
 												</tr>
 											</thead>
-											<tbody>
-												<?php
-												$query = mysqli_query($bd, "select * from category");
-												$cnt = 1;
-												while ($row = mysqli_fetch_array($query)) {
-												?>
-													<tr>
-														<td><?php echo htmlentities($cnt); ?></td>
-														<td><?php echo htmlentities($row['categoryName']); ?></td>
-														<td><?php echo htmlentities($row['categoryDescription']); ?></td>
-														<td><?php echo htmlentities($row['creationDate']); ?></td>
-														<td><?php echo htmlentities($row['updationDate']); ?></td>
-														<td>
-															<a href="edit-category.php?category_id=<?php echo $row['category_id'] ?>"><i class="glyphicon glyphicon-pencil icon-spacing"></i></a>
-															<a href="category.php?category_id=<?php echo $row['category_id'] ?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="glyphicon glyphicon-trash"></i></a>
-														</td>
-													</tr>
+											<tbody id="categoryTableBody"></tbody>
 
-												<?php
-													$cnt = $cnt + 1;
-												}
-												?>
+											<?php
+											$query = "SELECT * FROM category";
+
+											// Check if search query is set
+											if (isset($_GET['search']) && !empty($_GET['search'])) {
+												$search = $_GET['search'];
+												$query .= " WHERE categoryName LIKE '%$search%'";
+											}
+
+											$query .= " ORDER BY category_id DESC";
+
+											$result = mysqli_query($bd, $query);
+											$cnt = 1;
+											while ($row = mysqli_fetch_array($result)) {
+											?>
+												<tr>
+													<td><?php echo htmlentities($row['category_id']); ?></td>
+													<td><?php echo htmlentities($row['categoryName']); ?></td>
+													<td><?php echo htmlentities($row['categoryDescription']); ?></td>
+													<td><?php echo htmlentities($row['creationDate']); ?></td>
+													<td><?php echo htmlentities($row['updationDate']); ?></td>
+													<td>
+														<a href="edit-category.php?category_id=<?php echo $row['category_id'] ?>"><i class="glyphicon glyphicon-pencil icon-spacing"></i></a>
+														<a href="category.php?category_id=<?php echo $row['category_id'] ?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="glyphicon glyphicon-trash"></i></a>
+													</td>
+												</tr>
+
+											<?php
+												$cnt = $cnt + 1;
+											}
+											?>
+
+											<!-- JavaScript for live search -->
+											<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+											<script>
+												$(document).ready(function() {
+													$('#search').on('keyup', function() {
+														var searchText = $(this).val().toLowerCase();
+														$.ajax({
+															method: 'GET',
+															url: 'search_category.php', // Create a separate PHP file for handling search
+															data: {
+																search: searchText
+															},
+															success: function(response) {
+																$('#categoryTableBody').html(response); // Replace the table body with search results
+															}
+														});
+													});
+												});
+											</script>
+
 											</tbody>
 										</table>
 									</div>
