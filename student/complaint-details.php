@@ -63,7 +63,7 @@ if (strlen($_SESSION['login']) == 0) {
 
               <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Type :</b> </label>
               <div class="col-sm-4">
-                <p><?php echo htmlentities($row['complaintType']); ?></p>
+                <p><?php echo htmlentities($row['complaintName']); ?></p>
               </div>
             </div>
 
