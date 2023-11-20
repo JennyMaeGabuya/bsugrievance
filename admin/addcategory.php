@@ -16,10 +16,11 @@ if (strlen($_SESSION['login']) == 0) {
 		exit();
 	}
 
-	if (isset($_GET['del'])) {
-		mysqli_query($bd, "delete from category where id = '" . $_GET['category_id'] . "'");
-		$_SESSION['delmsg'] = "Category deleted !!";
-	}
+	if(isset($_GET['del']))
+		  {
+		          mysqli_query($bd, "delete from category where category_id = '".$_GET['category_id']."'");
+                  $_SESSION['delmsg']="Category deleted !!";
+		  }
 ?>
 
 	<!DOCTYPE html>
@@ -109,11 +110,13 @@ if (strlen($_SESSION['login']) == 0) {
 									</div>
 								</form>
 
+								<!-- Search -->
 								<div class="row">
 									<div class="col-md-6 col-md-offset-9">
 										<form method="GET" action="">
 											<div class="input-group">
-												<input type="text" class="form-control" style="width: 200px; color:red; font-weight: bold;" placeholder="Search by Category Name" name="search" id="search">
+												<span class="input-group-addon"><i class="fa fa-search"></i></span>
+												<input type="text" class="form-control" style="width: 200px; color: red; font-weight: bold;" placeholder="Search by Category Name" name="search" id="search">
 												<span class="input-group-btn">
 												</span>
 											</div>
