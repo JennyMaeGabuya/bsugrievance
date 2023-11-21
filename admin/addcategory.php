@@ -212,6 +212,11 @@ if (strlen($_SESSION['login']) == 0) {
 			<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
 			<script src="scripts/datatables/jquery.dataTables.js"></script>
 			<script>
+
+				
+
+													
+
 				$(document).ready(function() {
 					// You can put jQuery code here to execute after the document is ready
 					$('.datatable-1').dataTable();
@@ -221,6 +226,18 @@ if (strlen($_SESSION['login']) == 0) {
 					$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 				});
 			</script>
+
+
+			<!--======================javascript  to make the dropdown of header work  =================================-->
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery-1.8.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="assets/js/jquery.sparkline.js"></script>
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
 		</section>
 	</body>
