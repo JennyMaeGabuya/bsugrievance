@@ -60,59 +60,71 @@ if (strlen($_SESSION['login']) == 0) {
                     <b>Oh snap!</b> </b> <?php echo htmlentities($errormsg); ?>
                   </div>
                 <?php } ?>
-                <?php $query = mysqli_query($bd, "select * from `tbstudinfo` where `email`='" . $_SESSION['login'] . "'");
-                while ($row = mysqli_fetch_array($query)) {
+                <?php
+                $query = mysqli_query($bd, "SELECT sinfo.*, scontact.*
+                FROM tbstudinfo AS sinfo
+                INNER JOIN tbstudcontact AS scontact ON sinfo.studid = scontact.studid
+                WHERE scontact.email = '" . mysqli_real_escape_string($bd, $_SESSION['login']) . "'");
 
+                if ($query) {
+                  while ($row = mysqli_fetch_array($query)) {
+                    // Display the fetched data in the HTML form
+                ?>
+                    <h4 class="mb"><i class="fa fa-user"></i>&nbsp;&nbsp;<?php echo htmlentities($row['firstname']); ?>'s Profile</h4><br>
+                    <form class="form-horizontal style-form" method="post" name="profile">
+                      <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-4">
+                          <input type="text" name="lastname" required="required" value="<?php echo htmlentities($row['lastname']); ?>" class="form-control" readonly>
+                        </div>
+
+                        <label class="col-sm-2 col-sm-2 control-label">First Name</label>
+                        <div class="col-sm-4">
+                          <input type="text" name="firstname" required="required" value="<?php echo htmlentities($row['firstname']); ?>" class="form-control" readonly>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Course</label>
+                        <div class="col-sm-4">
+                          <input type="text" name="course" required="required" value="<?php echo htmlentities($row['course']); ?>" class="form-control" readonly>
+                        </div>
+
+                        <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                        <div class="col-sm-4">
+                          <textarea name="email" required="required" class="form-control" readonly><?php echo htmlentities($row['email']); ?></textarea>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Contact</label>
+                        <div class="col-sm-4">
+                          <input type="text" name="contactno" required="required" value="<?php echo htmlentities($row['contact_no']); ?>" class="form-control" readonly>
+                        </div>
+
+                        <label class="col-sm-2 col-sm-2 control-label">Address</label>
+                        <div class="col-sm-4">
+                          <textarea name="address" required="required" class="form-control" readonly><?php echo htmlentities($row['address']); ?></textarea>
+                        </div>
+                      </div>
+                    </form>
+                <?php
+                  }
+                } else {
+                  // Handle query error
+                  echo "Error executing query: " . mysqli_error($bd);
+                }
+
+                // Close the database connection
+                mysqli_close($bd);
                 ?>
 
-                  <h4 class="mb"><i class="fa fa-user"></i>&nbsp;&nbsp;<?php echo htmlentities($row['firstname']); ?>'s Profile</h4>
-                  <h5><b>Last Updated at :</b>&nbsp;&nbsp;<?php echo htmlentities($row['updationDate']); ?></h5>
-                  <form class="form-horizontal style-form" method="post" name="profile">
-
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="lastname" required="required" value="<?php echo htmlentities($row['lastname']); ?>" class="form-control" readonly>
-                      </div>
-                      <label class="col-sm-2 col-sm-2 control-label">First Name</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="firstname" required="required" value="<?php echo htmlentities($row['firstname']); ?>" class="form-control" readonly>
-                      </div>
-
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Course</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="course" required="required" value="<?php echo htmlentities($row['course']); ?>" class="form-control" readonly>
-                      </div>
-
-                      <label class="col-sm-2 col-sm-2 control-label">Email </label>
-                      <div class="col-sm-4">
-                        <textarea name="email" required="required" class="form-control" readonly><?php echo htmlentities($row['email']); ?></textarea>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Contact</label>
-                      <div class="col-sm-4">
-                        <input type="text" name="contactno" required="required" value="<?php echo htmlentities($row['contact_no']); ?>" class="form-control" readonly>
-                      </div>
-
-                      <label class="col-sm-2 col-sm-2 control-label">Address </label>
-                      <div class="col-sm-4">
-                        <textarea name="address" required="required" class="form-control" readonly><?php echo htmlentities($row['address']); ?></textarea>
-                      </div>
-                    </div>
-
-                  <?php } ?>
-
-                  <div class="form-group">
-                    <div class="col-sm-10" style="padding-left:25% ">
-                    </div>
+                <div class="form-group">
+                  <div class="col-sm-10" style="padding-left:25% ">
                   </div>
+                </div>
 
-                  </form>
+                </form>
               </div>
             </div>
           </div>

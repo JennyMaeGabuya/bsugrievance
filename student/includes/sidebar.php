@@ -13,8 +13,9 @@
         z-index: 2;
     }
 
-    ul.sidebar-menu li a {  /* font color of menu */
-    color: white;
+    ul.sidebar-menu li a {
+        /* font color of menu */
+        color: white;
     }
 
     ul.sidebar-menu li ul.sub li:hover {
@@ -49,11 +50,25 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered"><a href="profile.html"><img src="assets/img/bsu.png" class="img-circle" width="80"></a></p>
-            <?php $query = mysqli_query($bd, "SELECT concat(firstname,' ', lastname) as fullname from tbstudinfo  where email='" . $_SESSION['login'] . "'");
-            while ($row = mysqli_fetch_array($query)) {
+
+            <?php
+            $query = mysqli_query($bd, "SELECT CONCAT(sinfo.firstname, ' ', sinfo.lastname) AS fullname 
+            FROM tbstudinfo AS sinfo
+            INNER JOIN tbstudcontact AS scontact ON sinfo.studid = scontact.studid
+            WHERE scontact.email = '" . mysqli_real_escape_string($bd, $_SESSION['login']) . "'");
+
+            if ($query) {
+                while ($row = mysqli_fetch_array($query)) {
             ?>
-                <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
-            <?php } ?>
+                    <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
+            <?php
+                }
+            } else {
+                // Handle query error
+                echo "Error executing query: " . mysqli_error($bd);
+            }
+            ?>
+
 
             <li class="mt">
                 <a href="dashboard.php">

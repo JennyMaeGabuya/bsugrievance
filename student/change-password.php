@@ -12,18 +12,17 @@ if (strlen($_SESSION['login']) == 0) {
 if (isset($_POST['submit'])) {
 	$email = $_POST['email'];
 	$password = md5($_POST['password']);
-	$query = mysqli_query($bd, "SELECT * FROM tbstudinfo WHERE email='$email' ");
+	$query = mysqli_query($bd, "SELECT * FROM tbstudcontact WHERE email='$email' ");
 	$num = mysqli_fetch_array($query);
 	if ($num > 0) {
-		mysqli_query($bd, "UPDATE `studentpass`
-    JOIN `tbstudinfo` ON `studentpass`.`sr-code` = `tbstudinfo`.`studid` 
-   SET `studentpass`.`password`='$password' WHERE `tbstudinfo`.`email`='$email' ");
+		mysqli_query($bd, "UPDATE `tbstudcontact`
+    JOIN `tbstudinfo` ON `tbstudcontact`.`studid` = `tbstudinfo`.`studid` 
+   SET `tbstudcontact`.`password`='$password' WHERE `tbstudcontact`.`email`='$email' ");
 		$successmsg = "Password Changed Successfully";
 	} else {
 		$errormsg = "Invalid Email ID";
 	}
 }
-    
 
 
 ?>

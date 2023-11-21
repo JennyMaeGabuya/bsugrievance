@@ -7,9 +7,9 @@ if (isset($_POST['submit'])) {
 $ret=mysqli_query($bd, "SELECT * FROM users WHERE userEmail='".$_POST['username']."' and password='".md5($_POST['password'])."'");
 */
 	$ret = mysqli_query($bd, "SELECT *
-      FROM tbstudinfo
-      JOIN studentpass ON tbstudinfo.`studid` = studentpass.`sr-code`
-      WHERE tbstudinfo.`email` ='" . $_POST['username'] . "'  AND studentpass.password = '" . md5($_POST['password']) . "'");
+      FROM tbstudinfo 
+      JOIN tbstudcontact ON tbstudinfo.`studid` = tbstudcontact.`studid`
+      WHERE tbstudcontact.`email` ='" . $_POST['username'] . "'  AND tbstudcontact.password = '" . md5($_POST['password']) . "'");
 
 	$num = mysqli_fetch_array($ret);
 	if ($num > 0) {
@@ -20,7 +20,6 @@ $ret=mysqli_query($bd, "SELECT * FROM users WHERE userEmail='".$_POST['username'
 		/*
 $uip=$_SERVER['REMOTE_ADDR']; */
 		$status = 1;
-		$log = mysqli_query($bd, "insert into login_tbl(`Sr-code`,`email`,`account_type`) values('" . $_SESSION['id'] . "','" . $_SESSION['login'] . "','$status')");
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 		header("location:http://$host$uri/$extra");
 		exit();
@@ -29,24 +28,22 @@ $uip=$_SERVER['REMOTE_ADDR']; */
 		/*
 $uip=$_SERVER['REMOTE_ADDR']; */
 		$status = 0;
-		mysqli_query($bd, "insert into login(email,status) values('" . $_SESSION['login'] . "','$status')");
 		$errormsg = "Invalid username or password";
 		$extra = "login.php";
 	}
 }
 
 
-
 if (isset($_POST['change'])) {
 	$email = $_POST['email'];
 	$contact = $_POST['contact'];
 	$password = md5($_POST['password']);
-	$query = mysqli_query($bd, "SELECT * FROM tbstudinfo WHERE email='$email' and contact_no='$contact'");
+	$query = mysqli_query($bd, "SELECT * FROM tbstudcontact WHERE email='$email' and contact_no='$contact'");
 	$num = mysqli_fetch_array($query);
 	if ($num > 0) {
-		mysqli_query($bd, "UPDATE `studentpass`
-    JOIN `tbstudinfo` ON `studentpass`.`sr-code` = `tbstudinfo`.`studid` 
-   SET `studentpass`.`password`='$password' WHERE `tbstudinfo`.`email`='$email' and `tbstudinfo`.`contact_no`='$contact' ");
+		mysqli_query($bd, "UPDATE `tbstudcontact`
+    JOIN `tbstudinfo` ON `tbstudcontact`.`studid` = `tbstudinfo`.`studid` 
+   SET `tbstudcontact`.`password`='$password' WHERE `tbstudcontact`.`email`='$email' and `tbstudcontact`.`contact_no`='$contact' ");
 		$msg = "Password Changed Successfully";
 	} else {
 		$errormsg = "Invalid Email ID or Contact No";

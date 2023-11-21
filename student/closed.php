@@ -88,7 +88,7 @@ if (strlen($_SESSION['login']) == 0) {
 
       <section id="main-content">
         <section class="wrapper">
-          <h3><i class="fa fa-angle-right"></i> In Process Complaint</h3>
+          <h3><i class="fa fa-angle-right"></i> Closed Complaint</h3>
           <div class="row mt">
             <div class="col-lg-12">
               <div class="content-panel">
@@ -98,8 +98,8 @@ if (strlen($_SESSION['login']) == 0) {
                       <tr>
 
                         <th>Complaint Number</th>
+                        <th>Complaint Name</th>
                         <th>Filed Date</th>
-                        <th>Last Updation Date</th>
                         <th>Status</th>
                         <th>Action</th>
 
@@ -115,8 +115,8 @@ if (strlen($_SESSION['login']) == 0) {
                       ?>
                         <tr>
                           <td align="center"><?php echo htmlentities($row['complaintNumber']); ?></td>
-                          <td align="center"><?php echo htmlentities($row['regDate']); ?></td>
-                          <td align="center"><?php echo  htmlentities($row['lastUpdationDate']);
+                          <td align="center"><?php echo htmlentities($row['complaintName']); ?></td>
+                          <td align="center"><?php echo htmlentities($row['regDate']);
 
                                               ?></td>
                           <td align="center"><?php

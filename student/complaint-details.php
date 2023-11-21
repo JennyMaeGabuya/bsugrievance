@@ -37,10 +37,10 @@ if (strlen($_SESSION['login']) == 0) {
           <hr />
 
           <?php
-          $query = mysqli_query($bd, "SELECT tablecomplaints.*, category.categoryName as catname 
-                                      FROM tablecomplaints 
-                                      JOIN category ON category.category_id = tablecomplaints.category_id 
-                                      WHERE `sr-code` = '" . $_SESSION['id'] . "' AND complaintNumber = '" . $_GET['cid'] . "'");
+          $query = mysqli_query($bd, "SELECT tablecomplaints.*, category.categoryName AS catname, category.categoryDescription 
+          FROM tablecomplaints 
+          JOIN category ON category.category_id = tablecomplaints.category_id 
+          WHERE `sr-code` = '" . $_SESSION['id'] . "' AND complaintNumber = '" . $_GET['cid'] . "'");
           ?>
 
           <?php while ($row = mysqli_fetch_array($query)) { ?>
@@ -61,9 +61,9 @@ if (strlen($_SESSION['login']) == 0) {
                 <p><?php echo htmlentities($row['catname']); ?></p>
               </div>
 
-              <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Type :</b> </label>
+              <label class="col-sm-2 col-sm-2 control-label"><b>Description :</b></label>
               <div class="col-sm-4">
-                <p><?php echo htmlentities($row['complaintName']); ?></p>
+                <p><?php echo htmlentities($row['categoryDescription']); ?></p>
               </div>
             </div>
 
@@ -79,6 +79,12 @@ if (strlen($_SESSION['login']) == 0) {
 
                 </p>
               </div>
+
+              <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Type :</b> </label>
+              <div class="col-sm-4">
+                <p><?php echo htmlentities($row['complaintName']); ?></p>
+              </div>
+
             </div>
 
             <div class="row mt">
@@ -122,12 +128,12 @@ if (strlen($_SESSION['login']) == 0) {
               <label class="col-sm-2 col-sm-2 control-label"><b>Final Status :</b></label>
               <div class="col-sm-4">
                 <p style="color:red"><b><?php
-                                      if ($row['status'] == "NULL" || $row['status'] == "") {
-                                        echo "Not Process Yet";
-                                      } else {
-                                        echo htmlentities($row['status']);
-                                      }
-                                      ?></b></p>
+                                        if ($row['status'] == "NULL" || $row['status'] == "") {
+                                          echo "Not Process Yet";
+                                        } else {
+                                          echo htmlentities($row['status']);
+                                        }
+                                        ?></b></p>
               </div>
             </div>
           <?php } ?>
