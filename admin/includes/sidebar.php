@@ -49,11 +49,21 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered"><a href="profile.html"><img src="assets/img/bsu.png" class="img-circle" width="80"></a></p>
-            <?php $query = mysqli_query($bd, "SELECT fullname from admin_tbl  where email='" . $_SESSION['login'] . "'");
-            while ($row = mysqli_fetch_array($query)) {
+            <?php $query = mysqli_query($bd, "SELECT CONCAT(ainfo.firstname, ' ', ainfo.lastname) AS fullname 
+            FROM admin_tbl AS ainfo 
+            WHERE email='" . $_SESSION['login'] . "'");
+            
+            if ($query) {
+                while ($row = mysqli_fetch_array($query)) {
             ?>
-                <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
-            <?php } ?>
+                    <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
+            <?php
+                }
+            } else {
+                // Handle query error
+                echo "Error executing query: " . mysqli_error($bd);
+            }
+            ?>
 
             <li class="mt">
                 <a href="dashboard.php">
@@ -95,8 +105,6 @@
                     <span>User Login Log</span>
                 </a>
             </li>
-
-            
 
         </ul>
         <!-- sidebar menu end-->

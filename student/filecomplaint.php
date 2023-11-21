@@ -13,12 +13,10 @@ if (strlen($_SESSION['login']) == 0) {
     $complaintdetails = $_POST['complaindetails'];
     $compfile = $_FILES["compfile"]["name"];
 
-
-
     move_uploaded_file($_FILES["compfile"]["tmp_name"], "complaintdocs/" . $_FILES["compfile"]["name"]);
     $query = mysqli_query($bd, "INSERT INTO `tablecomplaints`(`sr-code`,`category_id`,`complaintname`,`complaintDetails`,`complaintFile`) values('$srcode','$category','$complaintname','$complaintdetails','$compfile')");
 
-    $successMessage = "You have successfully Filed a complaint. Please Check your portal to monitor status";
+    $successMessage = "You have successfully filed a complaint. Please Check your portal to monitor status";
   }
 ?>
 

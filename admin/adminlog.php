@@ -8,8 +8,7 @@ if (isset($_POST['submit'])) {
     $pass = $_POST['pass'];
     $query = mysqli_query($bd, "SELECT *
       FROM admin_tbl
-      JOIN adminpass ON admin_tbl.`id` = adminpass.`admin_id`
-      WHERE admin_tbl.`id` = '$admin_id' AND adminpass.password = '$pass';");
+      WHERE admin_tbl.`id` = '$admin_id' AND admin_tbl.password = '$pass';");
     $num = mysqli_num_rows($query);
     if ($num > 0) {
         header("location: dashboard.php");

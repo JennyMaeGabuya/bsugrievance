@@ -11,16 +11,15 @@ if (strlen($_SESSION['login']) == 0) {
 		$category = $_POST['category'];
 		$description = $_POST['description'];
 		$sql = mysqli_query($bd, "insert into category(categoryName,categoryDescription) values('$category','$description')");
-		$_SESSION['msg'] = "Category Created !!";
+		$_SESSION['msg'] = "The category has been created successfully!";
 		header("Location: " . $_SERVER['PHP_SELF']); // Redirect to the same page to avoid message persisting after a page refresh
 		exit();
 	}
 
-	if(isset($_GET['del']))
-		  {
-		          mysqli_query($bd, "delete from category where category_id = '".$_GET['category_id']."'");
-                  $_SESSION['delmsg']="Category deleted !!";
-		  }
+	if (isset($_GET['del'])) {
+		mysqli_query($bd, "delete from category where category_id = '" . $_GET['category_id'] . "'");
+		$_SESSION['delmsg'] = "Category deleted!";
+	}
 ?>
 
 	<!DOCTYPE html>
@@ -63,12 +62,29 @@ if (strlen($_SESSION['login']) == 0) {
 		<section id="container">
 			<?php include("includes/header.php"); ?>
 			<?php include("includes/sidebar.php"); ?>
+
 			<section id="main-content">
 				<section class="wrapper">
 					<h3><i class="fa fa-angle-right"></i> Add Category</h3>
 					<div class="row mt">
 						<div class="col-lg-12">
 							<div class="form-panel">
+
+								<!-- Success or error messages -->
+								<?php if (isset($_SESSION['msg'])) { ?>
+									<div class="alert alert-success">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+										<strong>Well done!</strong> <?php echo htmlentities($_SESSION['msg']); ?>
+									</div>
+									<?php unset($_SESSION['msg']); ?>
+								<?php } elseif (isset($_SESSION['delmsg'])) { ?>
+									<div class="alert alert-error">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+										<strong>Oh snap!</strong> <?php echo htmlentities($_SESSION['delmsg']); ?>
+									</div>
+									<?php unset($_SESSION['delmsg']); ?>
+								<?php } ?>
+
 								<h4 class="mb"><b>Add Category</h4></b>
 
 								<!-- Form for adding categories -->
@@ -86,21 +102,6 @@ if (strlen($_SESSION['login']) == 0) {
 											<textarea class="form-control" name="description" rows="5"></textarea>
 										</div>
 									</div>
-
-									<!-- Success or error messages -->
-									<?php if (isset($_SESSION['msg'])) { ?>
-										<div class="alert alert-success">
-											<button type="button" class="close" data-dismiss="alert">×</button>
-											<strong>Well done!</strong> <?php echo htmlentities($_SESSION['msg']); ?>
-										</div>
-										<?php unset($_SESSION['msg']); ?>
-									<?php } elseif (isset($_SESSION['delmsg'])) { ?>
-										<div class="alert alert-error">
-											<button type="button" class="close" data-dismiss="alert">×</button>
-											<strong>Oh snap!</strong> <?php echo htmlentities($_SESSION['delmsg']); ?>
-										</div>
-										<?php unset($_SESSION['delmsg']); ?>
-									<?php } ?>
 
 									<!-- Submit button -->
 									<div class="form-group">
@@ -137,7 +138,6 @@ if (strlen($_SESSION['login']) == 0) {
 													<th>Category</th>
 													<th>Description</th>
 													<th>Creation Date</th>
-													<th>Last Updated</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -163,7 +163,6 @@ if (strlen($_SESSION['login']) == 0) {
 													<td><?php echo htmlentities($row['categoryName']); ?></td>
 													<td><?php echo htmlentities($row['categoryDescription']); ?></td>
 													<td><?php echo htmlentities($row['creationDate']); ?></td>
-													<td><?php echo htmlentities($row['updationDate']); ?></td>
 													<td>
 														<a href="edit-category.php?category_id=<?php echo $row['category_id'] ?>"><i class="glyphicon glyphicon-pencil icon-spacing"></i></a>
 														<a href="category.php?category_id=<?php echo $row['category_id'] ?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="glyphicon glyphicon-trash"></i></a>
@@ -183,12 +182,12 @@ if (strlen($_SESSION['login']) == 0) {
 														var searchText = $(this).val().toLowerCase();
 														$.ajax({
 															method: 'GET',
-															url: 'search_category.php', // Create a separate PHP file for handling search
+															url: 'search_category.php',
 															data: {
 																search: searchText
 															},
 															success: function(response) {
-																$('#categoryTableBody').html(response); // Replace the table body with search results
+																$('#categoryTableBody').html(response);
 															}
 														});
 													});
@@ -212,11 +211,6 @@ if (strlen($_SESSION['login']) == 0) {
 			<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
 			<script src="scripts/datatables/jquery.dataTables.js"></script>
 			<script>
-
-				
-
-													
-
 				$(document).ready(function() {
 					// You can put jQuery code here to execute after the document is ready
 					$('.datatable-1').dataTable();
@@ -227,17 +221,16 @@ if (strlen($_SESSION['login']) == 0) {
 				});
 			</script>
 
-
 			<!--======================javascript  to make the dropdown of header work  =================================-->
-  <!-- js placed at the end of the document so the pages load faster -->
-  <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery-1.8.3.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="assets/js/jquery.sparkline.js"></script>
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+			<!-- js placed at the end of the document so the pages load faster -->
+			<script src="assets/js/jquery.js"></script>
+			<script src="assets/js/jquery-1.8.3.min.js"></script>
+			<script src="assets/js/bootstrap.min.js"></script>
+			<script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+			<script src="assets/js/jquery.scrollTo.min.js"></script>
+			<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+			<script src="assets/js/jquery.sparkline.js"></script>
+			<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
 		</section>
 	</body>

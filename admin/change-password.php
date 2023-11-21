@@ -7,7 +7,6 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     date_default_timezone_set('Asia/Manila');
     $currentTime = date('d-m-Y h:i:s A', time());
-
     
 if (isset($_POST['submit'])) {
 	$email = $_POST['email'];
@@ -15,16 +14,13 @@ if (isset($_POST['submit'])) {
 	$query = mysqli_query($bd, "SELECT * FROM admin_tbl WHERE email='$email' ");
 	$num = mysqli_fetch_array($query);
 	if ($num > 0) {
-		mysqli_query($bd, "UPDATE `adminpass`
-    JOIN `admin_tbl` ON `adminpass`.`admin_id` = `admin_tbl`.`admin_id` 
-   SET `adminpass`.`password`='$password' WHERE `admin_tbl`.`email`='$email' ");
+		mysqli_query($bd, "UPDATE `admin_tbl`
+   SET `admin_tbl`.`password`='$password' WHERE `admin_tbl`.`email`='$email' ");
 		$successmsg = "Password Changed Successfully";
 	} else {
 		$errormsg = "Invalid Email ID";
 	}
 }
-    
-
 
 ?>
 
@@ -125,7 +121,7 @@ if (isset($_POST['submit'])) {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-10" style="padding-left:25% ">
+                                        <div class="col-sm-10" style="padding-left:18% ">
                                             <button type="submit" name="submit" class="btn btn-danger">Submit</button>
                                         </div>
                                     </div>
@@ -134,8 +130,6 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                     </div>
-
-
 
                 </section>
                 <!--/wrapper -->

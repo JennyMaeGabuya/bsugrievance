@@ -8,8 +8,7 @@ $ret=mysqli_query($bd, "SELECT * FROM users WHERE userEmail='".$_POST['username'
 */
 	$ret = mysqli_query($bd, "SELECT *
       FROM admin_tbl
-      JOIN adminpass ON admin_tbl.`admin_id` = adminpass.`admin_id`
-      WHERE admin_tbl.`email` ='" . $_POST['username'] . "'  AND adminpass.password = '" . md5($_POST['password']) . "'");
+      WHERE admin_tbl.`email` ='" . $_POST['username'] . "'  AND admin_tbl.password = '" . md5($_POST['password']) . "'");
 
 	$num = mysqli_fetch_array($ret);
 	if ($num > 0) {
@@ -20,7 +19,6 @@ $ret=mysqli_query($bd, "SELECT * FROM users WHERE userEmail='".$_POST['username'
 		/*
 $uip=$_SERVER['REMOTE_ADDR']; */
 		$status = 1;
-		$log = mysqli_query($bd, "insert into login_tbl(`Sr-code`,`email`,`account_type`) values('" . $_SESSION['id'] . "','" . $_SESSION['login'] . "','$status')");
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 		header("location:http://$host$uri/$extra");
 		exit();
@@ -42,9 +40,8 @@ if (isset($_POST['change'])) {
 	$query = mysqli_query($bd, "SELECT * FROM admin_tbl WHERE email='$email' and contact_no='$contact'");
 	$num = mysqli_fetch_array($query);
 	if ($num > 0) {
-		mysqli_query($bd, "UPDATE `adminpass`
-    JOIN `admin_tbl` ON `adminpass`.`admin_id` = `admin_tbl`.`admin_id` 
-   SET `adminpass`.`password`='$password' WHERE `admin_tbl`.`email`='$email' and `admin_tbl`.`contact_no`='$contact' ");
+		mysqli_query($bd, "UPDATE `admin_tbl`
+   SET `admin_tbl`.`password`='$password' WHERE `admin_tbl`.`email`='$email' and `admin_tbl`.`contact_no`='$contact' ");
 		$msg = "Password Changed Successfully";
 	} else {
 		$errormsg = "Invalid Email ID or Contact No";
