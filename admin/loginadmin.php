@@ -7,8 +7,8 @@ if (isset($_POST['submit'])) {
 $ret=mysqli_query($bd, "SELECT * FROM users WHERE userEmail='".$_POST['username']."' and password='".md5($_POST['password'])."'");
 */
 	$ret = mysqli_query($bd, "SELECT *
-      FROM admin_tbl
-      WHERE admin_tbl.`email` ='" . $_POST['username'] . "'  AND admin_tbl.password = '" . md5($_POST['password']) . "'");
+      FROM tbempcontact
+      WHERE tbempcontact.`email` ='" . $_POST['username'] . "'  AND tbempcontact.password = '" . md5($_POST['password']) . "'");
 
 	$num = mysqli_fetch_array($ret);
 	if ($num > 0) {
@@ -37,11 +37,11 @@ if (isset($_POST['change'])) {
 	$email = $_POST['email'];
 	$contact = $_POST['contact'];
 	$password = md5($_POST['password']);
-	$query = mysqli_query($bd, "SELECT * FROM admin_tbl WHERE email='$email' and contact_no='$contact'");
+	$query = mysqli_query($bd, "SELECT * FROM tbempcontact WHERE email='$email' and contact_no='$contact'");
 	$num = mysqli_fetch_array($query);
 	if ($num > 0) {
-		mysqli_query($bd, "UPDATE `admin_tbl`
-   SET `admin_tbl`.`password`='$password' WHERE `admin_tbl`.`email`='$email' and `admin_tbl`.`contact_no`='$contact' ");
+		mysqli_query($bd, "UPDATE `tbempcontact`
+   SET `tbempcontact`.`password`='$password' WHERE `tbempcontact`.`email`='$email' and `tbempcontact`.`contact_no`='$contact' ");
 		$msg = "Password Changed Successfully";
 	} else {
 		$errormsg = "Invalid Email ID or Contact No";

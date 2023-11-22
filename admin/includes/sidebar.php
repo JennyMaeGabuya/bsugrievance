@@ -49,21 +49,29 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered"><a href="profile.html"><img src="assets/img/bsu.png" class="img-circle" width="80"></a></p>
-            <?php $query = mysqli_query($bd, "SELECT CONCAT(ainfo.firstname, ' ', ainfo.lastname) AS fullname 
-            FROM admin_tbl AS ainfo 
-            WHERE email='" . $_SESSION['login'] . "'");
-            
-            if ($query) {
-                while ($row = mysqli_fetch_array($query)) {
-            ?>
-                    <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
             <?php
-                }
-            } else {
-                // Handle query error
-                echo "Error executing query: " . mysqli_error($bd);
-            }
-            ?>
+$email = mysqli_real_escape_string($bd, $_SESSION['login']);
+
+$query = "SELECT CONCAT(ainfo.firstname, ' ', ainfo.lastname) AS fullname 
+          FROM tbempinfo AS ainfo 
+          JOIN tbempcontact ON ainfo.empid = tbempcontact.empid
+          WHERE tbempcontact.email = '$email'";
+
+$result = mysqli_query($bd, $query);
+
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+        <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
+        <?php
+    }
+    mysqli_free_result($result);
+} else {
+    // Handle query error
+    echo "Error executing query: " . mysqli_error($bd);
+}
+?>
+
 
             <li class="mt">
                 <a href="dashboard.php">
