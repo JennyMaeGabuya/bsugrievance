@@ -94,7 +94,7 @@ if ($result) {
             </li>
 
             <li class="sub-menu">
-                <a href="manageuser.php">
+                <a href="manage user.php">
                     <i class="fa fa-file-text"></i>
                     <span>Manage users</span>
                 </a>
