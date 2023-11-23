@@ -20,5 +20,4 @@ logout                      --STUDENT SAME
 change password             ERIKA (added may prob pa)
 
 ++ db updation              -minimal column name change
--- log out                  -- log out time not recording ++ subject to change
 -- change password student  -- subject to change
