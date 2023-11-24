@@ -37,7 +37,7 @@ if (strlen($_SESSION['login']) == 0) {
           <hr />
 
           <?php
-          $query = mysqli_query($bd, "SELECT tablecomplaints.*, category.categoryName AS catname, category.categoryDescription 
+          $query = mysqli_query($bd, "SELECT tablecomplaints.*, category.categoryName AS catname
           FROM tablecomplaints 
           JOIN category ON category.category_id = tablecomplaints.category_id 
           WHERE `sr-code` = '" . $_SESSION['id'] . "' AND complaintNumber = '" . $_GET['cid'] . "'");
@@ -61,13 +61,6 @@ if (strlen($_SESSION['login']) == 0) {
                 <p><?php echo htmlentities($row['catname']); ?></p>
               </div>
 
-              <label class="col-sm-2 col-sm-2 control-label"><b>Description :</b></label>
-              <div class="col-sm-4">
-                <p><?php echo htmlentities($row['categoryDescription']); ?></p>
-              </div>
-            </div>
-
-            <div class="row mt">
               <label class="col-sm-2 col-sm-2 control-label"><b>File :</b></label>
               <div class="col-sm-4">
                 <p><?php $cfile = $row['complaintFile'];
@@ -76,15 +69,16 @@ if (strlen($_SESSION['login']) == 0) {
                     } else { ?>
                     <a href="complaintdocs/<?php echo htmlentities($row['complaintFile']); ?>"> View File</a>
                   <?php } ?>
-
                 </p>
               </div>
+              
+            </div>
 
+            <div class="row mt">
               <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Type :</b> </label>
               <div class="col-sm-4">
                 <p><?php echo htmlentities($row['complaintName']); ?></p>
               </div>
-
             </div>
 
             <div class="row mt">
@@ -92,7 +86,6 @@ if (strlen($_SESSION['login']) == 0) {
               <div class="col-sm-10">
                 <p><?php echo htmlentities($row['complaintDetails']); ?></p>
               </div>
-
             </div>
 
             <?php
@@ -111,9 +104,9 @@ if (strlen($_SESSION['login']) == 0) {
             while ($rw = mysqli_fetch_array($ret)) {
             ?>
               <div class="row mt">
-                <label class="col-sm-2 col-sm-2 control-label"><b>Remark:</b></label>
+                <label class="col-sm-2 col-sm-2 control-label"><b> Remark:</b></label>
                 <div class="col-sm-10">
-                  <?php echo  htmlentities($rw['remark']); ?>&nbsp;&nbsp; <b>Remark Date: <?php echo  htmlentities($rw['rdate']); ?></b>
+                  <?php echo  htmlentities($rw['remark']); ?>&nbsp;&nbsp; <b> Remark Date: <?php echo  htmlentities($rw['rdate']); ?></b>
                 </div>
               </div>
               <div class="row mt">

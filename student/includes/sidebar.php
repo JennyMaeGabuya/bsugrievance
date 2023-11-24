@@ -42,6 +42,11 @@
     ul.top-menu>li>.logout:hover {
         color: white;
     }
+
+    h4.centered {
+        color: whitesmoke;
+        font-weight: bold;
+    }
 </style>
 
 <aside>
@@ -49,8 +54,41 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
 
-            <p class="centered"><a href="profile.html"><img src="assets/img/bsu.png" class="img-circle" width="80"></a></p>
+        <?php
+            include('includes/config.php');
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
 
+            if (strlen($_SESSION['login']) == 0) {
+                header('location:index.php');
+                exit; // Ensure to exit after redirecting
+            }
+
+            // Fetch the profile picture path for the logged-in user
+            $email = $_SESSION['login'];
+            $query = mysqli_query($bd, "SELECT profile_picture FROM tbstudcontact WHERE email = '$email'");
+
+            if ($query) {
+                $row = mysqli_fetch_assoc($query);
+                $profilePictureFileName = $row ? $row['profile_picture'] : null;
+
+                // Define the base path for profile pictures
+                $basePath = "profilepicture/";
+
+                // Check if the profile picture exists or use a default image path
+                $profileImagePath = $profilePictureFileName && file_exists($basePath . $profilePictureFileName) ?
+                    $basePath . $profilePictureFileName : "profilepicture/bsu.png"; // Default image path
+            } else {
+                // Handle query error
+                $profileImagePath = "profilepicture/bsu.png"; // Default image path if there's an error
+                echo "Error fetching profile picture: " . mysqli_error($bd);
+            }
+            ?>
+
+            <!-- Display the updated or default profile picture in the sidebar -->
+            <p class="centered"><a href="profile.php"><img src="<?php echo $profileImagePath; ?>" class="img-circle" width="80"></a></p>
+           
             <?php
             $query = mysqli_query($bd, "SELECT CONCAT(sinfo.firstname, ' ', sinfo.lastname) AS fullname 
             FROM tbstudinfo AS sinfo
@@ -60,7 +98,7 @@
             if ($query) {
                 while ($row = mysqli_fetch_array($query)) {
             ?>
-                    <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
+                    <h4 class="centered"><?php echo htmlentities($row['fullname']); ?></h4>
             <?php
                 }
             } else {

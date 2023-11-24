@@ -132,7 +132,7 @@ function getCat(val) {
                   </div>
 
                   <div class="form-group">
-                    <div class="col-sm-10" style="padding-left:25% ">
+                    <div class="col-sm-10" style="padding-left:18% ">
                       <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 
                       <script type="text/javascript">
