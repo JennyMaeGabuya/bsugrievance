@@ -95,9 +95,11 @@ JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid
 WHERE tablecomplaints.status IS NULL;");
 while($row=mysqli_fetch_array($query))
 {
+    $cid = $row['complaintNumber'];
+      
 ?>										
 										<tr>
-											<td><?php echo htmlentities($row['complaintNumber']);?></td>
+											<td><?php echo $cid;?></td>
 											<td><?php echo htmlentities($row['fullname']);?></td>
 											<td><?php echo htmlentities($row['regDate']);?></td>
 										

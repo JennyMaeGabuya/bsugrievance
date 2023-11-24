@@ -1,5 +1,7 @@
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
@@ -116,40 +118,33 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 		 join category on category.id=tblcomplaints.category 
 		 where tblcomplaints.complaintNumber='".$_GET['cid']."'");
 		 */
-		
-		 $st='closed';
-		 $query=mysqli_query($bd,"SELECT 
-		 tc.complaintNumber,
-		 tc.complaintDetails,
-		 tc.regDate,
-		 tc.status,
-		 tc.complaintName,
-		 tc.complaintFile,
-		 tc.`sr-code`,
-		 ti.studid,
-		 CONCAT(ti.firstname, ' ', ti.lastname) AS fullname,
-		 c.categoryName,
-		 cr.remark
-	 FROM 
-		 tablecomplaints tc
-	 JOIN 
-		 tbstudinfo ti ON tc.`sr-code` = ti.studid
-	 JOIN 
-		 category c ON tc.category_id = c.category_id
-	 JOIN 
-		 complaint_remark cr ON tc.complaintNumber = cr.complaintNumber
-		 WHERE  tc.complaintNumber='".$_GET['cid']."'");
-	 if (!$query) {
-		die("Error: " . mysqli_error($bd));
-	}
-	 echo "<table >";
-		 while($row=mysqli_fetch_array($query)){
-			
-			
-			echo " <tr>
-						<th>Complaint Number</th>
-						<td>" . htmlentities($row['complaintNumber']) . "</td>
-					</tr>";
+		echo "<table>";
+
+$st = 'closed';
+if(isset($_GET['cid']))
+    {
+      $cid = $_GET['cid']; 
+    }
+
+$query = mysqli_query($bd, "SELECT 
+            tablecomplaints.*,ti.studid as studid,  CONCAT(ti.firstname, ' ', ti.lastname) AS fullname, c.categoryName AS catname
+            FROM tablecomplaints 
+            JOIN tbstudinfo ti ON ti.studid = tablecomplaints.`sr-code`
+            JOIN category c ON c.category_id = tablecomplaints.category_id
+            WHERE tablecomplaints.complaintNumber='".$_GET['cid']."'");
+
+if (!$query) {
+    die("Error: " . mysqli_error($bd)); // Display the MySQL error for debugging
+}
+
+while ($row = mysqli_fetch_array($query)) {
+	$id = $row['complaintNumber'];
+	$studid= $row['studid'];
+
+    echo "<tr>
+                <th>Complaint Number</th>
+                <td>" . htmlentities($row['complaintNumber']) . "</td>
+            </tr>";
 			echo " <tr>
 						<th>Complainant Name</th>
 						<td>" . htmlentities($row['fullname']) . "</td>
@@ -160,7 +155,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 					</tr>"; 
 		   echo " <tr>
 					<th>Category</th>
-					<td>" . htmlentities($row['categoryName']) . "</td>
+					<td>" . htmlentities($row['catname']) . "</td>
 				</tr>"; 
 		   echo " <tr>
 				<th>Complaint Type</th>
@@ -178,45 +173,50 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 		if ($cfile == "" || $cfile == "NULL") {
 			echo "File NA";
 		} else {
-			echo '<a href="../employee/complaintdocs/' . htmlentities($row['complaintFile']) . '">View File</a>';
+			echo '<a href="complaintdocs/' . htmlentities($row['complaintFile']) . '">View File</a>';
 		}
 		echo "</td></tr>";
 
-			echo " <tr>
-				 <th>Remark</th>
-				 <td>" . htmlentities($row['remark']) . "</td>
-				</tr>"; 
-				echo "<tr>
-       		 <th>Status</th>
-        	<td>";
+		$ret = mysqli_query($bd, "SELECT 
+                                complaint_remark.remark AS remark,
+                                complaint_remark.status AS status,
+                                complaint_remark.remarkDate AS rdate 
+                                FROM complaint_remark 
+                                JOIN tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber
+                                WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
 
-			if ($row['status'] == "") {
-   				 echo "Not Process Yet";
-			} else {
-   			 echo htmlentities($row['status']);
+    while ($row = mysqli_fetch_array($ret)) {
+        echo "<tr>
+                    <th>Remark</th>
+                    <td>" . htmlentities($row['remark']) . "</td>
+                </tr>"; 
+        echo "<tr>
+                    <th>Status</th>
+                    <td>";
+
+        if ($row['status'] == "") {
+            echo "Not Process Yet";
+        } else {
+            echo htmlentities($row['status']);
+        }
+
+        echo "</td></tr>";
 			}
-
-			echo "</td></tr>";  
+		
+			
 			echo "<tr>
-        <th>Action</th>
-        <td>";
+			<th>Action</th>
+			<td>
+				<a href='updatecomplaint.php?cid={$id}' class='btn btn-primary'>
+					<i class='fa fa-edit'></i> Update
+				</a>
+				<a href='http://localhost/bsugrievance/employee/userprofile.php?studid={$studid}' class='btn btn-primary'>
+					<i class='fa fa-user'></i> View Student Information
+				</a>
+			</td>
+		  </tr>";
 
-if ($row['status'] == "closed") {
-    // Display nothing if status is "closed"
-} else {
-	echo "<a href='updatecomplaint.php?cid=" . htmlentities($row['complaintNumber']) . "' class='btn btn-primary' style='margin-right:5px;'>
-    <i class='fa fa-edit'></i> Update
-</a>";
-
-echo "<a href='userprofile.php?studid=" . htmlentities($row['studid']) . "' class='btn btn-primary'>
-    <i class='fa fa-user'></i> View Student Information
-</a>";
-
-
-}
-
-echo "</td></tr>";
-		 }
+	}
 		 echo "</table>"  ; 
        
   ?>
