@@ -6,9 +6,18 @@ if (isset($_POST['submit'])) {
 	/*   
 $ret=mysqli_query($bd, "SELECT * FROM users WHERE userEmail='".$_POST['username']."' and password='".md5($_POST['password'])."'");
 */
+/* THIS IS THE ORIGINAL CODE BUT IT DOES NOT VALIDATE IF THE EMPID IS IN ADMIN TBL
+
 	$ret = mysqli_query($bd, "SELECT *
       FROM tbempcontact
       WHERE tbempcontact.`email` ='" . $_POST['username'] . "'  AND tbempcontact.password = '" . md5($_POST['password']) . "'");
+*/
+$ret=mysqli_query($bd, 
+"SELECT e.*, c.*
+          FROM tbempinfo e
+          JOIN tbempcontact c ON e.empid = c.empid
+          JOIN admin_tbl a ON e.empid = a.empid
+          WHERE c.`email` = '" . $_POST['username'] . "' AND c.`password` = '" . md5($_POST['password']) . "'");
 
 	$num = mysqli_fetch_array($ret);
 	if ($num > 0) {

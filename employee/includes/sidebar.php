@@ -20,11 +20,11 @@
 
     ul.sidebar-menu li ul.sub li:hover {
         /* Hover effect for submenu items */
-        background: white;
         margin-bottom: 0;
         margin-left: 0;
         margin-right: 0;
         color: black;
+      /*  background-color: aqua; */
     }
 
     ul.sidebar-menu li ul.sub li a {
@@ -37,6 +37,7 @@
     ul.sidebar-menu li ul.sub li:hover a {
         /* Hover effect for changing text color */
         color: black;
+
     }
 
     ul.top-menu>li>.logout:hover {
@@ -45,6 +46,7 @@
 </style>
 
 <aside>
+
     <div id="sidebar" class="nav-collapse">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
@@ -52,10 +54,12 @@
             <p class="centered"><a href="profile.html"><img src="assets/img/bsu.png" class="img-circle" width="80"></a></p>
 
             <?php
-            $query = mysqli_query($bd, "SELECT CONCAT(sinfo.firstname, ' ', sinfo.lastname) AS fullname 
-            FROM tbstudinfo AS sinfo
-            INNER JOIN tbstudcontact AS scontact ON sinfo.studid = scontact.studid
-            WHERE scontact.email = '" . mysqli_real_escape_string($bd, $_SESSION['login']) . "'");
+            include ('includes/config.php');
+            $email = mysqli_real_escape_string($bd, $_SESSION['login']);
+            $query = mysqli_query($bd, "SELECT CONCAT(einfo.firstname, ' ', einfo.lastname) AS fullname 
+            FROM tbempinfo AS einfo
+            INNER JOIN tbempcontact AS econtact ON einfo.empid = econtact.empid
+            WHERE econtact.email = '$email'");
 
             if ($query) {
                 while ($row = mysqli_fetch_array($query)) {
@@ -77,7 +81,18 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-sliders"></i>
+                    <span> Manage Complaint</span>
+                </a>
 
+                <ul class="sub">
+                    <li><a href="pendingcomplaint.php"><i class="fa fa-user" style="color: black;"></i>Not Process Yet</a></li>
+                    <li><a href="ongoingcomplaint.php"><i class="fa fa-file-text" style="color: black;"></i> Pending Complaint</a></li>
+                    <li><a href="closedcomplaint.php"><i class="fa fa-lock" style="color: black;"></i> Closed Complaints</a></li>
+                </ul>
+            </li>
 
             <li class="sub-menu">
                 <a href="javascript:;">
@@ -91,20 +106,8 @@
                 </ul>
 
             </li>
-            <li class="sub-menu">
-                <a href="filecomplaint.php">
-                    <i class="fa fa-file-text"></i>
-                    <span>File Complaint</span>
-                </a>
-            </li>
-            </li>
-            <li class="sub-menu">
-                <a href="complaint-history.php">
-                    <i class="fa fa-clock-o"></i>
-                    <span>Grievance History</span>
-                </a>
-
-            </li>
+            
+           
 
         </ul>
         <!-- sidebar menu end-->
