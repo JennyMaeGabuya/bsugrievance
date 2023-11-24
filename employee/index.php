@@ -123,7 +123,7 @@
     </div>
 
     <div class="container">
-      <h1> WELCOME TO BATSTATE-U STUDENT GRIEVANCE SYSTEM</h1>
+      <h1> BATSTATE-U LIPA STUDENT GRIEVANCE SYSTEM</h1>
       <h3 class="h3">Your voice, Your campus, Your change!</h4>
     </div>
 
