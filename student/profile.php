@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $query = mysqli_query($bd, "UPDATE tbstudcontact SET `profile_picture` = '$profile' WHERE email='$email'");
 
             if ($query) {
-                $successMessage = "You have successfully filed a complaint. Please Check your portal to monitor status";
+                $successMessage = "You have successfully updated your profile picture!";
             } else {
                 echo "Error updating profile picture: " . mysqli_error($bd);
             }
