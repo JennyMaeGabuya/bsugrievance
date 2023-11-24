@@ -99,10 +99,15 @@
             </li>
 
             <li class="sub-menu">
-                <a href="manage user.php">
+                <a href="javascript:;">
                     <i class="fa fa-file-text"></i>
-                    <span>Manage users</span>
+                    <span>Manage Users</span>
                 </a>
+
+                <ul class="sub">
+                    <li><a href="manage user.php"><i class="fa fa-user" style="color: black;"></i>Students Account</a></li>
+                    <li><a href="manage employee.php"><i class="fa fa-group" style="color: black;"></i>Employees Account</a></li>
+                </ul>
             </li>
 
             <li class="sub-menu">
