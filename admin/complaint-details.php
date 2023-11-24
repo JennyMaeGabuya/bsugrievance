@@ -17,7 +17,7 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Admin | Complaint Details</title>
+    <title>ADMIN | Complaint Details</title>
     
      <!-- Bootstrap core CSS -->
      <link href="assets/css/bootstrap.css" rel="stylesheet">
