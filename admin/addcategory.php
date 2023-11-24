@@ -78,7 +78,7 @@ if (strlen($_SESSION['login']) == 0) {
 									</div>
 									<?php unset($_SESSION['msg']); ?>
 								<?php } elseif (isset($_SESSION['delmsg'])) { ?>
-									<div class="alert alert-error">
+									<div class="alert alert-danger">
 										<button type="button" class="close" data-dismiss="alert">×</button>
 										<strong>Oh snap!</strong> <?php echo htmlentities($_SESSION['delmsg']); ?>
 									</div>
