@@ -96,7 +96,7 @@ if (strlen($_SESSION['login']) == 0) {
 
       <section id="main-content">
         <section class="wrapper">
-          <h3><i class="fa fa-angle-right"></i> Manage Student Accounts</h3>
+          <h3><i class="fa fa-angle-right"></i> Manage Employee Accounts</h3>
 
           <!-- Search -->
           <div class="row">
@@ -120,7 +120,7 @@ if (strlen($_SESSION['login']) == 0) {
                     <thead>
                       <tr>
 
-                        <th>Student ID</th>
+                        <th>Employee ID</th>
                         <th>Name</th>
                         <th>Email </th>
                         <th>Address</th>
@@ -129,7 +129,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                       </tr>
                     </thead>
-                    <tbody id="usersTableBody"></tbody>
+                    <tbody id="empTableBody"></tbody>
 
                     <!-- JavaScript for live search -->
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -139,12 +139,12 @@ if (strlen($_SESSION['login']) == 0) {
                           var searchText = $(this).val().toLowerCase();
                           $.ajax({
                             method: 'GET',
-                            url: 'search_user.php', // Separate PHP file for handling search
+                            url: 'search_emp.php', // Separate PHP file for handling search
                             data: {
                               search: searchText
                             },
                             success: function(response) {
-                              $('#usersTableBody').html(response);
+                              $('#empTableBody').html(response);
                             }
                           });
                         });
@@ -153,20 +153,20 @@ if (strlen($_SESSION['login']) == 0) {
 
                     <?php
                     $query = mysqli_query($bd, "SELECT * 
-                                                    FROM tbstudinfo 
-                                                    JOIN tbstudcontact ON tbstudinfo.studid = tbstudcontact.studid");
+                                                    FROM tbempinfo 
+                                                    JOIN tbempcontact ON tbempinfo.empid = tbempcontact.empid");
                     $cnt = 1;
 
                     while ($row = mysqli_fetch_array($query)) {
                     ?>
                       <tr style="text-align: center;">
-                        <td><?php echo htmlentities($row['studid']); ?></td>
+                        <td><?php echo htmlentities($row['empid']); ?></td>
                         <td><?php echo htmlentities($row['firstname'] . ' ' . $row['lastname']); ?></td>
                         <td><?php echo htmlentities($row['email']); ?></td>
                         <td><?php echo htmlentities($row['address']); ?></td>
                         <td><?php echo htmlentities($row['contact_no']); ?></td>
                         <td>
-                          <a href="complaint-details.php?studid=<?php echo $row['studid']; ?>">
+                          <a href="complaint-details.php?empid=<?php echo $row['empid']; ?>">
                             <button class="btn btn-primary">View Details</button>
                           </a>
                         </td>
