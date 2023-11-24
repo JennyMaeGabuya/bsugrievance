@@ -17,23 +17,18 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-
     <title>ADMIN | Manage Users</title>
-
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
-
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
 
-
     <link href="assets/css/table-responsive.css" rel="stylesheet">
-
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -41,14 +36,13 @@ if (strlen($_SESSION['login']) == 0) {
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
     <style>
- 
-    .form{
-      display: inline;
-      display: flex;
-      justify-content: end;
-    }
+      .form {
+        display: inline;
+        display: flex;
+        justify-content: end;
+      }
+
       /* Style for the overlay */
       .overlay {
         display: none;
@@ -64,7 +58,6 @@ if (strlen($_SESSION['login']) == 0) {
         align-items: center;
       }
 
-
       /* Style for the loading spinner */
       .spinner {
         border: 6px solid #f3f3f3;
@@ -77,12 +70,10 @@ if (strlen($_SESSION['login']) == 0) {
         animation: spin 1s linear infinite;
       }
 
-
       @keyframes spin {
         0% {
           transform: rotate(0deg);
         }
-
 
         100% {
           transform: rotate(360deg);
@@ -90,18 +81,13 @@ if (strlen($_SESSION['login']) == 0) {
       }
     </style>
 
-
-
-
     <!-- Overlay and loading spinner -->
     <div class="overlay" id="loadingOverlay">
       <div class="spinner"></div>
     </div>
   </head>
 
-
   <body>
-
 
     <section id="container">
       <?php include("includes/header.php"); ?>
@@ -110,16 +96,21 @@ if (strlen($_SESSION['login']) == 0) {
 
       <section id="main-content">
         <section class="wrapper">
-          <h3><i class="fa fa-angle-right"></i>Manage User</h3>
+          <h3><i class="fa fa-angle-right"></i>Manage Users</h3>
 
-
-      <form class="form-inline justify-content-end" method="GET" action="">
-        <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" id="search" name="search" placeholder="Search...">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Search</button>
-      </form>
-
+          <!-- Search -->
+          <div class="row">
+            <div class="col-md-6 col-md-offset-9">
+              <form method="GET" action="">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                  <input type="text" class="form-control" style="width: 200px; color: black; font-weight: bold;" placeholder="Search by Name" name="search" id="search">
+                  <span class="input-group-btn">
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
 
           <div class="row mt">
             <div class="col-lg-12">
@@ -129,70 +120,81 @@ if (strlen($_SESSION['login']) == 0) {
                     <thead>
                       <tr>
 
-
                         <th>Student ID</th>
-                      <th>Fullname</th>
-                      <th>Email </th>
-                      <th>Address</th>
-                      <th>Contact no</th>
-                      <th>Action</th>
-
+                        <th>Name</th>
+                        <th>Email </th>
+                        <th>Address</th>
+                        <th>Contact No</th>
+                        <th style="text-align: center;">Action</th>
 
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="usersTableBody"></tbody>
 
+                    <!-- JavaScript for live search -->
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                      $(document).ready(function() {
+                        $('#search').on('keyup', function() {
+                          var searchText = $(this).val().toLowerCase();
+                          $.ajax({
+                            method: 'GET',
+                            url: 'search_user.php', // Separate PHP file for handling search
+                            data: {
+                              search: searchText
+                            },
+                            success: function(response) {
+                              $('#usersTableBody').html(response);
+                            }
+                          });
+                        });
+                      });
+                    </script>
 
                     <?php
-                        $query = mysqli_query($bd, "SELECT * 
+                    $query = mysqli_query($bd, "SELECT * 
                                                     FROM tbstudinfo 
                                                     JOIN tbstudcontact ON tbstudinfo.studid = tbstudcontact.studid");
-                        $cnt = 1;
+                    $cnt = 1;
 
                     while ($row = mysqli_fetch_array($query)) {
-                             ?>
-    <tr>
-        <td><?php echo htmlentities($row['studid']); ?></td>
-        <td><?php echo htmlentities($row['firstname'] . ' ' . $row['lastname']); ?></td>
-        <td><?php echo htmlentities($row['email']); ?></td>
-        <td><?php echo htmlentities($row['address']); ?></td>
-        <td><?php echo htmlentities($row['contact_no']); ?></td>
-        <td>
-            <a href="complaint-details.php?studid=<?php echo $row['studid']; ?>">
-                <button class="btn btn-primary">View Details</button>
-            </a>
-        </td>
-    </tr>
-    <?php
-    $cnt = $cnt + 1;
-}
-?>
-</table>
-</div>
-</div> 
-                             
-                            </a>
-                          </td>
-                        </tr>
-                      <?php } ?>
-
-
-                    </tbody>
+                    ?>
+                      <tr style="text-align: center;">
+                        <td><?php echo htmlentities($row['studid']); ?></td>
+                        <td><?php echo htmlentities($row['firstname'] . ' ' . $row['lastname']); ?></td>
+                        <td><?php echo htmlentities($row['email']); ?></td>
+                        <td><?php echo htmlentities($row['address']); ?></td>
+                        <td><?php echo htmlentities($row['contact_no']); ?></td>
+                        <td>
+                          <a href="complaint-details.php?studid=<?php echo $row['studid']; ?>">
+                            <button class="btn btn-primary">View Details</button>
+                          </a>
+                        </td>
+                      </tr>
+                    <?php
+                      $cnt = $cnt + 1;
+                    }
+                    ?>
                   </table>
-                </section>
-              </div><!-- /content-panel -->
-            </div><!-- /col-lg-4 -->
-          </div><!-- /row -->
+              </div>
+            </div>
 
+            </a>
+            </td>
+            </tr>
+          <?php } ?>
 
-
-
-
-
+          </tbody>
+          </table>
         </section>
-        <! --/wrapper -->
-      </section><!-- /MAIN CONTENT -->
-      <?php include("includes/footer.php"); ?>
+        </div><!-- /content-panel -->
+        </div><!-- /col-lg-4 -->
+        </div><!-- /row -->
+
+      </section>
+      <! --/wrapper -->
+    </section><!-- /MAIN CONTENT -->
+    <?php include("includes/footer.php"); ?>
     </section>
 
 
@@ -203,17 +205,10 @@ if (strlen($_SESSION['login']) == 0) {
     <script src="assets/js/jquery.scrollTo.min.js"></script>
     <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 
-
-
-
     <!--common script for all pages-->
     <script src="assets/js/common-scripts.js"></script>
 
-
     <!--script for this page-->
-
-
-
 
   </body>
 

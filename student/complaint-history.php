@@ -95,7 +95,7 @@ if (strlen($_SESSION['login']) == 0) {
                 <section id="unseen">
                   <table class="table table-bordered table-striped table-condensed">
                     <thead>
-                      <tr>
+                      <tr style="text-align: center;">
 
                         <th>Complaint Number</th>
                         <th>Complaint Name</th>
