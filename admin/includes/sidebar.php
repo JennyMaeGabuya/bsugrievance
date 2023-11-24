@@ -13,7 +13,8 @@
         z-index: 2;
     }
 
-    ul.sidebar-menu li a {  /* font color of menu */
+    ul.sidebar-menu li a {
+        /* font color of menu */
         color: white;
     }
 
@@ -41,6 +42,11 @@
     ul.top-menu>li>.logout:hover {
         color: white;
     }
+
+    h4.centered {
+        color: whitesmoke;
+        font-weight: bold;
+    }
 </style>
 
 <aside>
@@ -50,28 +56,27 @@
 
             <p class="centered"><a href="profile.html"><img src="assets/img/bsu.png" class="img-circle" width="80"></a></p>
             <?php
-$email = mysqli_real_escape_string($bd, $_SESSION['login']);
+            $email = mysqli_real_escape_string($bd, $_SESSION['login']);
 
-$query = "SELECT CONCAT(ainfo.firstname, ' ', ainfo.lastname) AS fullname 
+            $query = "SELECT CONCAT(ainfo.firstname, ' ', ainfo.lastname) AS fullname 
           FROM tbempinfo AS ainfo 
           JOIN tbempcontact ON ainfo.empid = tbempcontact.empid
           WHERE tbempcontact.email = '$email'";
 
-$result = mysqli_query($bd, $query);
+            $result = mysqli_query($bd, $query);
 
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        ?>
-        <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
-        <?php
-    }
-    mysqli_free_result($result);
-} else {
-    // Handle query error
-    echo "Error executing query: " . mysqli_error($bd);
-}
-?>
-
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                    <h4 class="centered"><?php echo htmlentities($row['fullname']); ?></h4>
+            <?php
+                }
+                mysqli_free_result($result);
+            } else {
+                // Handle query error
+                echo "Error executing query: " . mysqli_error($bd);
+            }
+            ?>
 
             <li class="mt">
                 <a href="dashboard.php">
@@ -94,23 +99,21 @@ if ($result) {
             </li>
 
             <li class="sub-menu">
-                <a href="manage user.php">
+                <a href="javascript:;">
                     <i class="fa fa-file-text"></i>
-                    <span>Manage users</span>
+                    <span>Manage Users</span>
                 </a>
+
+                <ul class="sub">
+                    <li><a href="manage user.php"><i class="fa fa-user" style="color: black;"></i>Students Account</a></li>
+                    <li><a href="manage employee.php"><i class="fa fa-group" style="color: black;"></i>Employees Account</a></li>
+                </ul>
             </li>
 
             <li class="sub-menu">
                 <a href="addcategory.php">
                     <i class="fa fa-plus"></i>
                     <span>Add Category</span>
-                </a>
-            </li>
-
-            <li class="sub-menu">
-                <a href="userlogin.php">
-                    <i class="fa fa-bookmark"></i>
-                    <span>User Login Log</span>
                 </a>
             </li>
 

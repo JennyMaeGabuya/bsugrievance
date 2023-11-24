@@ -43,6 +43,11 @@
     ul.top-menu>li>.logout:hover {
         color: white;
     }
+
+    h4.centered {
+        color: whitesmoke;
+        font-weight: bold;
+    }
 </style>
 
 <aside>
@@ -64,7 +69,7 @@
             if ($query) {
                 while ($row = mysqli_fetch_array($query)) {
             ?>
-                    <h5 class="centered"><?php echo htmlentities($row['fullname']); ?></h5>
+                    <h4 class="centered"><?php echo htmlentities($row['fullname']); ?></h4>
             <?php
                 }
             } else {

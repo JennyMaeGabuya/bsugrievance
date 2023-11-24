@@ -16,11 +16,10 @@ if (strlen($_SESSION['login']) == 0) {
 		exit();
 	}
 
-	if(isset($_GET['del']))
-		  {
-		          mysqli_query($bd, "delete from category where category_id = '".$_GET['category_id']."'");
-                  $_SESSION['delmsg']="Category deleted !!";
-		  }
+	if (isset($_GET['del'])) {
+		mysqli_query($bd, "delete from category where category_id = '" . $_GET['category_id'] . "'");
+		$_SESSION['delmsg'] = "Category deleted !!";
+	}
 ?>
 
 	<!DOCTYPE html>
@@ -97,110 +96,88 @@ if (strlen($_SESSION['login']) == 0) {
 									<?php } elseif (isset($_SESSION['delmsg'])) { ?>
 										<div class="alert alert-error" style="color: red;">
 											<button type="button" class="close" data-dismiss="alert">×</button>
-											<b><tr><td colspan="6"><div class="alert alert-warning">Oh Snap!</b> Data deleted successfully.</div></td></tr>
-										</div>
-										<?php unset($_SESSION['delmsg']); ?>
-									<?php } ?>
-
-									<!-- Submit button -->
-									<div class="form-group">
-										<div class="col-sm-offset-2 col-sm-10">
-											<button type="submit" name="submit" class="btn btn-primary">Create</button>
-										</div>
-									</div>
-								</form>
-
-								<!-- Search -->
-								<div class="row">
-									<div class="col-md-6 col-md-offset-9">
-										<form method="GET" action="">
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-search"></i></span>
-												<input type="text" class="form-control" style="width: 200px; color: red; font-weight: bold;" placeholder="Search by Category Name" name="search" id="search">
-												<span class="input-group-btn">
-												</span>
-											</div>
-										</form>
-									</div>
-								</div>
-
-								<!-- Table to display categories -->
-								<div class="module">
-									<div class="module-head">
-										<h3>Manage Categories</h3>
-									</div>
-									<div class="module-body table">
-										<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="100%">
-											<thead>
+											<b>
 												<tr>
-													<th>#</th>
-													<th>Category</th>
-													<th>Description</th>
-													<th>Creation Date</th>
-													<th>Last Updated</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-											<tbody id="categoryTableBody"></tbody>
+													<td colspan="6">
+														<div class="alert alert-warning">Oh Snap!
+											</b> Data deleted successfully.
+										</div>
+										</td>
+										</tr>
+							</div>
+							<?php unset($_SESSION['delmsg']); ?>
+						<?php } ?>
 
-											<?php
-											$query = "SELECT * FROM category";
-
-											// Check if search query is set
-											if (isset($_GET['search']) && !empty($_GET['search'])) {
-												$search = $_GET['search'];
-												$query .= " WHERE categoryName LIKE '%$search%'";
-											}
-
-											$query .= " ORDER BY category_id DESC";
-
-											$result = mysqli_query($bd, $query);
-											$cnt = 1;
-											while ($row = mysqli_fetch_array($result)) {
-											?>
-												<tr>
-													<td><?php echo htmlentities($row['category_id']); ?></td>
-													<td><?php echo htmlentities($row['categoryName']); ?></td>
-													<td><?php echo htmlentities($row['categoryDescription']); ?></td>
-													<td><?php echo htmlentities($row['creationDate']); ?></td>
-													<td><?php echo htmlentities($row['updationDate']); ?></td>
-													<td>
-														<a href="edit-category.php?category_id=<?php echo $row['category_id'] ?>"><i class="glyphicon glyphicon-pencil icon-spacing"></i></a>
-														<a href="category.php?category_id=<?php echo $row['category_id'] ?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="glyphicon glyphicon-trash"></i></a>
-													</td>
-												</tr>
-
-											<?php
-												$cnt = $cnt + 1;
-											}
-											?>
-
-											<!-- JavaScript for live search -->
-											<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-											<script>
-												$(document).ready(function() {
-													$('#search').on('keyup', function() {
-														var searchText = $(this).val().toLowerCase();
-														$.ajax({
-															method: 'GET',
-															url: 'search_category.php', // Create a separate PHP file for handling search
-															data: {
-																search: searchText
-															},
-															success: function(response) {
-																$('#categoryTableBody').html(response); // Replace the table body with search results
-															}
-														});
-													});
-												});
-											</script>
-
-											</tbody>
-										</table>
-									</div>
-								</div>
+						<!-- Submit button -->
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" name="submit" class="btn btn-primary">Create</button>
 							</div>
 						</div>
+						</form>
+
+						<!-- Search -->
+						<div class="row">
+							<div class="col-md-6 col-md-offset-9">
+								<form method="GET" action="">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-search"></i></span>
+										<input type="text" class="form-control" style="width: 200px; color: black; font-weight: bold;" placeholder="Search by Category Name" name="search" id="search">
+										<span class="input-group-btn">
+										</span>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<!-- Table to display categories -->
+						<div class="module">
+							<div class="module-head">
+								<h3>Manage Categories</h3>
+							</div>
+							<div class="module-body table">
+								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="100%">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Category</th>
+											<th>Description</th>
+											<th>Creation Date</th>
+											<th>Last Updated</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody id="categoryTableBody"></tbody>
+								</table>
+							</div>
+						</div>
+
+						<!-- JavaScript for live search -->
+						<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+						<script>
+							$(document).ready(function() {
+								$('#search').on('keyup', function() {
+									var searchText = $(this).val().toLowerCase();
+									$.ajax({
+										method: 'GET',
+										url: 'search_category.php', // Separate PHP file for handling search
+										data: {
+											search: searchText
+										},
+										success: function(response) {
+											$('#categoryTableBody').html(response);
+										}
+									});
+								});
+							});
+						</script>
+
+						</tbody>
+						</table>
+						</div>
+					</div>
+					</div>
+					</div>
 					</div>
 				</section>
 			</section>

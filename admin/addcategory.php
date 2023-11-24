@@ -117,7 +117,7 @@ if (strlen($_SESSION['login']) == 0) {
 										<form method="GET" action="">
 											<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-search"></i></span>
-												<input type="text" class="form-control" style="width: 200px; color: red; font-weight: bold;" placeholder="Search by Category Name" name="search" id="search">
+												<input type="text" class="form-control" style="width: 200px; color: black; font-weight: bold;" placeholder="Search by Category Name" name="search" id="search">
 												<span class="input-group-btn">
 												</span>
 											</div>
