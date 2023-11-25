@@ -93,7 +93,7 @@
                 </a>
 
                 <ul class="sub">
-                    <li><a href="pendingcomplaint.php"><i class="fa fa-group" style="color: black;"></i>Complaints Records</a></li>
+                    <li><a href="complaintsrecord.php"><i class="fa fa-group" style="color: black;"></i>Complaints Records</a></li>
                     <li><a href="ongoingcomplaint.php"><i class="fa fa-file-text" style="color: black;"></i> Pending Complaint</a></li>
                     <li><a href="closedcomplaint.php"><i class="fa fa-lock" style="color: black;"></i> Closed Complaints</a></li>
                 </ul>

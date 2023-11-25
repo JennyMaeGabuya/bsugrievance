@@ -14,7 +14,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>ADMIN | Not Process Complaints</title>
+	<title>ADMIN | Students Grievance Records</title>
 
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -59,7 +59,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 
 						<div class="module" style="margin-left: 250px;width:800px;">
 							<div class="module-head">
-								<h3>Not Process Complaints</h3>
+								<br><h3>Students Grievance Records</h3>
 							</div>
 							<div class="module-body table">
 
@@ -78,30 +78,43 @@ $currentTime = date('d-m-Y h:i:s A', time());
 
 									<tbody>
 										<?php
-										/* $query=mysqli_query($bd, "select tablecomplaints.*,CONCAT(einfo.firstname, ' ', einfo.lastname) AS fullname 
-FROM tbempinfoas name from tblcomplaints 
-join users on users.id=tblcomplaints.userId where tblcomplaints.status is null ");  */
+										$query = mysqli_query($bd, "SELECT tablecomplaints.*, CONCAT(tbstudinfo.firstname, ' ', tbstudinfo.lastname) AS fullname 
+                                FROM tablecomplaints 
+                                JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid 
+                                WHERE tablecomplaints.status IS NULL 
+                                OR tablecomplaints.status = 'In Process' 
+                                OR tablecomplaints.status = 'Closed'");
 
-										$query = mysqli_query($bd, "SELECT tablecomplaints.*, CONCAT(tbstudinfo.firstname, ' ', tbstudinfo.lastname) AS fullname
-FROM tablecomplaints
-JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid
-WHERE tablecomplaints.status IS NULL;");
 										while ($row = mysqli_fetch_array($query)) {
+											$status = $row['status'];
 											$cid = $row['complaintNumber'];
-
 										?>
 											<tr style="text-align: center">
 												<td><?php echo $cid; ?></td>
 												<td><?php echo htmlentities($row['fullname']); ?></td>
 												<td><?php echo htmlentities($row['regDate']); ?></td>
-
-												<td><button type="button" class="btn btn-theme04"><i class="fa fa-hourglass-start" style="font-size:16px;color:black;"></i> Not Process Yet</button></td>
-
-												<td> <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>"> View Details</a>
+												<td>
+													<?php if ($status == NULL) { ?>
+														<button type="button" class="btn btn-theme04">
+															<i class="fa fa-hourglass-start" style="font-size:16px;color:black;"></i> Not Process Yet
+														</button>
+													<?php } elseif ($status == 'In Process') { ?>
+														<button type="button" class="btn btn-warning">
+															<i class="fa fa-spinner fa-spin" style="font-size:16px;"></i> In Process
+														</button>
+													<?php } elseif ($status == 'Closed') { ?>
+														<button type="button" class="btn btn-success">
+															<i class="fa fa-gavel" style="font-size:16px;color:white;"></i> Closed
+														</button>
+													<?php } ?>
+												</td>
+												<td>
+													<a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>">
+														View Details
+													</a>
 												</td>
 											</tr>
-
-										<?php  } ?>
+										<?php } ?>
 									</tbody>
 								</table>
 							</div>

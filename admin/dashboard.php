@@ -67,7 +67,7 @@ if (strlen($_SESSION['login']) == 0) {
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: black">
                 <div class="box1">
-                  <a href="pendingcomplaint.php" style="color: black">
+                  <a href="complaintsrecord.php" style="color: black">
                     <span class="li_news"></span>
                     <?php
                     $query = mysqli_query($bd, "SELECT COUNT(*) AS total_complaints FROM `tablecomplaints`");
