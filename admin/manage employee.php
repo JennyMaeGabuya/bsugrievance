@@ -5,6 +5,12 @@ include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
   header('location:index.php');
 } else {
+
+  if (isset($_GET['del'])) {
+    $empId = $_GET['empid'];
+    mysqli_query($bd, "DELETE tbempinfo, tbempcontact FROM tbempinfo INNER JOIN tbempcontact ON tbempinfo.empid = tbempcontact.empid WHERE tbempinfo.empid = '$empId'");
+    $_SESSION['delmsg'] = "Account deleted!!";
+  }
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -29,6 +35,18 @@ if (strlen($_SESSION['login']) == 0) {
     <link href="assets/css/style-responsive.css" rel="stylesheet">
 
     <link href="assets/css/table-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="...">
+
+    <script language="javascript" type="text/javascript">
+      var popUpWin = 0;
+
+      function popUpWindow(URLStr, left, top, width, height) {
+        if (popUpWin) {
+          if (!popUpWin.closed) popUpWin.close();
+        }
+        popUpWin = open(URLStr, 'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' + 600 + ',height=' + 600 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top + '');
+      }
+    </script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -98,6 +116,22 @@ if (strlen($_SESSION['login']) == 0) {
         <section class="wrapper">
           <h3><i class="fa fa-angle-right"></i> Manage Employee Accounts</h3>
 
+          <!-- Success or error messages -->
+          <?php if (isset($_SESSION['msg'])) { ?>
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Well done!</strong> <?php echo htmlentities($_SESSION['msg']); ?>
+            </div>
+            <?php unset($_SESSION['msg']); ?>
+
+          <?php } elseif (isset($_SESSION['delmsg'])) { ?>
+            <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Oh snap!</strong> <?php echo htmlentities($_SESSION['delmsg']); ?>
+            </div>
+            <?php unset($_SESSION['delmsg']); ?>
+          <?php } ?>
+
           <!-- Search -->
           <div class="row">
             <div class="col-md-6 col-md-offset-9">
@@ -165,11 +199,11 @@ if (strlen($_SESSION['login']) == 0) {
                         <td><?php echo htmlentities($row['email']); ?></td>
                         <td><?php echo htmlentities($row['address']); ?></td>
                         <td><?php echo htmlentities($row['contact_no']); ?></td>
-                        <td>
-                          <a href="complaint-details.php?empid=<?php echo $row['empid']; ?>">
-                            <button class="btn btn-primary">View Details</button>
-                          </a>
-                        </td>
+
+                        <td><a href="javascript:void(0);" onClick="popUpWindow('http://localhost/bsugrievance/admin/empprofile.php?empid=<?php echo htmlentities($row['empid']); ?>');" title="View">
+                            <button type="button" class="btn btn-primary" style="padding-left: 10px;">View Details</button>
+                            <a href="manage employee.php?empid=<?php echo $row['empid'] ?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash fa-lg" style="margin-left: 5px; color: #ff0000"></i></a>
+                          </a></td>
                       </tr>
                     <?php
                       $cnt = $cnt + 1;

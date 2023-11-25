@@ -99,7 +99,7 @@ if (strlen($_SESSION['login']) == 0) {
 											<b>
 												<tr>
 													<td colspan="6">
-														<div class="alert alert-warning">Oh Snap!
+														<div class="alert alert-danger">Oh Snap!
 											</b> Data deleted successfully.
 										</div>
 										</td>
