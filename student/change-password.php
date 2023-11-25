@@ -2,28 +2,37 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
+
     date_default_timezone_set('Asia/Manila');
     $currentTime = date('d-m-Y h:i:s A', time());
 
-    
-if (isset($_POST['submit'])) {
-	$email = $_POST['email'];
-	$password = md5($_POST['password']);
-	$query = mysqli_query($bd, "SELECT * FROM tbstudcontact WHERE email='$email' ");
-	$num = mysqli_fetch_array($query);
-	if ($num > 0) {
-		mysqli_query($bd, "UPDATE `tbstudcontact`
-    JOIN `tbstudinfo` ON `tbstudcontact`.`studid` = `tbstudinfo`.`studid` 
-   SET `tbstudcontact`.`password`='$password' WHERE `tbstudcontact`.`email`='$email' ");
-		$successmsg = "Password Changed Successfully";
-	} else {
-		$errormsg = "Invalid Email ID";
-	}
-}
+    if (isset($_POST['submit'])) {
+        $email = $_POST['email'];
+        $currentPassword = md5($_POST['current_password']); // Assuming the current password is being entered
+        $newPassword = md5($_POST['new_password']);
 
+        // Retrieve the user's details from the database using the email
+        $query = mysqli_query($bd, "SELECT * FROM tbstudcontact WHERE email='$email'");
+        $userData = mysqli_fetch_assoc($query);
+
+        if ($userData) {
+            $storedPassword = $userData['password'];
+
+            // Verify if the entered current password matches the stored password
+            if ($currentPassword === $storedPassword) {
+                // If the passwords match, update the password
+                mysqli_query($bd, "UPDATE `tbstudcontact`
+                                SET `password`='$newPassword' WHERE `email`='$email'");
+                $successmsg = "Password Changed Successfully";
+            } else {
+                $errormsg = "Password or Email not match, try again.";
+            }
+        }
+    }
 
 ?>
 
@@ -47,29 +56,7 @@ if (isset($_POST['submit'])) {
         <link rel="stylesheet" type="text/css" href="assets/js/bootstrap-daterangepicker/daterangepicker.css" />
         <link href="assets/css/style.css" rel="stylesheet">
         <link href="assets/css/style-responsive.css" rel="stylesheet">
-        <script type="text/javascript">
-            
-            function valid() {
-                if (document.chngpwd.password.value == "") {
-                    alert("Current Password Filed is Empty !!");
-                    document.chngpwd.password.focus();
-                    return false;
-                } else if (document.chngpwd.newpassword.value == "") {
-                    alert("New Password Filed is Empty !!");
-                    document.chngpwd.newpassword.focus();
-                    return false;
-                } else if (document.chngpwd.confirmpassword.value == "") {
-                    alert("Confirm Password Filed is Empty !!");
-                    document.chngpwd.confirmpassword.focus();
-                    return false;
-                } else if (document.chngpwd.newpassword.value != document.chngpwd.confirmpassword.value) {
-                    alert("Password and Confirm Password Field do not match  !!");
-                    document.chngpwd.confirmpassword.focus();
-                    return false;
-                }
-                return true;
-            }
-        </script>
+        
     </head>
 
     <body>
@@ -103,29 +90,37 @@ if (isset($_POST['submit'])) {
 
 
                                 <form class="form-horizontal style-form" method="post" name="chngpwd" onSubmit="return valid();">
-                                <div class="form-group">
+                                    <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">Email</label>
-                                        <div class="col-sm-10">         
-							            <input type="email" name="email" autocomplete="off" class="form-control" required>
+                                        <div class="col-sm-10">
+                                            <input type="email" name="email" autocomplete="off" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-sm-2 control-label">Current Password</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="current_password" name="current_password" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">New Password</label>
                                         <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="password" name="password" required>
+                                            <input type="password" class="form-control" id="new_password" name="new_password" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">Confirm Password</label>
+                                        <label class="col-sm-2 col-sm-2 control-label">Confirm New Password</label>
                                         <div class="col-sm-10">
-                                        <input type="password" class="form-control unicase-form-control text-input" id="confirmpassword" name="confirmpassword" required>
+                                            <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" required>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
                                         <div class="col-sm-10" style="padding-left:18% ">
-                                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" name="submit" class="btn btn-danger">Submit</button>
                                         </div>
                                     </div>
 
