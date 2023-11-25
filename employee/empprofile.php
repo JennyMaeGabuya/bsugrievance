@@ -3,45 +3,54 @@ session_start();
 include('includes/config.php');
 
 if (strlen($_SESSION['login']) == 0) {
-    header('location:index.php');
-    exit; // Ensure to exit after redirecting
+  header('location:index.php');
+  exit; // Ensure to exit after redirecting
 }
+
+$successMessage = '';
+$errormsg = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Ensure a file is selected
   if (isset($_FILES["profile"]) && $_FILES["profile"]["error"] == 0) {
-      $targetDirectory = "profilepicture/";
-      $profile = $_FILES["profile"]["name"];
-      $targetFile = $targetDirectory . basename($profile);
+    $targetDirectory = "profilepicture/";
+    $profile = $_FILES["profile"]["name"];
+    $targetFile = $targetDirectory . basename($profile);
 
-      // Define the maximum file size in bytes (e.g., 5MB)
-      $maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+    // Define the maximum file size in bytes (e.g., 5MB)
+    $maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
-      // Check file type and size
-      $fileSize = $_FILES["profile"]["size"];
-      if ($fileSize > $maxFileSize) {
-          echo "File size exceeds the maximum limit (5MB).";
+    // Check file type and size
+    $fileSize = $_FILES["profile"]["size"];
+    if ($fileSize > $maxFileSize) {
+      $errormsg = "File size exceeds the maximum limit (5MB).";
+    } else {
+      // Move the uploaded file to the desired directory
+      if (move_uploaded_file($_FILES["profile"]["tmp_name"], $targetFile)) {
+        // Update the database with the file name or path
+        $email = $_SESSION['login'];
+        $query = mysqli_query($bd, "UPDATE tbempcontact SET `profile_picture` = '$profile' WHERE email='$email'");
+
+        $successMessage = "You have successfully uploaded your profile picture.";
       } else {
-          // Move the uploaded file to the desired directory
-          if (move_uploaded_file($_FILES["profile"]["tmp_name"], $targetFile)) {
-              // Update the database with the file name or path
-              $email = $_SESSION['login'];
-              $query = mysqli_query($bd, "UPDATE tbempcontact SET `profile_picture` = '$profile' WHERE email='$email'");
-
-              if ($query) {
-                  $successMessage = "You have successfully updated your profile picture!";
-              } else {
-                  echo "Error updating profile picture: " . mysqli_error($bd);
-              }
-          } else {
-              echo "Sorry, there was an error uploading your file.";
-          }
+        $errormsg = "Error uploading file. Please try again.";
       }
+    }
   } else {
-      echo "Please select a file to upload.";
+    $errormsg = "File exceed its maximum file size. Try again.";
   }
 }
 ?>
+
+<style>
+  .swal2-title {
+    font-size: 30px !important;
+  }
+
+  .swal2-popup .swal2-confirm {
+    font-size: 15px !important;
+  }
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" type="text/css" href="assets/js/bootstrap-daterangepicker/daterangepicker.css" />
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/style-responsive.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -71,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <section id="container">
     <?php include("includes/header.php"); ?>
     <?php include("includes/sidebar.php"); ?>
+
     <section id="main-content">
       <section class="wrapper">
         <h3><i class="fa fa-angle-right"></i> Profile Information</h3>
@@ -80,8 +91,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="col-lg-12">
             <div class="form-panel">
 
+              <!-- Display success message -->
+              <?php if ($successMessage) { ?>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                  Swal.fire({
+                    title: 'Success',
+                    html: '<span style="font-size: 15px;"><?php echo htmlentities($successMessage); ?></span>',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                      container: 'swal-message',
+                      confirmButton: 'btn-custom-class'
+                    }
+                  });
+                </script>
+              <?php } ?>
+
+              <!-- Display error message -->
+              <?php if ($errormsg) { ?>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                  Swal.fire({
+                    title: 'Error',
+                    html: '<span style="font-size: 15px;"><?php echo htmlentities($errormsg); ?></span>',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                      container: 'swal-message',
+                      confirmButton: 'btn-custom-class'
+                    }
+                  });
+                </script>
+              <?php } ?>
+
               <?php
-               $email = $_SESSION['login'];
+              $email = $_SESSION['login'];
               $query = mysqli_query($bd, "SELECT empinfo.*, empcontact.*
                 FROM tbempinfo AS empinfo
                 INNER JOIN tbempcontact AS empcontact ON empinfo.empid = empcontact.empid
@@ -132,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                   <form class="form-horizontal style-form" method="post" name="profile" enctype="multipart/form-data">
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Profile Picture</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Profile Picture <br> (max of 5MB)</label>
                       <div class="col-sm-4">
                         <input type="file" name="profile">
                       </div>
@@ -179,8 +224,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         </div>
 
-
-
       </section>
     </section>
     <?php include("includes/footer.php"); ?>
@@ -192,7 +235,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
   <script src="assets/js/jquery.scrollTo.min.js"></script>
   <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-
 
   <!--common script for all pages-->
   <script src="assets/js/common-scripts.js"></script>
@@ -214,9 +256,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <script type="text/javascript" src="assets/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 
-
   <script src="assets/js/form-component.js"></script>
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <script>
     //custom select box
