@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 include('includes/config.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +56,7 @@ include('includes/config.php');
             popUpWin = open(URLStr, 'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' + 600 + ',height=' + 600 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top + '');
         }
     </script>
+
     <style>
         .card {
             margin-top: 50px;
@@ -105,106 +107,75 @@ include('includes/config.php');
     <?php include('includes/header.php'); ?>
     <br>
     <div class="card custom-container">
-        <h1>Grievance Details</h1>
+        <h1>Student Information</h1>
 
         <?php
-        /*   	
-	 $st='closed';
-		 $query=mysqli_query($bd, "select tblcomplaints.*,users.fullName as name,category.categoryName
-		  as catname from tblcomplaints 
-		 join users on users.id=tblcomplaints.userId 
-		 join category on category.id=tblcomplaints.category 
-		 where tblcomplaints.complaintNumber='".$_GET['cid']."'");
-		 */
+        if (isset($_GET['studid'])) {
+            $studid = $_GET['studid'];
 
-        if (isset($_GET['cid'])) {
-            $cid = $_GET['cid'];
+            // Prepare the SQL statement
+            $stmt = mysqli_prepare($bd, "SELECT 
+                tbstudcontact.*,ti.studid as studid, ti.course AS course, CONCAT(ti.firstname, ' ', ti.lastname) AS fullname 
+                FROM tbstudcontact
+                JOIN tbstudinfo ti ON ti.studid = tbstudcontact.studid
+                WHERE tbstudcontact.studid = ?");
 
-            $query = mysqli_query($bd, "SELECT 
-                 tablecomplaints.*, ti.studid as studid,  CONCAT(ti.firstname, ' ', ti.lastname) AS fullname, c.categoryName AS catname
-                 FROM tablecomplaints 
-                 JOIN tbstudinfo ti ON ti.studid = tablecomplaints.`sr-code`
-                 JOIN category c ON c.category_id = tablecomplaints.category_id
-                 WHERE tablecomplaints.complaintNumber=$cid");
+            // Bind parameters and execute the query
+            mysqli_stmt_bind_param($stmt, 's', $studid);
+            mysqli_stmt_execute($stmt);
 
-            if (!$query) {
-                die("Error: " . mysqli_error($bd));
-            }
+            // Get the result set
+            $result = mysqli_stmt_get_result($stmt);
+
 
             echo "<table>";
-            while ($row = mysqli_fetch_array($query)) {
-                $id = $row['complaintNumber'];
+            // Fetch data and process results
+            while ($row = mysqli_fetch_assoc($result)) {
                 $studid = $row['studid'];
+                $name = $row['fullname'];
+                $course = $row['course'];
+                $email = $row['email'];
+                $contact_no = $row['contact_no'];
+                $address = $row['address'];
+
 
                 echo "<tr>
-                     <th>Complaint Number</th>
-                     <td>" . htmlentities($row['complaintNumber']) . "</td>
-                 </tr>";
+                <th>Student Name</th>
+                <td>$name</td>
+            </tr>";
                 echo "<tr>
-                     <th>Complainant Name</th>
-                     <td>" . htmlentities($row['fullname']) . "</td>
-                 </tr>";
+                <th>Course</th>
+                <td>$course</td>
+            </tr>";
                 echo "<tr>
-                     <th>Complaint Details</th>
-                     <td>" . htmlentities($row['complaintDetails']) . "</td>
-                 </tr>";
-                $cfile = htmlentities($row['complaintFile']);
+                <th>Email</th>
+                <td>$email</td>
+            </tr>";
                 echo "<tr>
-                     <th>File/ proof</th>
-                     <td>";
-                //=========== DISPLAY THE FILE===================================================
-                if ($cfile == "" || $cfile == "NULL") {
-                    echo "File NA";
-                } else {
-                    echo '<a href="../student/complaintdocs/' . htmlentities($row['complaintFile']) . '">View File</a>';
-                }
-                echo "</td></tr>";
+                  <th>Contact Number</th>
+                <td>$contact_no</td>
+              </tr>";
                 echo "<tr>
-                 <th>Status</th>
-                 <td>";
-
-                if ($row['status'] == "" || $row['status'] == "NULL") {
-                    echo "Not Process Yet";
-                } else {
-                    echo htmlentities($row['status']);
-                }
-
-                echo "</td></tr>";
-
-                $ret = mysqli_query($bd, "SELECT 
-                     complaint_remark.remark AS remark,
-                     complaint_remark.status AS status,
-                     complaint_remark.remarkDate AS rdate 
-                     FROM complaint_remark 
-                     JOIN tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber
-                     WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
-
-                while ($row = mysqli_fetch_array($ret)) {
-                    $date = date('Y-m-d', strtotime($row['rdate'])); // Format date to 'YYYY-MM-DD'
-                    $remark=$row['remark'];
-                    echo "<tr>
-                         <th>Remark</th>
-                         <td>$date | $remark</td>
-                     </tr>";
-                }
-                echo "<tr>
-                     <th>Action</th>
-                     <td>
-                         <a href='updatecomplaint.php?update&cid={$id}' class='btn btn-primary'>
-                             <i class='fa fa-edit'></i> Update
-                         </a>
-                         <a href='http://localhost/bsugrievance/admin/studentprof.php?studid={$studid}' class='btn btn-primary'>
-                             <i class='fa fa-user'></i> View Student Information
-                         </a>
-                     </td>
-                     </tr>";
+                 <th>Address</th>
+                  <td>$address</td>
+             </tr>";
             }
             echo "</table>";
         } else {
-            echo "Complaint ID is not set!";
+            echo "studid parameter is not set!";
         }
         ?>
+        <button type="reset" class="btn btn-danger mt-6 mb-3" name="cancel" onclick="f2()" style="width: auto; margin: 0 auto; display: block;">
+            <i class="fa fa-times-circle"></i> Exit
+        </button>
+
     </div>
+
+    <script>
+        function f2() {
+            window.location.href = 'dashboard.php'; // Replace 'main-page.php' with your main page URL
+        }
+    </script>
 
     <?php include('includes/footer.php'); ?>
 
@@ -234,7 +205,6 @@ include('includes/config.php');
     <script src="assets/js/jquery.sparkline.js"></script>
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
-
     <!--common script for all pages-->
     <script src="assets/js/common-scripts.js"></script>
 
@@ -245,3 +215,5 @@ include('includes/config.php');
     <script src="assets/js/sparkline-chart.js"></script>
     <script src="assets/js/zabuto_calendar.js"></script>
 </body>
+
+</html>
