@@ -62,7 +62,6 @@ if (isset($_POST['change'])) {
 
 	<title>LOGIN | Grievance System</title>
 
-
 	<!-- Bootstrap core CSS -->
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
 	<!--external css-->
@@ -114,10 +113,9 @@ if (isset($_POST['change'])) {
 					</label>
 					<button class="btn btn-danger btn-block" name="submit" type="submit"><i class="fa fa-lock"></i> LOGIN</button>
 					<button class="btn btn-default btn-block" name="submit" type="submit" onclick="window.location.href='index.php';">
-					 CANCEL</button>
+						CANCEL</button>
 					<hr>
 			</form>
-
 
 		</div>
 
@@ -147,8 +145,6 @@ if (isset($_POST['change'])) {
 			<!-- modal -->
 		</form>
 
-
-
 	</div>
 	</div>
 
@@ -164,7 +160,6 @@ if (isset($_POST['change'])) {
 			speed: 500
 		});
 	</script>
-
 
 </body>
 

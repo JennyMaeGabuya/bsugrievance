@@ -1,5 +1,3 @@
-
-
 <?php
 /* ALTERNATIVE CODEEE FOR LOGOUT
 

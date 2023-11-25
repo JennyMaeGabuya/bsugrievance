@@ -8,31 +8,38 @@ if (strlen($_SESSION['login']) == 0) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Ensure a file is selected
-    if (isset($_FILES["profile"]) && $_FILES["profile"]["error"] == 0) {
-        $targetDirectory = "profilepicture/";
-        $profile = $_FILES["profile"]["name"];
-        $targetFile = $targetDirectory . basename($profile);
+  // Ensure a file is selected
+  if (isset($_FILES["profile"]) && $_FILES["profile"]["error"] == 0) {
+      $targetDirectory = "profilepicture/";
+      $profile = $_FILES["profile"]["name"];
+      $targetFile = $targetDirectory . basename($profile);
 
-        // Check file type, size, or any other validation here before uploading
+      // Define the maximum file size in bytes (e.g., 5MB)
+      $maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
-        // Move the uploaded file to the desired directory
-        if (move_uploaded_file($_FILES["profile"]["tmp_name"], $targetFile)) {
-            // Update the database with the file name or path
-            $email = $_SESSION['login'];
-            $query = mysqli_query($bd, "UPDATE tbstudcontact SET `profile_picture` = '$profile' WHERE email='$email'");
+      // Check file type and size
+      $fileSize = $_FILES["profile"]["size"];
+      if ($fileSize > $maxFileSize) {
+          echo "File size exceeds the maximum limit (5MB).";
+      } else {
+          // Move the uploaded file to the desired directory
+          if (move_uploaded_file($_FILES["profile"]["tmp_name"], $targetFile)) {
+              // Update the database with the file name or path
+              $email = $_SESSION['login'];
+              $query = mysqli_query($bd, "UPDATE tbempcontact SET `profile_picture` = '$profile' WHERE email='$email'");
 
-            if ($query) {
-                $successMessage = "You have successfully updated your profile picture!";
-            } else {
-                echo "Error updating profile picture: " . mysqli_error($bd);
-            }
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-        }
-    } else {
-        echo "Please select a file to upload.";
-    }
+              if ($query) {
+                  $successMessage = "You have successfully updated your profile picture!";
+              } else {
+                  echo "Error updating profile picture: " . mysqli_error($bd);
+              }
+          } else {
+              echo "Sorry, there was an error uploading your file.";
+          }
+      }
+  } else {
+      echo "Please select a file to upload.";
+  }
 }
 ?>
 
@@ -46,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-  <title>Employee | View Profile</title>
+  <title>EMPLOYEE | View Profile</title>
 
   <!-- Bootstrap core CSS -->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
