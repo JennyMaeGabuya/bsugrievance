@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
-date_default_timezone_set('Asia/Kolkata'); // change according timezone
+date_default_timezone_set('Asia/Manila'); // change according timezone
 $currentTime = date('d-m-Y h:i:s A', time());
 
 ?>
@@ -68,7 +68,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 									<thead>
 										<tr>
 											<th>Complaint No</th>
-											<th> complainant Name</th>
+											<th>Complainant Name</th>
 											<th>Date Filed</th>
 											<th>Status</th>
 

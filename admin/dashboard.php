@@ -65,21 +65,30 @@ if (strlen($_SESSION['login']) == 0) {
                 </div>
               </div>
 
-              <div class="col-md-2 col-sm-2" style="text-align: center; color:red">
+              <div class="col-md-2 col-sm-2" style="text-align: center; color: black">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="#" style="color: black">
                     <span class="li_news"></span>
                     <?php
-                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where `sr-code`='" . $_SESSION['id'] . "' AND `status` IS NULL");
-                    $num1 = mysqli_num_rows($rt);
+                    $query = mysqli_query($bd, "SELECT COUNT(*) AS total_complaints FROM `tablecomplaints`");
+                    $result = mysqli_fetch_assoc($query);
+                    $totalComplaints = $result['total_complaints'];
                     ?>
+                  </a>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Not Process Complaints</h4>
+                <h3><b><?php echo htmlentities($totalComplaints); ?></b></h3>
+                <h4>Complaint Records</h4>
               </div>
+
+              <style>
+                .col-sm-2 {
+                  margin-top: 20px;
+                }
+              </style>
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: orange">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="ongoingcomplaint.php" style="color: gray">
                     <span class="li_settings"></span>
                     <?php
                     $status = "in Process";
@@ -87,13 +96,14 @@ if (strlen($_SESSION['login']) == 0) {
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Pending Complaints</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3>
+                <h4></b>Ongoing Complaints</h4>
                 </a>
               </div>
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: gray">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="closedcomplaint.php" style="color: gray">
                     <span class="li_news"></span>
                     <?php
                     $status = "closed";
@@ -101,7 +111,8 @@ if (strlen($_SESSION['login']) == 0) {
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Closed Complaints</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3>
+                <h4></b>Closed Complaints</h4>
                 </a>
               </div>
 
