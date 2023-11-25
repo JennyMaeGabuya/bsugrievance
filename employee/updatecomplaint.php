@@ -85,6 +85,7 @@ h3{
  <div class="form-group" style="width:auto">
  <label for="stat"> Select status</label>
     <select id="status" name="status">
+    <option value="">Select Status</option>
         <option value="In Process">In Process</option>
         <option value="Closed">Closed</option>
     </select>

@@ -119,7 +119,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
       
      
          
-         $st = 'closed';
+        
          if(isset($_GET['cid'])) {
              $cid = $_GET['cid']; 
      
@@ -155,13 +155,24 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                  echo "<tr>
                      <th>File/ proof</th>
                      <td>";
-     
+     //=========== DISPLAY THE FILE===================================================
                  if ($cfile == "" || $cfile == "NULL") {
                      echo "File NA";
                  } else {
-                     echo '<a href="complaintdocs/' . htmlentities($row['complaintFile']) . '">View File</a>';
+                     echo '<a href="../student/complaintdocs/' . htmlentities($row['complaintFile']) . '">View File</a>';
                  }
                  echo "</td></tr>";
+                 echo "<tr>
+                 <th>Status</th>
+                 <td>";
+
+             if ($row['status'] == ""||$row['status'] == "NULL" ) {
+                 echo "Not Process Yet";
+             } else {
+                 echo htmlentities($row['status']);
+             }
+
+             echo "</td></tr>";
      
                  $ret = mysqli_query($bd, "SELECT 
                      complaint_remark.remark AS remark,
@@ -176,17 +187,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                          <th>Remark</th>
                          <td>" . htmlentities($row['remark']) . "</td>
                      </tr>"; 
-                     echo "<tr>
-                         <th>Status</th>
-                         <td>";
-     
-                     if ($row['status'] == "") {
-                         echo "Not Process Yet";
-                     } else {
-                         echo htmlentities($row['status']);
-                     }
-     
-                     echo "</td></tr>";
+                  
                  }
                  echo "<tr>
                      <th>Action</th>
