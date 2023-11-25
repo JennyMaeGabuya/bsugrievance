@@ -4,11 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
+
 
 
 ?>
@@ -259,4 +255,3 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
     <script src="assets/js/sparkline-chart.js"></script>
     <script src="assets/js/zabuto_calendar.js"></script>
 </body>
-<?php } ?>

@@ -16,9 +16,6 @@ document.location = "loginadmin.php";
 
 
 session_start();
-
-
-$_SESSION['alogin'] = ""; 
 header("Location: emplogin.php");
 exit; 
 ?>
