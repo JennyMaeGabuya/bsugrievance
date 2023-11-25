@@ -10,5 +10,5 @@ session_unset();
 
 ?>
 <script language="javascript">
-document.location="index.php";
+document.location="loginstud.php";
 </script>
