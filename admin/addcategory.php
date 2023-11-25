@@ -231,7 +231,7 @@ if (strlen($_SESSION['login']) == 0) {
 			<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 			<script src="assets/js/jquery.sparkline.js"></script>
 			<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+			<script src="assets/js/common-scripts.js"></script>
 		</section>
 	</body>
 
