@@ -150,7 +150,7 @@ include('includes/config.php');
                  </tr>";
                 $cfile = htmlentities($row['complaintFile']);
                 echo "<tr>
-                     <th>File/ proof</th>
+                     <th>File / Proof</th>
                      <td>";
                 //=========== DISPLAY THE FILE===================================================
                 if ($cfile == "" || $cfile == "NULL") {
