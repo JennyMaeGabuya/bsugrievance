@@ -88,7 +88,6 @@ if (strlen($_SESSION['login']) == 0) {
                                     </div>
                                 <?php } ?>
 
-
                                 <form class="form-horizontal style-form" method="post" name="chngpwd" onSubmit="return valid();">
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">Email</label>
@@ -128,8 +127,6 @@ if (strlen($_SESSION['login']) == 0) {
                             </div>
                         </div>
                     </div>
-
-
 
                 </section>
                 <! --/wrapper -->
