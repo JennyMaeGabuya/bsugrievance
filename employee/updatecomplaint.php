@@ -5,25 +5,27 @@ if(strlen($_SESSION['alogin'])==0)
   { 
 header('location:index.php');
 }
-if(isset($_GET['cid']))
-    {
-      $cid = $_GET['cid']; 
-    }
+if (isset($_GET['cid'])) {
+  $cid = $_GET['cid'];
+}
 
-  if(isset($_POST['update']))
-  {
-$complaintnumber=$_GET['cid'];
-$status=$_POST['status'];
-$remark=$_POST['remarks'];
-$remarkDate=$_POST['date'];
+if (isset($_POST['update'])) {
+  $complaintnumber = $_GET['cid'];
+  $status = $_POST['status'];
+  $remark = $_POST['remarks'];
+  $remarkDate = $_POST['date'];
 
-$query=mysqli_query($bd, "INSERT INTO `complaint_remark`(`complaintNumber`,`status`,`remark`, `remarkdate`) 
-values('$complaintnumber','$status','$remark', `$remarkDate`)");
-$sql=mysqli_query($bd, "UPDATE tablecomplaints SET `status`='$status' WHERE complaintNumber='$complaintnumber'");
 
-$successMessage = "You have successfully updated data";
+  $query = mysqli_prepare($bd, "INSERT INTO `complaint_remark`(`complaintNumber`, `status`, `remark`, `remarkDate`) VALUES (?, ?, ?, ?)");
+  mysqli_stmt_bind_param($query, 'ssss', $complaintnumber, $status, $remark, $remarkDate);
+  mysqli_stmt_execute($query);
 
-  }
+  $sql = mysqli_prepare($bd, "UPDATE `tablecomplaints` SET `status` = ? WHERE `complaintNumber` = ?");
+  mysqli_stmt_bind_param($sql, 'ss', $status, $complaintnumber);
+  mysqli_stmt_execute($sql);
+
+  $successMessage = "You have successfully updated data";
+}
 
  ?>
 
@@ -86,8 +88,8 @@ h3{
  <div class="form-group" style="width:auto">
  <label for="stat"> Select status</label>
     <select id="status" name="status">
-        <option value="red">In Process</option>
-        <option value="blue">Closed</option>
+        <option value="In Process">In Process</option>
+        <option value="Closed">Closed</option>
     </select>
  </div>
     <div class="form-group"><i class="fa fa-book"></i>
@@ -112,7 +114,7 @@ h3{
                 }
                 ?>
             </script>
-<button type="reset" class="btn btn-danger mt-6 mb-3" name="cancel" onclick="window.location.href='complaint-details.php';">
+<button type="reset" class="btn btn-danger mt-6 mb-3" name="cancel" onclick="window.location.href='complaint-details.php?cid=<?php echo $cid; ?>';">
     <i class="fa fa-times-circle"></i> Exit
 </button>
   <br>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('include/config.php');
+include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
@@ -60,9 +60,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             $query = mysqli_query($bd, "SELECT tablecomplaints.*, tbstudinfo.lastname AS name FROM tablecomplaints JOIN tbstudinfo ON tbstudinfo.studid = tablecomplaints.sr-code WHERE tablecomplaints.status='$st'");
                                             if ($query) {
                                                 while ($row = mysqli_fetch_array($query)) {
+                                                    $cid= $row['ComplaintNumber'];
                                             ?>
                                                     <tr>
-                                                        <td><?php echo htmlentities($row['complaintNumber']); ?></td>
+                                                        <td><?php echo $cid; ?></td>
                                                         <td><?php echo htmlentities($row['lastname']); ?></td>
                                                         <td><?php echo htmlentities($row['regDate']); ?></td>
                                                         <td><button type="button" class="btn btn-warning">In Process</button></td>

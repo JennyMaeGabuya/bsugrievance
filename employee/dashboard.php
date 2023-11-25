@@ -2,7 +2,7 @@
 error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
-  header('location:index.php');
+ header('location:index.php');
 } else { ?>
 
   <!DOCTYPE html>
@@ -67,10 +67,10 @@ if (strlen($_SESSION['login']) == 0) {
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color:red">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="pendingcomplaint.php" style="color: gray">
                     <span class="li_news"></span>
                     <?php
-                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where `sr-code`='" . $_SESSION['id'] . "' AND `status` IS NULL");
+                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where  `status` IS NULL");
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
@@ -82,12 +82,12 @@ if (strlen($_SESSION['login']) == 0) {
                   <a href="complaint-history.php" style="color: gray">
                     <span class="li_settings"></span>
                     <?php
-                    $status = "in Process";
-                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where `sr-code`='" . $_SESSION['id'] . "' and  `status`='$status'");
+                    $status = "In Process";
+                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where  `status`='$status'");
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Pending Complaints</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>In Process Complaints</h4>
                 </a>
               </div>
 
@@ -96,8 +96,8 @@ if (strlen($_SESSION['login']) == 0) {
                   <a href="complaint-history.php" style="color: gray">
                     <span class="li_news"></span>
                     <?php
-                    $status = "closed";
-                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where `sr-code`='" . $_SESSION['id'] . "' and  `status`='$status'");
+                    $status = "Closed";
+                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where   `status`='$status'");
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
@@ -138,4 +138,4 @@ if (strlen($_SESSION['login']) == 0) {
   </body>
 
   </html>
-<?php } ?>
+  <?php } ?> 
