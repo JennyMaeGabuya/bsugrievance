@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
-date_default_timezone_set('Asia/Kolkata'); // change according timezone
+date_default_timezone_set('Asia/Manila'); // change according timezone
 $currentTime = date('d-m-Y h:i:s A', time());
 
 ?>
@@ -14,7 +14,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>EMPLOYEE | On Process Complaints</title>
+	<title>ADMIN | Not Process Complaints</title>
 
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -67,7 +67,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 									<thead>
 										<tr>
 											<th>Complaint No</th>
-											<th> complainant Name</th>
+											<th>Complainant Name</th>
 											<th>Date Filed</th>
 											<th>Status</th>
 
@@ -90,12 +90,12 @@ WHERE tablecomplaints.status IS NULL;");
 											$cid = $row['complaintNumber'];
 
 										?>
-											<tr>
+											<tr style="text-align: center">
 												<td><?php echo $cid; ?></td>
 												<td><?php echo htmlentities($row['fullname']); ?></td>
 												<td><?php echo htmlentities($row['regDate']); ?></td>
 
-												<td><button type="button" class="btn btn-primary"><i class="fa fa-hourglass" style="font-size:16px;color:black;"></i>Not process yet</button></td>
+												<td><button type="button" class="btn btn-theme04"><i class="fa fa-hourglass-start" style="font-size:16px;color:black;"></i> Not Process Yet</button></td>
 
 												<td> <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>"> View Details</a>
 												</td>

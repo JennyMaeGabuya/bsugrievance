@@ -15,7 +15,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>ADMIN | Closed Complaints</title>
+	<title>ADMIN | In Process Complaints</title>
 
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -29,7 +29,6 @@ $currentTime = date('d-m-Y h:i:s A', time());
 	<link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
 	<link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
 	<link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">
-
 
 	<!-- Custom styles for this template -->
 	<link href="assets/css/style.css" rel="stylesheet">
@@ -61,7 +60,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 
 						<div class="module" style="margin-left: 250px;width:800px;">
 							<div class="module-head">
-								<h3>Closed Complaints</h3>
+								<h3>In Process Complaints</h3>
 							</div>
 							<div class="module-body table">
 
@@ -83,12 +82,11 @@ $currentTime = date('d-m-Y h:i:s A', time());
 										/* $query=mysqli_query($bd, "select tablecomplaints.*,CONCAT(einfo.firstname, ' ', einfo.lastname) AS fullname 
 FROM tbempinfoas name from tblcomplaints 
 join users on users.id=tblcomplaints.userId where tblcomplaints.status is null ");  */
-										$status = "Closed";
+										$status = "In Process";
 										$query = mysqli_query($bd, "SELECT tablecomplaints.*, CONCAT(tbstudinfo.firstname, ' ', tbstudinfo.lastname) AS fullname
-																	FROM tablecomplaints
-																	JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid
-																	WHERE tablecomplaints.status='$status';");
-										
+FROM tablecomplaints
+JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid
+WHERE tablecomplaints.status='$status';");
 										while ($row = mysqli_fetch_array($query)) {
 											$cid = $row['complaintNumber'];
 
@@ -97,9 +95,7 @@ join users on users.id=tblcomplaints.userId where tblcomplaints.status is null "
 												<td><?php echo $cid; ?></td>
 												<td><?php echo htmlentities($row['fullname']); ?></td>
 												<td><?php echo htmlentities($row['regDate']); ?></td>
-
-												<td><button type="button" class="btn btn-success"><i class="fa fa-gavel" style="font-size:16px;color:white"></i> Closed</button></td>
-
+												<td><button type="button" class="btn btn-warning"><i class="fa fa-spinner fa-spin" style="font-size:16px"></i> In Process</button></td>
 
 												<td> <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>"> View Details</a>
 												</td>
@@ -118,7 +114,7 @@ join users on users.id=tblcomplaints.userId where tblcomplaints.status is null "
 	</div><!--/.wrapper-->
 
 	<?php include('includes/footer.php'); ?>
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
