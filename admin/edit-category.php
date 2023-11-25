@@ -105,7 +105,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Description: </label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="description" rows="5"><?php echo  htmlentities($row['categoryDescription']); ?></textarea>
+                                                <textarea class="form-control" placeholder="Enter Category Description" name="description" rows="5" required><?php echo  htmlentities($row['categoryDescription']); ?></textarea>
                                             </div>
                                         </div>
                                 <?php
