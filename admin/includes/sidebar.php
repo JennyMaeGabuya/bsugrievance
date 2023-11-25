@@ -20,11 +20,12 @@
 
     ul.sidebar-menu li ul.sub li:hover {
         /* Hover effect for submenu items */
-        background: white;
+        
         margin-bottom: 0;
         margin-left: 0;
         margin-right: 0;
         color: black;
+        background-color: #68dff0;   /*hover for dropdown*/
     }
 
     ul.sidebar-menu li ul.sub li a {

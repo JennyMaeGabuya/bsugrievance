@@ -24,7 +24,7 @@
         margin-left: 0;
         margin-right: 0;
         color: black;
-      /*  background-color: aqua; */
+        background-color: #68dff0;   /*hover for dropdown*/
     }
 
     ul.sidebar-menu li ul.sub li a {
