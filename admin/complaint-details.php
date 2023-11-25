@@ -2,9 +2,12 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+
 if (strlen($_SESSION['login']) == 0) {
-  header('location:index.php');
-} else {
+    header('location:index.php');
+    exit();
+}
+
 ?>
 
   <!DOCTYPE html>
@@ -27,7 +30,27 @@ if (strlen($_SESSION['login']) == 0) {
   </head>
 
   <body>
+<?php
+  // Assuming you have the database connection $bd available
 
+// Fetch complaint details from the database
+$query = mysqli_query($bd, "SELECT tablecomplaints.*, 
+                                  category1.categoryName AS catname, 
+                                  category1.categoryDescription 
+                              FROM tablecomplaints 
+                              JOIN tbstudinfo ON tbstudinfo.studid = tablecomplaints.`sr-code`
+                              JOIN tbstudcontact ON tbstudcontact.studid = tablecomplaints.`sr-code`
+                              JOIN category AS category1 ON category1.category_id = tablecomplaints.category_id
+                              JOIN category AS category2 ON category2.category_id = tablecomplaints.category_id 
+                              WHERE tablecomplaints.`sr-code` = '" . $_SESSION['id'] . "' 
+                              AND tbstudinfo.studid = '" . $_GET['`sr-code`'] . "'");
+if (!$query) {
+            die('Error in query: ' . mysqli_error($bd));
+}
+
+// Fetch the result
+$row = mysqli_fetch_assoc($query);
+?>
     <section id="container">
       <?php include('includes/header.php'); ?>
       <?php include('includes/sidebar.php'); ?>
@@ -37,70 +60,62 @@ if (strlen($_SESSION['login']) == 0) {
           <hr />
 
 
-          <?php
-                $query = mysqli_query($bd, "SELECT tablecomplaints.*, 
-                category.categoryName AS catname, 
-                category.categoryDescription 
-         FROM tablecomplaints 
-         JOIN category ON category.category_id = tablecomplaints.category_id 
-         WHERE `sr-code` = '" . $_SESSION['id'] . "' 
-               AND complaintNumber = '" . $_GET['cid'] . "'");
-while ($row = mysqli_fetch_array($query)) { ?>
-    <div class="row mt">
-        <label class="col-sm-2 col-sm-2 control-label"><b>Complainant Name: </b></label>
-        <div class="col-sm-4">
-            <p><?php echo htmlentities($row['fullname']); ?></p>
-        </div>
-        <label class="col-sm-2 col-sm-2 control-label"><b>Sr-code:</b></label>
-        <div class="col-sm-4">
-            <p><?php echo htmlentities($row['`sr-code`']); ?></p>
-        </div>
+          <div class="row mt">
+          <label class="col-sm-2 col-sm-2 control-label"><b>Complainant Name: </b></label>
+    <div class="col-sm-4">
+        <p><?php echo htmlentities($row['firstname'] . ' ' . $row['lastname']); ?></p>
     </div>
-
-    <div class="row mt">
-        <label class="col-sm-2 col-sm-2 control-label"><b>Email: </b></label>
-        <div class="col-sm-4">
-            <p><?php echo htmlentities($row['email']); ?></p>
-        </div>
-        <label class="col-sm-2 col-sm-2 control-label"><b>Category:</b></label>
-        <div class="col-sm-4">
-            <p><?php echo htmlentities($row['categoryName']); ?></p>
-        </div>
+    <label class="col-sm-2 col-sm-2 control-label"><b>Student ID: </b></label>
+    <div class="col-sm-4">
+        <p><?php echo htmlentities($row['sr-code']); ?></p>
     </div>
+</div>
 
-    <div class="row mt">
-        <label class="col-sm-2 col-sm-2 control-label"><b>Complaint for: </b></label>
-        <div class="col-sm-4">
-            <!-- Make sure 'complaintName' is part of the result set -->
-            <p><?php echo htmlentities($row['complaintName']); ?></p>
-        </div>
-        <label class="col-sm-2 col-sm-2 control-label"><b>Category:</b></label>
-        <div class="col-sm-4">
-            <!-- Make sure 'categoryName' is part of the result set -->
-            <p><?php echo htmlentities($row['categoryName']); ?></p>
-        </div>
+<div class="row mt">
+    <label class="col-sm-2 col-sm-2 control-label"><b>Email: </b></label>
+    <div class="col-sm-4">
+        <!-- Assuming the student email is in tbstudcontact table -->
+        <p><?php echo htmlentities($row['email']); ?></p>
     </div>
-
-    <div class="row mt">
-        <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Details: </b></label>
-        <div class="col-sm-4">
-            <p><?php echo htmlentities($row['complaintDetails']); ?></p>
-        </div>
-        <!-- Missing closing </div> tag -->
-
-        <label class="col-sm-2 col-sm-2 control-label"><b>File :</b></label>
-        <div class="col-sm-4">
-            <p><?php
-                $cfile = $row['complaintFile'];
-                if ($cfile == "" || $cfile == "NULL") {
-                    echo htmlentities("File NA");
-                } else { ?>
-                    <a href="complaintdocs/<?php echo htmlentities($row['complaintFile']); ?>"> View File</a>
-                <?php } ?>
-            </p>
-        </div>
+    <label class="col-sm-2 col-sm-2 control-label"><b>Category:</b></label>
+    <div class="col-sm-4">
+        <p><?php echo htmlentities($row['categoryName']); ?></p>
     </div>
-<?php } ?>
+</div>
+
+<div class="row mt">
+    <label class="col-sm-2 col-sm-2 control-label"><b>Complaint for: </b></label>
+    <div class="col-sm-4">
+        <!-- Make sure 'complaintName' is part of the result set -->
+        <p><?php echo htmlentities($row['complaintName']); ?></p>
+    </div>
+    <label class="col-sm-2 col-sm-2 control-label"><b>Category:</b></label>
+    <div class="col-sm-4">
+        <!-- Make sure 'categoryName' is part of the result set -->
+        <p><?php echo htmlentities($row['categoryName']); ?></p>
+    </div>
+</div>
+
+<div class="row mt">
+    <label class="col-sm-2 col-sm-2 control-label"><b>Complaint Details: </b></label>
+    <div class="col-sm-4">
+        <p><?php echo htmlentities($row['complaintDetails']); ?></p>
+    </div>
+    <!-- Missing closing </div> tag -->
+
+    <label class="col-sm-2 col-sm-2 control-label"><b>File :</b></label>
+    <div class="col-sm-4">
+        <p><?php
+            $cfile = $row['complaintFile'];
+            if ($cfile == "" || $cfile == "NULL") {
+                echo htmlentities("File NA");
+            } else { ?>
+                <a href="complaintdocs/<?php echo htmlentities($row['complaintFile']); ?>"> View File</a>
+            <?php } ?>
+        </p>
+    </div>
+</div>
+<?php  ?>
 </section>
 <!-- /wrapper -->
 </section><!-- /MAIN CONTENT -->
@@ -129,4 +144,4 @@ while ($row = mysqli_fetch_array($query)) { ?>
   </body>
 
   </html>
-<?php } ?>
+<?php  ?>
