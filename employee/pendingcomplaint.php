@@ -100,7 +100,7 @@ while($row=mysqli_fetch_array($query))
 											<td><?php echo htmlentities($row['fullname']);?></td>
 											<td><?php echo htmlentities($row['regDate']);?></td>
 										
-											<td><button type="button" class="btn btn-danger">Not process yet</button></td>
+											<td><button type="button" class="btn btn-primary"><i class="fa fa-hourglass" style="font-size:16px;color:black;"></i>Not process yet</button></td>
 											
 											<td>   <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']);?>"> View Details</a> 
 											</td>
@@ -119,7 +119,7 @@ while($row=mysqli_fetch_array($query))
 			</div>
 		</div><!--/.container-->
 	</div><!--/.wrapper-->
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <?php include('includes/footer.php');?>
 
 	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>

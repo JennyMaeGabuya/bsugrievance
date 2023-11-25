@@ -79,7 +79,7 @@ if (strlen($_SESSION['login']) == 0) {
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: orange">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="ongoingcomplaint.php" style="color: gray">
                     <span class="li_settings"></span>
                     <?php
                     $status = "In Process";
@@ -93,7 +93,7 @@ if (strlen($_SESSION['login']) == 0) {
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: gray">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="closedcomplaint.php" style="color: gray">
                     <span class="li_news"></span>
                     <?php
                     $status = "Closed";

@@ -173,7 +173,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
      
      <script>
 function f2() {
-    window.location.href = 'pendingcomplaint.php'; // Replace 'main-page.php' with your main page URL
+    window.location.href = 'dashboard.php'; // Replace 'main-page.php' with your main page URL
 }
 </script>			
 
