@@ -65,7 +65,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
 							</div>
 							<div class="module-body table">
 
-								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display">
+								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" style="text-align: center;">
 									<thead>
 										<tr>
 											<th>Complaint No</th>
@@ -98,7 +98,7 @@ join users on users.id=tblcomplaints.userId where tblcomplaints.status is null "
 												<td><?php echo htmlentities($row['fullname']); ?></td>
 												<td><?php echo htmlentities($row['regDate']); ?></td>
 
-												<td><button type="button" class="btn btn-danger"><i class="fa fa-gavel" style="font-size:16px;color:white"></i> Closed</button></td>
+												<td><button type="button" class="btn btn-success"><i class="fa fa-gavel" style="font-size:16px;color:white"></i> Closed</button></td>
 
 
 												<td> <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>"> View Details</a>

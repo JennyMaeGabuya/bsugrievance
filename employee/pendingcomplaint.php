@@ -90,12 +90,12 @@ WHERE tablecomplaints.status IS NULL;");
 											$cid = $row['complaintNumber'];
 
 										?>
-											<tr>
+											<tr style="text-align: center">
 												<td><?php echo $cid; ?></td>
 												<td><?php echo htmlentities($row['fullname']); ?></td>
 												<td><?php echo htmlentities($row['regDate']); ?></td>
 
-												<td><button type="button" class="btn btn-primary"><i class="fa fa-hourglass" style="font-size:16px;color:black;"></i>Not process yet</button></td>
+												<td><button type="button" class="btn btn-theme04"><i class="fa fa-hourglass-start" style="font-size:16px;color:black;"></i> Not Process Yet</button></td>
 
 												<td> <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>"> View Details</a>
 												</td>

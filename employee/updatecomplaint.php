@@ -92,7 +92,7 @@ if (isset($_POST['update'])) {
       </div>
 
       <div class="form-group" style="width:auto">
-        <label for="stat"> Select status</label>
+        <label for="stat"> Select Status</label>
         <select id="status" name="status">
           <option value="">Select Status</option>
           <option value="In Process">In Process</option>
@@ -110,7 +110,7 @@ if (isset($_POST['update'])) {
         <input type="date" class="form-control" name="date" required>
       </div>
 
-      <button type="submit" class="btn btn-primary mt-6 mb-3" name="update"><i class="far fa-edit"></i>Update</button>
+      <br><button type="submit" class="btn btn-primary mt-6 mb-3" name="update"><i class="far fa-edit"></i>Update</button>
 
       <script type="text/javascript">
         <?php
@@ -129,7 +129,7 @@ if (isset($_POST['update'])) {
       <button type="reset" class="btn btn-danger mt-6 mb-3" name="cancel" onclick="window.location.href='complaint-details.php?cid=<?php echo $cid; ?>';">
         <i class="fa fa-times-circle"></i> Exit
       </button>
-      <br>
+      <br><br>
 
     </form>
   </div>

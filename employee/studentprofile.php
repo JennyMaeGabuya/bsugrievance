@@ -140,7 +140,7 @@ include('includes/config.php');
 
 
                 echo "<tr>
-                <th>student Name</th>
+                <th>Student Name</th>
                 <td>$name</td>
             </tr>";
                 echo "<tr>
@@ -148,7 +148,7 @@ include('includes/config.php');
                 <td>$course</td>
             </tr>";
                 echo "<tr>
-                <th>email</th>
+                <th>Email</th>
                 <td>$email</td>
             </tr>";
                 echo "<tr>

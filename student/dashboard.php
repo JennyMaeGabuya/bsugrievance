@@ -67,7 +67,7 @@ if (strlen($_SESSION['login']) == 0) {
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color:red">
                 <div class="box1">
-                  <a href="complaint-history.php" style="color: gray">
+                  <a href="notprocess.php" style="color: gray">
                     <span class="li_news"></span>
                     <?php
                     $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where `sr-code`='" . $_SESSION['id'] . "' AND `status` IS NULL");
