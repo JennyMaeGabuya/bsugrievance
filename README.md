@@ -13,11 +13,7 @@ login                        EVERSON (but crt by Ryan)
       pending
       closed
 
-manage users                JELLADANE      
+manage users                ++ employee and students     
 add category                JENNY
-user log                    EVERSON
 logout                      --STUDENT SAME
 change password             ERIKA (added may prob pa)
-
-++ db updation              -minimal column name change
--- change password student  -- subject to change
