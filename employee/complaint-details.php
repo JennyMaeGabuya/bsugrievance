@@ -180,9 +180,11 @@ include('includes/config.php');
                      WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
 
                 while ($row = mysqli_fetch_array($ret)) {
+                    $date = date('Y-m-d', strtotime($row['rdate'])); // Format date to 'YYYY-MM-DD'
+                    $remark=$row['remark'];
                     echo "<tr>
                          <th>Remark</th>
-                         <td>" . htmlentities($row['remark']) . "</td>
+                         <td>$date | $remark</td>
                      </tr>";
                 }
                 echo "<tr>

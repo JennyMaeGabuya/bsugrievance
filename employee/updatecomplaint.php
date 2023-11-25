@@ -13,8 +13,8 @@ if (isset($_POST['update'])) {
   $remarkDate = $_POST['date'];
 
 
-  $query = mysqli_prepare($bd, "INSERT INTO `complaint_remark`(`complaintNumber`, `status`, `remark`, `remarkDate`) VALUES (?, ?, ?, ?)");
-  mysqli_stmt_bind_param($query, 'ssss', $complaintnumber, $status, $remark, $remarkDate);
+  $query = mysqli_prepare($bd, "UPDATE `complaint_remark` SET `status` = ?, `remark` = ?, `remarkDate` = ? WHERE `complaintNumber` = ?");
+  mysqli_stmt_bind_param($query, 'ssss', $status, $remark, $remarkDate, $complaintnumber);
   mysqli_stmt_execute($query);
 
   $sql = mysqli_prepare($bd, "UPDATE `tablecomplaints` SET `status` = ? WHERE `complaintNumber` = ?");
