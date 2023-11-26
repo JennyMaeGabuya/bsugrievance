@@ -5,10 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BatStateU-Lipa | Grievance System</title>
+  
   <style>
     body {
-      background-image: url("../student/assets/img/Frame.jpg");
-      background-size: cover;
       padding: 0;
       font-family: Arial, sans-serif;
       margin-left: 15%;

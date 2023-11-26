@@ -8,8 +8,6 @@
 
   <style>
     body {
-      background-image: url("assets/img/Frame.jpg");
-      background-size: cover;
       padding: 0;
       font-family: Arial, sans-serif;
       margin-left: 15%;
