@@ -12,7 +12,7 @@ include('includes/config.php');
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EMPLOYEE | Complaint Details</title>
+    <title>STUDENT | Complaint Details</title>
 
     <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -121,11 +121,11 @@ include('includes/config.php');
             $cid = $_GET['cid'];
 
             $query = mysqli_query($bd, "SELECT 
-                 tablecomplaints.*, ti.studid as studid,  CONCAT(ti.firstname, ' ', ti.lastname) AS fullname, c.categoryName AS catname
-                 FROM tablecomplaints 
-                 JOIN tbstudinfo ti ON ti.studid = tablecomplaints.`sr-code`
-                 JOIN category c ON c.category_id = tablecomplaints.category_id
-                 WHERE tablecomplaints.complaintNumber=$cid");
+                    tablecomplaints.*, ti.studid as studid, CONCAT(ti.firstname, ' ', ti.lastname) AS fullname, c.categoryName AS catname
+                    FROM tablecomplaints 
+                    JOIN tbstudinfo ti ON ti.studid = tablecomplaints.`sr-code`
+                    JOIN category c ON c.category_id = tablecomplaints.category_id
+                    WHERE tablecomplaints.complaintNumber=$cid");
 
             if (!$query) {
                 die("Error: " . mysqli_error($bd));
@@ -137,21 +137,21 @@ include('includes/config.php');
                 $studid = $row['studid'];
 
                 echo "<tr>
-                     <th>Complaint Number</th>
-                     <td>" . htmlentities($row['complaintNumber']) . "</td>
-                 </tr>";
+                        <th>Complaint Number</th>
+                        <td>" . htmlentities($row['complaintNumber']) . "</td>
+                    </tr>";
                 echo "<tr>
-                     <th>Complainant Name</th>
-                     <td>" . htmlentities($row['fullname']) . "</td>
-                 </tr>";
+                        <th>Complainant Name</th>
+                        <td>" . htmlentities($row['fullname']) . "</td>
+                    </tr>";
                 echo "<tr>
-                     <th>Complaint Details</th>
-                     <td>" . htmlentities($row['complaintDetails']) . "</td>
-                 </tr>";
+                        <th>Complaint Details</th>
+                        <td>" . htmlentities($row['complaintDetails']) . "</td>
+                    </tr>";
                 $cfile = htmlentities($row['complaintFile']);
                 echo "<tr>
-                     <th>File / Proof</th>
-                     <td>";
+                        <th>File / Proof</th>
+                        <td>";
                 //=========== DISPLAY THE FILE===================================================
                 if ($cfile == "" || $cfile == "NULL") {
                     echo "File NA";
@@ -159,54 +159,57 @@ include('includes/config.php');
                     echo '<a href="../student/complaintdocs/' . htmlentities($row['complaintFile']) . '">View File</a>';
                 }
                 echo "</td></tr>";
+
                 echo "<tr>
-                 <th>Status</th>
-                 <td>";
+                    <th>Status</th>
+                    <td>";
 
                 if ($row['status'] == "" || $row['status'] == "NULL") {
-                    echo "Not Process Yet";
+                    echo '<span style="color: red;">Not Process Yet</span>';
                 } else {
                     echo htmlentities($row['status']);
                 }
 
                 echo "</td></tr>";
 
+                // Fetch additional remarks
                 $ret = mysqli_query($bd, "SELECT 
-    complaint_remark.remark AS remark,
-    complaint_remark.status AS status,
-    complaint_remark.remarkDate AS rdate 
-    FROM complaint_remark 
-    JOIN tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber
-    WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
+complaint_remark.remark AS remark,
+complaint_remark.status AS status,
+complaint_remark.remarkDate AS rdate 
+FROM complaint_remark 
+JOIN tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber
+WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
 
-echo "<table>"; // Open the table tag before the while loop
-
-while ($row = mysqli_fetch_array($ret)) {
-    $date = date('Y-m-d', strtotime($row['rdate'])); // Format date to 'YYYY-MM-DD'
-    $remark = $row['remark'];
-    
-    echo "<tr>
-        <th>Remark</th>
-        <td>$date | $remark</td>
-    </tr>";
-    
-    // Displaying the Final Status should be done within the loop
-    echo '<div class="row mt">
-                        <label class="col-sm-2 col-sm-2 control-label"><b>Final Status :</b></label>
-                        <div class="col-sm-4">
-                            <p style="color:red"><b>';
-                    if ($row['status'] == "NULL" || $row['status'] == "") {
-                        echo "Not Process Yet";
-                    } else {
-                        echo htmlentities($row['status']);
-                    }
-                    echo '</b></p>
-                        </div>
-                    </div>';
+                // Check if the query executed successfully
+                if (!$ret) {
+                    die("Error: " . mysqli_error($bd));
                 }
 
-                echo "</table>"; // Close the table tag after the while loop
+                // Display additional remarks
+                if (mysqli_num_rows($ret) > 0) {
+                    while ($additionalRow = mysqli_fetch_array($ret)) {
+                        $date = date('Y-m-d', strtotime($additionalRow['rdate'])); // Format date to 'YYYY-MM-DD'
+                        $remark = $additionalRow['remark'];
+                        echo "<tr>
+    <th>Remark</th>
+    <td>$date | $remark</td>
+</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='2'>No remarks found</td></tr>";
+                }
+
+                // Store the final status
+                $finalStatus = ($row['status'] == "NULL" || $row['status'] == "") ? '<b><span style="color: red;">Not Process Yet</span></b>' : '<b><span style="color: red;">' . htmlentities($row['status']) . '</span></b>';
+
+                // Display the final status
+                echo '<tr>
+                    <th>Final Status</th>
+                    <td>' . $finalStatus . '</td>
+                </tr>';
             }
+            echo "</table>";
         } else {
             echo "Complaint ID is not set!";
         }
@@ -252,5 +255,3 @@ while ($row = mysqli_fetch_array($ret)) {
     <script src="assets/js/sparkline-chart.js"></script>
     <script src="assets/js/zabuto_calendar.js"></script>
 </body>
-
-</html>
