@@ -83,7 +83,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
                                 JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid 
                                 WHERE tablecomplaints.status IS NULL 
                                 OR tablecomplaints.status = 'In Process' 
-                                OR tablecomplaints.status = 'Closed'");
+                                OR tablecomplaints.status = 'Closed' ORDER BY complaintNumber DESC");
 
 										while ($row = mysqli_fetch_array($query)) {
 											$status = $row['status'];

@@ -80,12 +80,6 @@ if (strlen($_SESSION['login']) == 0) {
                 <h4>Students Grievance Records</h4>
               </div>
 
-              <style>
-                .col-sm-2 {
-                  margin-top: 20px;
-                }
-              </style>
-
               <div class="col-md-2 col-sm-2" style="text-align: center; color: orange">
                 <div class="box1">
                   <a href="ongoingcomplaint.php" style="color: gray">
