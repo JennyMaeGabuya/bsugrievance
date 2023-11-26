@@ -77,7 +77,7 @@ if (strlen($_SESSION['login']) == 0) {
                   </a>
                 </div>
                 <h3><b><?php echo htmlentities($totalComplaints); ?></b></h3>
-                <h4>Complaint Records</h4>
+                <h4>Students Grievance Records</h4>
               </div>
 
               <style>

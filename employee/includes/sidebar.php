@@ -127,8 +127,8 @@
 
                 <ul class="sub">
                     <li><a href="pendingcomplaint.php"><i class="fa fa-user" style="color: black;"></i>Not Process Yet</a></li>
-                    <li><a href="ongoingcomplaint.php"><i class="fa fa-file-text" style="color: black;"></i> Pending Complaint</a></li>
-                    <li><a href="closedcomplaint.php"><i class="fa fa-lock" style="color: black;"></i> Closed Complaints</a></li>
+                    <li><a href="ongoingcomplaint.php"><i class="fa fa-file-text" style="color: black;"></i>Pending Complaint</a></li>
+                    <li><a href="closedcomplaint.php"><i class="fa fa-lock" style="color: black;"></i>Closed Complaints</a></li>
                 </ul>
             </li>
 
@@ -140,7 +140,7 @@
 
                 <ul class="sub">
                     <li><a href="empprofile.php"><i class="fa fa-user" style="color: black;"></i>View Profile</a></li>
-                    <li><a href="change-password.php"><i class="fa fa-lock" style="color: black;"></i> Change Password</a></li>
+                    <li><a href="change-password.php"><i class="fa fa-lock" style="color: black;"></i>Change Password</a></li>
                 </ul>
 
             </li>

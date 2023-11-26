@@ -125,7 +125,7 @@
 
                 <ul class="sub">
                     <li><a href="profile.php"><i class="fa fa-user" style="color: black;"></i>View Profile</a></li>
-                    <li><a href="change-password.php"><i class="fa fa-lock" style="color: black;"></i> Change Password</a></li>
+                    <li><a href="change-password.php"><i class="fa fa-lock" style="color: black;"></i>Change Password</a></li>
                 </ul>
 
             </li>
