@@ -2,7 +2,7 @@
 error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
- header('location:index.php');
+  header('location:index.php');
 } else { ?>
 
   <!DOCTYPE html>
@@ -77,7 +77,7 @@ if (strlen($_SESSION['login']) == 0) {
                   </a>
                 </div>
                 <h3><b><?php echo htmlentities($totalComplaints); ?></b></h3>
-                <h4>Students Grievance Records</h4>
+                <h4>Grievance Records</h4>
               </div>
 
               <div class="col-md-2 col-sm-2" style="text-align: center; color: orange">
@@ -90,7 +90,8 @@ if (strlen($_SESSION['login']) == 0) {
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>In Process Complaints</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3>
+                <h4></b>In Process Complaints</h4>
                 </a>
               </div>
 
@@ -104,7 +105,8 @@ if (strlen($_SESSION['login']) == 0) {
                     $num1 = mysqli_num_rows($rt);
                     ?>
                 </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Closed Complaints</h4>
+                <h3><b><?php echo htmlentities($num1); ?></h3>
+                <h4></b>Closed Complaints</h4>
                 </a>
               </div>
 
@@ -141,4 +143,4 @@ if (strlen($_SESSION['login']) == 0) {
   </body>
 
   </html>
-  <?php } ?> 
+<?php } ?>
