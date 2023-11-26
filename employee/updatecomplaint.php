@@ -7,21 +7,35 @@ if (isset($_GET['cid'])) {
 }
 
 if (isset($_POST['update'])) {
-  $complaintnumber = $_GET['cid'];
-  $status = $_POST['status'];
-  $remark = $_POST['remarks'];
-  $remarkDate = $_POST['date'];
+    $complaintnumber = $_GET['cid'];
+    $status = $_POST['status'];
+    $remark = $_POST['remarks'];
+    $remarkDate = $_POST['date'];
 
+    // Check if the record exists in `complaint_remark`
+    $checkQuery = mysqli_prepare($bd, "SELECT * FROM `complaint_remark` WHERE `complaintNumber` = ?");
+    mysqli_stmt_bind_param($checkQuery, 's', $complaintnumber);
+    mysqli_stmt_execute($checkQuery);
+    $result = mysqli_stmt_get_result($checkQuery);
 
-  $query = mysqli_prepare($bd, "UPDATE `complaint_remark` SET `status` = ?, `remark` = ?, `remarkDate` = ? WHERE `complaintNumber` = ?");
-  mysqli_stmt_bind_param($query, 'ssss', $status, $remark, $remarkDate, $complaintnumber);
-  mysqli_stmt_execute($query);
+    // If no record exists, perform INSERT
+    if (mysqli_num_rows($result) == 0) {
+        $insertQuery = mysqli_prepare($bd, "INSERT INTO `complaint_remark` (`complaintNumber`, `status`, `remark`, `remarkDate`) VALUES (?, ?, ?, ?)");
+        mysqli_stmt_bind_param($insertQuery, 'ssss', $complaintnumber, $status, $remark, $remarkDate);
+        mysqli_stmt_execute($insertQuery);
+    } else {
+        // If record exists, perform UPDATE
+        $updateQuery = mysqli_prepare($bd, "UPDATE `complaint_remark` SET `status` = ?, `remark` = ?, `remarkDate` = ? WHERE `complaintNumber` = ?");
+        mysqli_stmt_bind_param($updateQuery, 'ssss', $status, $remark, $remarkDate, $complaintnumber);
+        mysqli_stmt_execute($updateQuery);
+    }
 
-  $sql = mysqli_prepare($bd, "UPDATE `tablecomplaints` SET `status` = ? WHERE `complaintNumber` = ?");
-  mysqli_stmt_bind_param($sql, 'ss', $status, $complaintnumber);
-  mysqli_stmt_execute($sql);
+    // Update `tablecomplaints` regardless of INSERT or UPDATE
+    $sql = mysqli_prepare($bd, "UPDATE `tablecomplaints` SET `status` = ? WHERE `complaintNumber` = ?");
+    mysqli_stmt_bind_param($sql, 'ss', $status, $complaintnumber);
+    mysqli_stmt_execute($sql);
 
-  $successMessage = "You have successfully updated data";
+    $successMessage = "You have successfully updated data";
 }
 
 ?>
