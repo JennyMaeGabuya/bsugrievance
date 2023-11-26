@@ -187,8 +187,10 @@ if (strlen($_SESSION['login']) == 0) {
 
                     <?php
                     $query = mysqli_query($bd, "SELECT * 
-                                                    FROM tbempinfo 
-                                                    JOIN tbempcontact ON tbempinfo.empid = tbempcontact.empid");
+                                                  FROM tbempinfo 
+                                                  JOIN tbempcontact ON tbempinfo.empid = tbempcontact.empid
+                                                  ORDER BY tbempinfo.empid DESC");
+                    
                     $cnt = 1;
 
                     while ($row = mysqli_fetch_array($query)) {
