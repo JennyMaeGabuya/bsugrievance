@@ -125,7 +125,7 @@ include('includes/config.php');
                     FROM tablecomplaints 
                     JOIN tbstudinfo ti ON ti.studid = tablecomplaints.`sr-code`
                     JOIN category c ON c.category_id = tablecomplaints.category_id
-                    WHERE tablecomplaints.complaintNumber=$cid");
+                    WHERE tablecomplaints.complaintNumber = $cid");
 
             if (!$query) {
                 die("Error: " . mysqli_error($bd));
@@ -141,13 +141,18 @@ include('includes/config.php');
                         <td>" . htmlentities($row['complaintNumber']) . "</td>
                     </tr>";
                 echo "<tr>
-                        <th>Complainant Name</th>
-                        <td>" . htmlentities($row['fullname']) . "</td>
+                        <th>Complaint Category</th>
+                        <td>" . htmlentities($row['catname']) . "</td>
                     </tr>";
                 echo "<tr>
-                        <th>Complaint Details</th>
+                        <th>Complaint Type</th>
+                        <td>" . htmlentities($row['complaintName']) . "</td>
+                    </tr>";
+                echo "<tr>
+                        <th>Grievance Description</th>
                         <td>" . htmlentities($row['complaintDetails']) . "</td>
                     </tr>";
+
                 $cfile = htmlentities($row['complaintFile']);
                 echo "<tr>
                         <th>File / Proof</th>
@@ -174,12 +179,12 @@ include('includes/config.php');
 
                 // Fetch additional remarks
                 $ret = mysqli_query($bd, "SELECT 
-complaint_remark.remark AS remark,
-complaint_remark.status AS status,
-complaint_remark.remarkDate AS rdate 
-FROM complaint_remark 
-JOIN tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber
-WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
+                                            complaint_remark.remark AS remark,
+                                            complaint_remark.status AS status,
+                                            complaint_remark.remarkDate AS rdate 
+                                        FROM complaint_remark 
+                                        JOIN tablecomplaints ON tablecomplaints.complaintNumber = complaint_remark.complaintNumber
+                                        WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
 
                 // Check if the query executed successfully
                 if (!$ret) {
@@ -188,17 +193,24 @@ WHERE complaint_remark.complaintNumber='" . $_GET['cid'] . "'");
 
                 // Display additional remarks
                 if (mysqli_num_rows($ret) > 0) {
+                    echo "<table>";
                     while ($additionalRow = mysqli_fetch_array($ret)) {
                         $date = date('Y-m-d', strtotime($additionalRow['rdate'])); // Format date to 'YYYY-MM-DD'
                         $remark = $additionalRow['remark'];
                         echo "<tr>
-    <th>Remark</th>
-    <td>$date | $remark</td>
-</tr>";
+                                <th>Remark</th>
+                                <td>$date | $remark</td>
+                              </tr>";
                     }
+                    echo "</table>";
                 } else {
-                    echo "<tr><td colspan='2'>No remarks found</td></tr>";
-                }
+                    // If there are no remarks found
+                    $noremark = "<b>No remarks found</b>";
+                    echo "<tr>
+                                <th>Remark</th>
+                                <b><td style='color: orange;'>$noremark</td></b>
+                            </tr>";
+                }               
 
                 // Store the final status
                 $finalStatus = ($row['status'] == "NULL" || $row['status'] == "") ? '<b><span style="color: red;">Not Process Yet</span></b>' : '<b><span style="color: red;">' . htmlentities($row['status']) . '</span></b>';
