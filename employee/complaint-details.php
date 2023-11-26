@@ -105,7 +105,13 @@ include('includes/config.php');
     <?php include('includes/header.php'); ?>
     <br>
     <div class="card custom-container">
-        <h1>Grievance Details</h1>
+        <h1 onclick="goBack()" style="cursor: pointer;">Grievance Details</h1>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
 
         <?php
         /*   	
@@ -181,7 +187,7 @@ include('includes/config.php');
 
                 while ($row = mysqli_fetch_array($ret)) {
                     $date = date('Y-m-d', strtotime($row['rdate'])); // Format date to 'YYYY-MM-DD'
-                    $remark=$row['remark'];
+                    $remark = $row['remark'];
                     echo "<tr>
                          <th>Remark</th>
                          <td>$date | $remark</td>
