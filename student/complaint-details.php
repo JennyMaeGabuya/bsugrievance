@@ -105,7 +105,13 @@ include('includes/config.php');
     <?php include('includes/header.php'); ?>
     <br>
     <div class="card custom-container">
-        <h1>Grievance Details</h1>
+        <h1 onclick="goBack()" style="cursor: pointer;">Grievance Details</h1>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
 
         <?php
         /*   	
@@ -193,24 +199,19 @@ include('includes/config.php');
 
                 // Display additional remarks
                 if (mysqli_num_rows($ret) > 0) {
-                    echo "<table>";
                     while ($additionalRow = mysqli_fetch_array($ret)) {
                         $date = date('Y-m-d', strtotime($additionalRow['rdate'])); // Format date to 'YYYY-MM-DD'
                         $remark = $additionalRow['remark'];
                         echo "<tr>
                                 <th>Remark</th>
                                 <td>$date | $remark</td>
-                              </tr>";
-                    }
-                    echo "</table>";
-                } else {
-                    // If there are no remarks found
-                    $noremark = "<b>No remarks found</b>";
-                    echo "<tr>
-                                <th>Remark</th>
-                                <b><td style='color: orange;'>$noremark</td></b>
                             </tr>";
-                }               
+                    }
+                } else {
+                    echo "<tr>
+                                <td colspan='2'><strong style='color: orange; padding-left: 364px;'>No remarks found</strong></td>
+                        </tr>";
+                }
 
                 // Store the final status
                 $finalStatus = ($row['status'] == "NULL" || $row['status'] == "") ? '<b><span style="color: red;">Not Process Yet</span></b>' : '<b><span style="color: red;">' . htmlentities($row['status']) . '</span></b>';
