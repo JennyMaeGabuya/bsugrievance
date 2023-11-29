@@ -124,32 +124,33 @@ if (strlen($_SESSION['login']) == 0) {
                                                     <td align="center"><?php
                                                                         $status = $row['status'];
                                                                         if ($status == "" or $status == "NULL") { ?>
-                                                            <button type="button" class="btn btn-theme04">Not Process Yet</button>
-
-                                                        <?php } ?>
-                                                    <td align="center">
-                                                        <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>">
-
-                                                            <script>
-                                                                function viewDetails() {
-                                                                    // Show the loading overlay
-                                                                    document.getElementById('loadingOverlay').style.display = 'flex';
-
-                                                                    // Simulate a delay (replace this with your actual logic)
-                                                                    setTimeout(function() {
-                                                                        // Hide the loading overlay
-                                                                        document.getElementById('loadingOverlay').style.display = 'none';
-
-                                                                        if (confirmResult) {
-                                                                            window.location.href = "complaint-details.php";
-                                                                        }
-                                                                    }, 3000); // 3 seconds delay
-                                                                }
-                                                            </script>
-
-                                                            <button onclick="viewDetails()" class="btn btn-primary">View Details</button>
-                                                        </a>
+                                                            <button type="button" class="btn btn-theme04"><i class="fa fa-hourglass-start" style="font-size:16px;color:black;"></i> Not Process Yet</button>
                                                     </td>
+
+                                                <?php } ?>
+                                                <td align="center">
+                                                    <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>">
+
+                                                        <script>
+                                                            function viewDetails() {
+                                                                // Show the loading overlay
+                                                                document.getElementById('loadingOverlay').style.display = 'flex';
+
+                                                                // Simulate a delay (replace this with your actual logic)
+                                                                setTimeout(function() {
+                                                                    // Hide the loading overlay
+                                                                    document.getElementById('loadingOverlay').style.display = 'none';
+
+                                                                    if (confirmResult) {
+                                                                        window.location.href = "complaint-details.php";
+                                                                    }
+                                                                }, 3000); // 3 seconds delay
+                                                            }
+                                                        </script>
+
+                                                        <button onclick="viewDetails()" class="btn btn-primary">View Details</button>
+                                                    </a>
+                                                </td>
                                                 </tr>
                                             <?php } ?>
 

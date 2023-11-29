@@ -133,22 +133,16 @@ if (strlen($_SESSION['login']) == 0) {
                           <td align="center"><?php
                                               $status = $row['status'];
                                               if ($status == "" or $status == "NULL") { ?>
-                              <button type="button" class="btn btn-theme04">
-                                <i class="fa fa-hourglass-start" style="font-size:16px;color:black;"></i> Not Process Yet
-                              </button>
+                              <button type="button" class="btn btn-theme04">Not Process Yet</button>
 
                             <?php }
                                               if ($status == $statusProcess) { ?>
-                              <button type="button" class="btn btn-warning">
-                                <i class="fa fa-spinner fa-spin" style="font-size:16px;"></i> In Process
-                              </button>
+                              <button type="button" class="btn btn-warning">In Process</button>
 
                             <?php }
                                               if ($status == $statusClosed) {
                             ?>
-                              <button type="button" class="btn btn-success">
-                                <i class="fa fa-gavel" style="font-size:16px;color:white;"></i> Closed
-                              </button>
+                              <button type="button" class="btn btn-success">Closed</button>
                             <?php } ?>
 
                           <td align="center">

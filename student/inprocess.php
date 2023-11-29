@@ -125,7 +125,7 @@ if (strlen($_SESSION['login']) == 0) {
                               <button type="button" class="btn btn-theme04">Not Process Yet</button>
                             <?php }
                                               if ($status == $status) { ?>
-                              <button type="button" class="btn btn-warning">In Process</button>
+                              <button type="button" class="btn btn-warning"><i class="fa fa-spinner fa-spin" style="font-size:16px"></i> In Process</button></td>
                             <?php }
                                               if ($status == "closed") {
                             ?>
