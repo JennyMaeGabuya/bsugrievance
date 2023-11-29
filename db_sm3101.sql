@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 25, 2023 at 11:46 AM
+-- Generation Time: Nov 29, 2023 at 03:15 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -86,178 +86,6 @@ CREATE TABLE IF NOT EXISTS `complaint_remark` (
   KEY `complaintNumber` (`complaintNumber`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `complaint_remark`
---
-
-INSERT INTO `complaint_remark` (`complaint_id`, `complaintNumber`, `status`, `remark`, `remarkDate`) VALUES
-(1, 1, 'pending', 'pending', '2023-10-25 00:23:14'),
-(2, 2, 'Closed', 'Complaint has been resolved', '2023-11-23 12:46:51'),
-(3, 3, 'In Process', 'complaint is in process', '2023-11-23 12:46:51'),
-(4, 4, '', 'complaint is Pending', '2023-11-23 12:46:51');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employee_rgo`
---
-
-DROP TABLE IF EXISTS `employee_rgo`;
-CREATE TABLE IF NOT EXISTS `employee_rgo` (
-  `empid` int NOT NULL,
-  `code` varchar(255) NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `img` longblob NOT NULL,
-  `pass` varchar(255) NOT NULL,
-  `type` enum('staff','admin') NOT NULL,
-  PRIMARY KEY (`code`),
-  KEY `empid` (`empid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `employee_rgo`
---
-
-INSERT INTO `employee_rgo` (`empid`, `code`, `email`, `img`, `pass`, `type`) VALUES
-(2, '1122', 'james@gmail.com', '', '123123', 'admin'),
-(3, '123123', 'brawn@gmail.com', '', '123123', 'staff');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `item`
---
-
-DROP TABLE IF EXISTS `item`;
-CREATE TABLE IF NOT EXISTS `item` (
-  `Item_ID` int NOT NULL AUTO_INCREMENT,
-  `item` varchar(255) NOT NULL,
-  `price` varchar(255) NOT NULL,
-  `size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'NONE',
-  `img` longblob NOT NULL,
-  PRIMARY KEY (`Item_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `item`
---
-
-INSERT INTO `item` (`Item_ID`, `item`, `price`, `size`, `img`) VALUES
-(1, 'Blouse', '359.00', 'Small', ''),
-(3, 'Blouse', '380.00', 'Medium', ''),
-(4, 'Blouse', '395.00', 'Large', ''),
-(5, 'Blouse', '450.00', 'Custom', ''),
-(6, 'Barong', '350.00', 'Small', ''),
-(7, 'Barong', '350.00', 'Medium', ''),
-(8, 'Barong', '400.00', 'Large', ''),
-(9, 'Barong', '440.00', 'Custom', ''),
-(11, 'Pants', '380.00', 'Small', ''),
-(12, 'Pants', '390.00', 'Medium', ''),
-(13, 'Pants', '465.00', 'Large', ''),
-(14, 'Skirt', '320.00', 'Small', ''),
-(15, 'Skirt', '355.00', 'Medium', ''),
-(16, 'Skirt', '450.00', 'Large', ''),
-(17, 'notebook', '99.00', 'NONE', ''),
-(18, 'tumbler', '99.00', 'NONE', ''),
-(19, 'mug', '99.00', 'NONE', ''),
-(20, 'id_lace', '99.00', 'NONE', ''),
-(22, 'Pants', '550.00', 'Custom', ''),
-(23, 'Skirt', '550.00', 'Custom', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE IF NOT EXISTS `orders` (
-  `Order_ID` int NOT NULL AUTO_INCREMENT,
-  `Item_ID` int NOT NULL,
-  `statuss` enum('Ready for Pickup','Pending','Recieved') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'Pending',
-  `Date_Ordered` date NOT NULL,
-  `Date_Recieved` date NOT NULL,
-  `stud_code` int NOT NULL,
-  `em_code` int NOT NULL,
-  `quantity` int NOT NULL,
-  PRIMARY KEY (`Order_ID`),
-  KEY `Item_ID` (`Item_ID`),
-  KEY `stud_code` (`stud_code`),
-  KEY `em_code` (`em_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`Order_ID`, `Item_ID`, `statuss`, `Date_Ordered`, `Date_Recieved`, `stud_code`, `em_code`, `quantity`) VALUES
-(117, 6, 'Recieved', '2023-11-22', '2023-11-22', 1, 3, 2),
-(118, 12, 'Ready for Pickup', '2023-11-22', '0000-00-00', 1, 3, 2),
-(119, 18, 'Pending', '2023-11-23', '0000-00-00', 1, 3, 1),
-(120, 19, 'Pending', '2023-11-23', '0000-00-00', 1, 3, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `patient`
---
-
-DROP TABLE IF EXISTS `patient`;
-CREATE TABLE IF NOT EXISTS `patient` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `CONTACT` varchar(50) DEFAULT NULL,
-  `SYMPTOM` varchar(50) DEFAULT NULL,
-  `PRESCRIPTION` varchar(255) DEFAULT NULL,
-  `DATE` date NOT NULL,
-  `empid` int DEFAULT NULL,
-  `studid` int DEFAULT NULL,
-  `incharge_id` int DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `empid` (`empid`),
-  KEY `studid` (`studid`),
-  KEY `incharge_id` (`incharge_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `patient`
---
-
-INSERT INTO `patient` (`ID`, `CONTACT`, `SYMPTOM`, `PRESCRIPTION`, `DATE`, `empid`, `studid`, `incharge_id`) VALUES
-(1, '0912432452', 'flu', 'Biogesic', '2023-11-01', 1, 0, 1),
-(2, '09912345123', 'asthma', 'Rest', '2023-11-02', 0, 1, 2),
-(3, '09912345123', 'lagnat', 'Biogesic', '2023-11-03', 2, 0, 3),
-(4, '09084124433', 'Headache', 'Biogesic', '2023-11-08', 0, 2, 1),
-(5, '0912432452', 'Sore Eyes', 'Go Home', '2023-11-09', 3, 0, 2),
-(6, '09084124433', 'Flu', 'Bioflu', '2023-11-11', 0, 3, 4),
-(7, '0908087709', 'Rashes', 'Ointment', '2023-11-11', 4, 0, 3),
-(8, '09084124433', 'Flu', 'Biogesic', '0000-00-00', 0, 4, 2),
-(9, '0908087709', 'lagnat', 'Rest', '2023-11-13', 0, 5, 3),
-(10, '09084124433', 'Headache', 'Biogesic', '2023-11-14', 5, 0, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student_rgo`
---
-
-DROP TABLE IF EXISTS `student_rgo`;
-CREATE TABLE IF NOT EXISTS `student_rgo` (
-  `studid` int NOT NULL,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `img` mediumblob NOT NULL,
-  `pass` varchar(255) NOT NULL,
-  PRIMARY KEY (`code`),
-  KEY `studid` (`studid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `student_rgo`
---
-
-INSERT INTO `student_rgo` (`studid`, `code`, `img`, `pass`) VALUES
-(1, '21-123123', '', '123'),
-(2, '21-321321', '', '12345');
-
 -- --------------------------------------------------------
 
 --
@@ -280,16 +108,6 @@ CREATE TABLE IF NOT EXISTS `tablecomplaints` (
   KEY `category_id` (`category_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `tablecomplaints`
---
-
-INSERT INTO `tablecomplaints` (`complaintNumber`, `sr-code`, `category_id`, `complaintName`, `complaintDetails`, `complaintFile`, `regDate`, `status`, `lastUpdationDate`) VALUES
-(1, 1, 5, 'Complaint for Student', 'The students are lying', 'db_sm3101.sql', '2023-11-23 12:41:40', NULL, '0000-00-00 00:00:00'),
-(2, 1, 3, 'Complaint for Student', 'caught someone cheating while answering an exam', '', '2023-11-23 12:42:05', NULL, '0000-00-00 00:00:00'),
-(3, 3, 3, 'Complaint for Student', 'someone is using phone during exam', 'db_sm3101.sql', '2023-11-23 12:43:15', NULL, '0000-00-00 00:00:00'),
-(4, 3, 4, 'Complaint for Teachers', 'the teacher humiliated me infront of other teachers', '', '2023-11-23 12:44:03', NULL, '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -300,13 +118,13 @@ DROP TABLE IF EXISTS `tbcomplogs`;
 CREATE TABLE IF NOT EXISTS `tbcomplogs` (
   `log_id` int NOT NULL,
   `sr_code` int NOT NULL,
-  `firstname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `lastname` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `course` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `section` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `firstname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `lastname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `course` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `section` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `timein` time NOT NULL,
   `logdate` date NOT NULL,
-  `ipaddress` varchar(30) COLLATE utf8mb4_general_ci NOT NULL
+  `ipaddress` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -392,12 +210,11 @@ CREATE TABLE IF NOT EXISTS `tbempcontact` (
 --
 
 INSERT INTO `tbempcontact` (`id`, `empid`, `password`, `email`, `contact_no`, `address`, `profile_picture`) VALUES
-(1, 2, '1253208465b1efa876f982d8a9e73eef', 'balazon@gmail.com', 9123456789, 'Lipa City, Batangas', NULL),
-(2, 1, 'nina', 'nina@gmail.com', 9123456789, 'Batangas', NULL),
-(3, 3, 'sulit', 'sulit@gmail.com', 9123456789, 'Batangas', NULL),
-(4, 4, 'angeline', 'angeline@gmail.com', 9123456789, 'Batangas', NULL),
-(5, 5, 'dionne', 'dionne@gmail.com', 9123456789, 'Batangas', NULL),
-(6, 6, 'jonah', 'jonah@gmail.com', 9123456789, 'Batngas', NULL);
+(1, 1, 'aguila', 'nina@gmail.com', 9123456789, 'Batangas', NULL),
+(2, 2, 'balazon', 'francis@gmail.com', 9123456789, 'Lipa City', NULL),
+(3, 3, 'melo', 'jonah@gmail.com', 9123456789, 'Batangas', NULL),
+(4, 4, 'libunao', 'angeline@gmail.com', 9123456789, 'Batangas', NULL),
+(5, 5, 'dionne', 'dionne@gmail.com', 9123456789, 'Batangas', NULL);
 
 -- --------------------------------------------------------
 
@@ -412,19 +229,18 @@ CREATE TABLE IF NOT EXISTS `tbempinfo` (
   `firstname` varchar(25) NOT NULL,
   `department` varchar(20) NOT NULL,
   PRIMARY KEY (`empid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbempinfo`
 --
 
 INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
-(1, 'aguila', 'nina', 'cics'),
-(2, 'balazon', 'Francis', 'CICS'),
-(3, 'Sulit', 'Richelle', 'CICS'),
+(1, 'Aguila', 'Nina', 'CICS'),
+(2, 'Balazon', 'Francis', 'CICS'),
+(3, 'Melo', 'Jonah', 'CICS'),
 (4, 'Libunao', 'Angeline', 'CICS'),
-(5, 'Alimoren', 'Dionne', 'CICS'),
-(6, 'Melo', 'Jonah', 'CICS');
+(5, 'Alimoren', 'Dionne', 'CICS');
 
 -- --------------------------------------------------------
 
@@ -503,36 +319,6 @@ CREATE TABLE IF NOT EXISTS `tbeventview` (
 INSERT INTO `tbeventview` (`srCode`, `section`, `deptName`, `eventWhat`, `evdate`, `evtime`) VALUES
 ('21-34890', 'SM-3101', 'CICS', 'CICS Week', '2023-11-22', '04:58:02'),
 ('21-37506', 'SM-3101', 'CICS', 'CICS Week', '2023-11-22', '05:04:32');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbincharge`
---
-
-DROP TABLE IF EXISTS `tbincharge`;
-CREATE TABLE IF NOT EXISTS `tbincharge` (
-  `incharge_id` int NOT NULL AUTO_INCREMENT,
-  `empid` int DEFAULT NULL,
-  PRIMARY KEY (`incharge_id`),
-  KEY `empid` (`empid`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tbincharge`
---
-
-INSERT INTO `tbincharge` (`incharge_id`, `empid`) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7),
-(8, 8),
-(9, 9),
-(10, 10);
 
 -- --------------------------------------------------------
 
@@ -850,13 +636,11 @@ CREATE TABLE IF NOT EXISTS `tbstudcontact` (
 --
 
 INSERT INTO `tbstudcontact` (`id`, `studid`, `password`, `email`, `contact_no`, `address`, `profile_picture`) VALUES
-(1, 3, '10c7ccc7a4f0aff03c915c485565b9da', 'ryan@gmail.com', 9123456789, 'Cuenca, Batangas', NULL),
-(2, 4, 'evers', 'evers@gmail.com', 9123456789, 'Lipa City', NULL),
-(3, 5, 'ebe6941ee8a10c14dc933ae37a0f43fc', 'jenny@gmail.com', 9123456789, 'Santa Terisita', NULL),
-(4, 6, 'jella', 'jella@gmail.com', 9123456789, 'Lipa City', NULL),
-(5, 7, 'eka', 'erika@gmail.com', 9123456789, 'Quezon', NULL),
-(8, 1, 'peter', 'peter@gmail.com', 9123456789, 'Lipa City', NULL),
-(9, 2, 'kent', 'kent@gmail.com', 9123456789, 'Batangas', NULL);
+(1, 1, 'ryan', 'ryan@gmail.com', 9123456789, 'Cuenca, Batangas', NULL),
+(2, 2, 'jenny', 'jenny@gmail.com', 9123456789, 'Santa Teresita, Batangas', NULL),
+(3, 3, 'erika', 'erika@gmail.com', 9123456789, 'San Antonio, Quezon', NULL),
+(4, 4, 'jella', 'jella@gmail.com', 9123456789, 'Bagong Pook, Lipa City', NULL),
+(5, 5, 'ever', 'evers@gmail.com', 9123456789, 'San Jose, Batangas', NULL);
 
 -- --------------------------------------------------------
 
@@ -896,20 +680,18 @@ CREATE TABLE IF NOT EXISTS `tbstudinfo` (
   `firstname` varchar(25) NOT NULL,
   `course` varchar(20) NOT NULL,
   PRIMARY KEY (`studid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbstudinfo`
 --
 
 INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
-(1, 'parker', 'peter', 'bsit'),
-(2, 'kent', 'clark', 'bscs'),
-(3, 'Ramos', 'Ryan Ceasar', 'BSIT'),
-(4, 'Dimaculangan', 'Everson', 'BSIT'),
-(5, 'Gabuya', 'Jenny Mae', 'BSIT'),
-(6, 'Peloramas', 'Jelladane', 'BSIT'),
-(7, 'Magnaye', 'Erika', 'BSIT');
+(1, 'Ramos', 'Ryan Ceasar', 'BSIT'),
+(2, 'Gabuya', 'jenny Mae', 'BSIT'),
+(3, 'Magnaye', 'Erika', 'BSIT'),
+(4, 'Peloramas', 'Jelladane', 'BSIT'),
+(5, 'Dimaculangan', 'Everson', 'BSIT');
 
 -- --------------------------------------------------------
 
@@ -957,23 +739,39 @@ INSERT INTO `tbstudlogin` (`studloginID`, `srCode`, `username`, `password`, `stu
 
 DROP TABLE IF EXISTS `tbusers`;
 CREATE TABLE IF NOT EXISTS `tbusers` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `userid` int NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `incharge_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `incharge_id` (`incharge_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `usertype` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `empid` int DEFAULT NULL,
+  `studid` int DEFAULT NULL,
+  PRIMARY KEY (`userid`),
+  KEY `empid` (`empid`),
+  KEY `studid` (`studid`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbusers`
 --
 
-INSERT INTO `tbusers` (`id`, `username`, `password`, `incharge_id`) VALUES
-(1, 'aguila', '123', 1),
-(2, 'dimaala', '345', 2),
-(3, 'mendoza', '222', 3),
-(4, 'dimaandal', '6678', 4);
+INSERT INTO `tbusers` (`userid`, `username`, `password`, `usertype`, `status`, `email`, `empid`, `studid`) VALUES
+(1, 'nina_aguila', 'empaguila111', 'client', 'active', 'ninaaguila@gmail.com', 1, NULL),
+(2, 'angeline_libunao', 'emplibunao222', 'client', 'active', 'libunaoange@gmail.com', 2, NULL),
+(3, 'aileen_suarez', 'empsuarez333', 'client', 'active', 'aileensuarez@gmail.com', 3, NULL),
+(4, 'richelle_sulit', 'empsulit444', 'client', 'active', 'richellesulit@gmail.com', 4, NULL),
+(5, 'chris_reyes', 'empreyes555', 'client', 'active', 'chrisreyes@gmail.com', 5, NULL),
+(6, 'peter_parker', 'userpass6', 'client', 'active', 'ninaaguila@gmail.com', NULL, 1),
+(7, 'kent_clark', 'userpass7', 'client', 'active', 'ninaaguila@gmail.com', NULL, 2),
+(8, 'coronel_marielle', 'userpass8', 'client', 'active', 'coronelmarielle@gmail.com', NULL, 3),
+(9, 'yukari_sanpablo', 'userpass9', 'client', 'active', 'yukarisanpablo@gmail.com', NULL, 4),
+(10, 'bea_custodio', 'userpass10', 'client', 'active', 'custodiobea@gmail.com', NULL, 5),
+(11, 'admin_user1', 'adminpass1', 'admin', 'active', 'adminuser1@gmail.com', 11, NULL),
+(12, 'admin_user2', 'adminpass2', 'admin', 'active', 'adminuser2@gmail.com', 12, NULL),
+(13, 'admin_user3', 'adminpass3', 'admin', 'active', 'adminuser3@gmail.com', 13, NULL),
+(14, 'guard_user1', 'guardpass1', 'guard', 'active', 'guarduser1@gmail.com', 14, NULL),
+(15, 'guard_user2', 'guardpass2', 'guard', 'active', 'guarduser2@gmail.com', 15, 0);
 
 -- --------------------------------------------------------
 
@@ -1012,30 +810,6 @@ INSERT INTO `tbviolation` (`violationID`, `srCode`, `date`, `violationtype`, `re
 (13, '21-20219', '2023-11-06 00:29:00', 'Misconduct', 'Smoking inside the campus', 'One day Suspension'),
 (14, '22-30078', '2023-11-07 02:32:00', 'Dress Code', 'Wearing tight leggings ', 'Written Warning'),
 (15, '25-04390', '2023-11-13 10:29:00', 'Haircut/Color', 'Loud hair color', 'Written Warning');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `employee_rgo`
---
-ALTER TABLE `employee_rgo`
-  ADD CONSTRAINT `employee_rgo_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`Item_ID`) REFERENCES `item` (`Item_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`stud_code`) REFERENCES `student_rgo` (`studid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `orders_ibfk_5` FOREIGN KEY (`em_code`) REFERENCES `employee_rgo` (`empid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `student_rgo`
---
-ALTER TABLE `student_rgo`
-  ADD CONSTRAINT `student_rgo_ibfk_1` FOREIGN KEY (`studid`) REFERENCES `tbstudinfo` (`studid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
