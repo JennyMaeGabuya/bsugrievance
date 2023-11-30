@@ -17,7 +17,7 @@ To experience the system firsthand, follow these steps:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/bsugrievance.git
+   https://github.com/JennyMaeGabuya/bsugrievance.git
    ```
 
 2. **Navigate to the Project Directory:**
