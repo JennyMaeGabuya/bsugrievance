@@ -2,7 +2,7 @@
 error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
- header('location:index.php');
+  header('location:index.php');
 } else { ?>
 
   <!DOCTYPE html>
@@ -25,12 +25,38 @@ if (strlen($_SESSION['login']) == 0) {
       .sidebar-menu li:hover {
         background-color: white;
       }
+
+      .box1 {
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+      }
+
+      .box1:hover {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .animated-icon {
+        font-size: 48px;
+        color: #333;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .animated-icon:hover {
+        transform: scale(1.2);
+      }
+
+      .bigger-icon {
+        font-size: 60px;
+      }
     </style>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- external css -->
+    <link href="assets/font-awesome/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
     <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">
@@ -43,9 +69,9 @@ if (strlen($_SESSION['login']) == 0) {
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
   </head>
 
   <body>
@@ -59,58 +85,49 @@ if (strlen($_SESSION['login']) == 0) {
           <div class="row">
             <div class="col-lg-9 main-chart">
 
-              <div class="col-md-5 col-sm-2" style="text-align: center;">
-                <div>
+              <div class="col-md-5 col-sm-2 text-center">
+                <canvas></canvas>
+              </div><br><br>
 
-                </div>
-              </div>
-
-              <div class="col-md-2 col-sm-2" style="text-align: center; color: black">
-                <div class="box1">
-                  <a href="complaintsrecord.php" style="color: black">
-                    <span class="li_news"></span>
-                    <?php
-                    $query = mysqli_query($bd, "SELECT COUNT(*) AS total_complaints FROM `tablecomplaints`");
-                    $result = mysqli_fetch_assoc($query);
-                    $totalComplaints = $result['total_complaints'];
-                    ?>
-                  </a>
-                </div>
-                <h3><b><?php echo htmlentities($totalComplaints); ?></b></h3>
-                <h4>Complaint Records</h4>
-              </div>
-
-              <style>
-                .col-sm-2 {
-                  margin-top: 20px;
-                }
-              </style>
-
-              <div class="col-md-2 col-sm-2" style="text-align: center; color: orange">
-                <div class="box1">
-                  <a href="ongoingcomplaint.php" style="color: gray">
-                    <span class="li_settings"></span>
-                    <?php
-                    $status = "In Process";
-                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where  `status`='$status'");
-                    $num1 = mysqli_num_rows($rt);
-                    ?>
-                </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>In Process Complaints</h4>
+              <div class="col-md-2 col-sm-2 text-center">
+                <a href="complaintsrecord.php" style="color: gray; text-decoration: none;">
+                  <span class="fa fa-file animated-icon bigger-icon" style="color: #666666;"></span>
+                  <?php
+                  $query = mysqli_query($bd, "SELECT COUNT(*) AS total_complaints FROM tablecomplaints");
+                  $result = mysqli_fetch_assoc($query);
+                  $totalComplaints = $result['total_complaints'];
+                  ?>
+                  <hr>
+                  <h3><b><?php echo htmlentities($totalComplaints); ?></b></h3>
+                  <h4>Grievance Records</h4>
                 </a>
               </div>
 
-              <div class="col-md-2 col-sm-2" style="text-align: center; color: gray">
-                <div class="box1">
-                  <a href="closedcomplaint.php" style="color: gray">
-                    <span class="li_news"></span>
-                    <?php
-                    $status = "Closed";
-                    $rt = mysqli_query($bd, "SELECT * FROM `tablecomplaints` where   `status`='$status'");
-                    $num1 = mysqli_num_rows($rt);
-                    ?>
-                </div>
-                <h3><b><?php echo htmlentities($num1); ?></h3><h4></b>Closed Complaints</h4>
+              <div class="col-md-2 col-sm-2 text-center">
+                <a href="ongoingcomplaint.php" style="color: gray; text-decoration: none;">
+                  <span class="fa fa-cog animated-icon bigger-icon" style="color: #8B0000;"></span>
+                  <?php
+                  $status = "In Process";
+                  $rt = mysqli_query($bd, "SELECT * FROM tablecomplaints where  `status`='$status'");
+                  $num1 = mysqli_num_rows($rt);
+                  ?>
+                  <hr>
+                  <h3><b><?php echo htmlentities($num1); ?></b></h3>
+                  <h4>In Process Complaints</h4>
+                </a>
+              </div>
+
+              <div class="col-md-2 col-sm-2 text-center">
+                <a href="closedcomplaint.php" style="color: gray; text-decoration: none;">
+                  <span class="fa fa-check-circle animated-icon bigger-icon" style="color: #006400;"></span>
+                  <?php
+                  $status = "Closed";
+                  $rt = mysqli_query($bd, "SELECT * FROM tablecomplaints where `status`='$status'");
+                  $num1 = mysqli_num_rows($rt);
+                  ?>
+                  <hr>
+                  <h3><b><?php echo htmlentities($num1); ?></b></h3>
+                  <h4>Closed Complaints</h4>
                 </a>
               </div>
 
@@ -147,4 +164,4 @@ if (strlen($_SESSION['login']) == 0) {
   </body>
 
   </html>
-  <?php } ?> 
+<?php } ?>
