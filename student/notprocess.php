@@ -111,7 +111,7 @@ if (strlen($_SESSION['login']) == 0) {
                                             $query = mysqli_query($bd, "SELECT tablecomplaints.*, CONCAT(tbstudinfo.firstname, ' ', tbstudinfo.lastname) AS fullname
                       FROM tablecomplaints
                       JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid
-                      WHERE tablecomplaints.status IS NULL;");
+                      WHERE tablecomplaints.status IS NULL ORDER BY complaintNumber DESC;");
 
                                             while ($row = mysqli_fetch_array($query)) {
                                             ?>
