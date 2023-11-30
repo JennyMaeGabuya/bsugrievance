@@ -129,7 +129,7 @@ if (strlen($_SESSION['login']) == 0) {
                             <?php }
                                               if ($status == $status) {
                             ?>
-                              <button type="button" class="btn btn-success">Closed</button>
+                              <button type="button" class="btn btn-success"><i class="fa fa-gavel" style="font-size:16px;color:white"></i> Closed</button></td>
                             <?php } ?>
                           <td align="center">
                             <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']); ?>">

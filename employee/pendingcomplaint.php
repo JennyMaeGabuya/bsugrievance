@@ -83,9 +83,10 @@ FROM tbempinfoas name from tblcomplaints
 join users on users.id=tblcomplaints.userId where tblcomplaints.status is null ");  */
 
 										$query = mysqli_query($bd, "SELECT tablecomplaints.*, CONCAT(tbstudinfo.firstname, ' ', tbstudinfo.lastname) AS fullname
-FROM tablecomplaints
-JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid
-WHERE tablecomplaints.status IS NULL;");
+																	FROM tablecomplaints
+																	JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid
+																	WHERE tablecomplaints.status IS NULL ORDER BY complaintNumber DESC");
+										
 										while ($row = mysqli_fetch_array($query)) {
 											$cid = $row['complaintNumber'];
 

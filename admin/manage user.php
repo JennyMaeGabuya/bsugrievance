@@ -188,8 +188,10 @@ if (strlen($_SESSION['login']) == 0) {
 
                     <?php
                     $query = mysqli_query($bd, "SELECT * 
-                                                    FROM tbstudinfo 
-                                                    JOIN tbstudcontact ON tbstudinfo.studid = tbstudcontact.studid");
+                    FROM tbstudinfo 
+                    JOIN tbstudcontact ON tbstudinfo.studid = tbstudcontact.studid 
+                    ORDER BY tbstudinfo.studid DESC");
+
                     $cnt = 1;
 
                     while ($row = mysqli_fetch_array($query)) {

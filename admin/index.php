@@ -5,10 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BatStateU-Lipa | Grievance System</title>
+  
   <style>
     body {
-      background-image: url("../student/assets/img/Frame.jpg");
-      background-size: cover;
       padding: 0;
       font-family: Arial, sans-serif;
       margin-left: 15%;
@@ -40,7 +39,7 @@
     }
 
     .logo img {
-      width: 65px;
+      width: 60px;
       height: 50px;
       margin-right: 10px;
     }
@@ -136,5 +135,18 @@
   </body>
 
 </div>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+
+	<!--BACKSTRETCH-->
+	<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+	<script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+	<script>
+		$.backstretch("assets/img/comp1.jpg", {
+			speed: 500
+		});
+	</script>
 
 </html>

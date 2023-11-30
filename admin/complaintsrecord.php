@@ -83,7 +83,7 @@ $currentTime = date('d-m-Y h:i:s A', time());
                                 JOIN tbstudinfo ON tablecomplaints.`sr-code` = tbstudinfo.studid 
                                 WHERE tablecomplaints.status IS NULL 
                                 OR tablecomplaints.status = 'In Process' 
-                                OR tablecomplaints.status = 'Closed'");
+                                OR tablecomplaints.status = 'Closed' ORDER BY complaintNumber DESC");
 
 										while ($row = mysqli_fetch_array($query)) {
 											$status = $row['status'];
@@ -95,17 +95,11 @@ $currentTime = date('d-m-Y h:i:s A', time());
 												<td><?php echo htmlentities($row['regDate']); ?></td>
 												<td>
 													<?php if ($status == NULL) { ?>
-														<button type="button" class="btn btn-theme04">
-															<i class="fa fa-hourglass-start" style="font-size:16px;color:black;"></i> Not Process Yet
-														</button>
+														<button type="button" class="btn btn-theme04">Not Process Yet</button>
 													<?php } elseif ($status == 'In Process') { ?>
-														<button type="button" class="btn btn-warning">
-															<i class="fa fa-spinner fa-spin" style="font-size:16px;"></i> In Process
-														</button>
+														<button type="button" class="btn btn-warning">In Process</button>
 													<?php } elseif ($status == 'Closed') { ?>
-														<button type="button" class="btn btn-success">
-															<i class="fa fa-gavel" style="font-size:16px;color:white;"></i> Closed
-														</button>
+														<button type="button" class="btn btn-success">Closed</button>
 													<?php } ?>
 												</td>
 												<td>
