@@ -17,12 +17,12 @@ To experience the system firsthand, follow these steps:
 
 1. **Clone the Repository:**
    ```bash
-   https://github.com/JennyMaeGabuya/bsugrievance.git
+   https://github.com/NinaAguila/SM3101.git
    ```
 
 2. **Navigate to the Project Directory:**
    ```bash
-   cd bsugrievance
+   cd SM3101-group-3-6-4-5-7-2-8-and-1/bsugrievance/
    ```
 
 3. **Other Requirements:**
@@ -36,7 +36,7 @@ To experience the system firsthand, follow these steps:
    - Access PHPMyAdmin in a browser (e.g., http://localhost/phpmyadmin).
    - Create a new database named db_sm3101.sql.
    - Import the provided SQL file named db_sm3101.sql located inside the folder.
-   - Browse the BatStateU-Lipa Grievance Management System in a browser (e.g., http://localhost/bsugrievance/).
+   - Browse the BatStateU-Lipa Grievance Management System in a browser (e.g., http://localhost/SM3101-group-3-6-4-5-7-2-8-and-1/bsugrievance/).
 
 5. **Explore the Code:**
    Dive into the codebase to understand the system's structure and functionalities.
